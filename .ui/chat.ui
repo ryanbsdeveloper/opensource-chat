@@ -362,6 +362,9 @@ border-radius:5px</string>
                <property name="layoutDirection">
                 <enum>Qt::LeftToRight</enum>
                </property>
+               <property name="autoFillBackground">
+                <bool>true</bool>
+               </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
                </property>
