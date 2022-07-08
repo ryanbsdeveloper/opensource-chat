@@ -1,0 +1,18 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>comment-dots-solid.svg</file>
+    <file>github-brands.svg</file>
+    <file>java</file>
+    <file>user-gear-solid.svg</file>
+    <file>js</file>
+    <file>kotlin</file>
+    <file>node</file>
+    <file>php</file>
+    <file>python</file>
+    <file>Google-Chat-Logo.png</file>
+    <file>users-solid.svg</file>
+    <file>paper-plane-solid.svg</file>
+    <file>logo.png</file>
+    <file>talk.png</file>
+  </qresource>
+</RCC>
