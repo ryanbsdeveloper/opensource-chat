@@ -12,8 +12,6 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-import resources_rc
-
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
@@ -287,30 +285,6 @@ class Ui_MainWindow(object):
 
         self.verticalLayout_7.addWidget(self.frame_12)
 
-        self.frame_16 = QFrame(self.frame_13)
-        self.frame_16.setObjectName(u"frame_16")
-        self.frame_16.setMaximumSize(QSize(16777215, 330))
-        self.frame_16.setFrameShape(QFrame.NoFrame)
-        self.frame_16.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_8 = QVBoxLayout(self.frame_16)
-        self.verticalLayout_8.setSpacing(0)
-        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
-        self.verticalLayout_8.setContentsMargins(9, 0, 9, 0)
-        self.label_14 = QLabel(self.frame_16)
-        self.label_14.setObjectName(u"label_14")
-        self.label_14.setMaximumSize(QSize(16777215, 34))
-        self.label_14.setFont(font8)
-        self.label_14.setStyleSheet(u"padding:5px;\n"
-"background:rgb(116, 195, 117)")
-        self.label_14.setScaledContents(True)
-        self.label_14.setWordWrap(False)
-        self.label_14.setMargin(0)
-
-        self.verticalLayout_8.addWidget(self.label_14, 0, Qt.AlignRight)
-
-
-        self.verticalLayout_7.addWidget(self.frame_16)
-
 
         self.verticalLayout_6.addWidget(self.frame_13, 0, Qt.AlignTop)
 
@@ -419,7 +393,6 @@ class Ui_MainWindow(object):
         self.label_12.setText("")
         self.label_13.setText(QCoreApplication.translate("MainWindow", u"Boa noite galera, Tudo bem?", None))
         self.label_10.setText(QCoreApplication.translate("MainWindow", u"Opa ryanl, Tudo bem sim.", None))
-        self.label_14.setText(QCoreApplication.translate("MainWindow", u"Opa ryanl, Tudo bem sim.", None))
         self.btn_msg.setText("")
         self.input_msg.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Nova mensagem", None))
         self.label_7.setText(QCoreApplication.translate("MainWindow", u"Create by:", None))
