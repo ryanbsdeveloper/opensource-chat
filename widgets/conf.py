@@ -12,22 +12,27 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-import resources_rc
-
 class Ui_Conf(object):
     def setupUi(self, Conf):
         if not Conf.objectName():
             Conf.setObjectName(u"Conf")
-        Conf.resize(522, 304)
+        Conf.setWindowModality(Qt.WindowModal)
+        Conf.resize(479, 304)
+        Conf.setMinimumSize(QSize(479, 304))
+        Conf.setMaximumSize(QSize(479, 304))
         icon = QIcon()
         icon.addFile(u":/icons/gear-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
         Conf.setWindowIcon(icon)
+        Conf.setAutoFillBackground(True)
         Conf.setStyleSheet(u"background-color: rgb(43, 43, 43);")
+        Conf.setInputMethodHints(Qt.ImhNone)
+        Conf.setModal(True)
         self.verticalLayout = QVBoxLayout(Conf)
         self.verticalLayout.setObjectName(u"verticalLayout")
-        self.verticalLayout.setContentsMargins(-1, 0, -1, 0)
+        self.verticalLayout.setContentsMargins(-1, -1, -1, 0)
         self.frame = QFrame(Conf)
         self.frame.setObjectName(u"frame")
+        self.frame.setMaximumSize(QSize(461, 16777215))
         self.frame.setFrameShape(QFrame.NoFrame)
         self.frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame)
@@ -86,7 +91,8 @@ class Ui_Conf(object):
 "QPushButton{\n"
 "background-color:#5f6368;\n"
 "border:1px solid rgb(237, 51, 59);\n"
-"border-radius:10px\n"
+"border-radius:10px;\n"
+"outline:0\n"
 "}\n"
 "QPushButton:hover{\n"
 "color:rgb(237, 51, 59);\n"
@@ -111,7 +117,7 @@ class Ui_Conf(object):
         self.checkBox_notificacoes.setFont(font1)
         self.checkBox_notificacoes.setStyleSheet(u"\n"
 "QCheckBox{\n"
-"color:white\n"
+"color:white;outline:0\n"
 "}")
 
         self.verticalLayout_5.addWidget(self.checkBox_notificacoes)
@@ -229,6 +235,7 @@ class Ui_Conf(object):
         font5 = QFont()
         font5.setPointSize(13)
         self.comboBox_tec.setFont(font5)
+        self.comboBox_tec.setStyleSheet(u"outline:0")
         self.comboBox_tec.setMaxVisibleItems(12)
 
         self.verticalLayout_7.addWidget(self.comboBox_tec)
@@ -247,11 +254,13 @@ class Ui_Conf(object):
         font6.setBold(True)
         font6.setWeight(75)
         self.btn_salvar.setFont(font6)
+        self.btn_salvar.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_salvar.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "background-color: rgb(45, 53, 211);\n"
 "border:0;\n"
 "padding:10px;\n"
-"border-radius:10px")
+"border-radius:10px;\n"
+"outline:0")
 
         self.horizontalLayout_2.addWidget(self.btn_salvar)
 
@@ -277,7 +286,7 @@ class Ui_Conf(object):
     # setupUi
 
     def retranslateUi(self, Conf):
-        Conf.setWindowTitle(QCoreApplication.translate("Conf", u"Form", None))
+        Conf.setWindowTitle(QCoreApplication.translate("Conf", u"Configura\u00e7\u00e3o", None))
         self.label.setText(QCoreApplication.translate("Conf", u"Configura\u00e7\u00f5es", None))
         self.label_2.setText(QCoreApplication.translate("Conf", u"Apagar todas a mensagens?", None))
         self.btn_apagar_conversas.setText(QCoreApplication.translate("Conf", u"Apagar mensagens", None))

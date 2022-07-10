@@ -1,29 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>Login</class>
- <widget class="QWidget" name="Login">
+ <widget class="QDialog" name="Login">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>618</width>
-    <height>508</height>
+    <width>622</width>
+    <height>487</height>
    </rect>
   </property>
-  <property name="minimumSize">
-   <size>
-    <width>618</width>
-    <height>500</height>
-   </size>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>618</width>
-    <height>508</height>
-   </size>
-  </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>Chat developer </string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/resources.qrc">
@@ -32,15 +23,24 @@
   <property name="styleSheet">
    <string notr="true">background-color: rgb(43, 43, 43);</string>
   </property>
+  <property name="modal">
+   <bool>true</bool>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
-   <property name="topMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
-    <number>0</number>
-   </property>
    <item>
     <widget class="QFrame" name="frame">
+     <property name="minimumSize">
+      <size>
+       <width>604</width>
+       <height>469</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>604</width>
+       <height>469</height>
+      </size>
+     </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
@@ -190,7 +190,12 @@
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">padding:10px;color:white</string>
+               <string notr="true">QLineEdit{
+padding:10px;color:white;outline:0;border:1px solid  rgb(30, 30, 30)
+}
+QLineEdit:focus{
+	border: 1px solid rgb(26, 95, 180)
+}</string>
               </property>
              </widget>
             </item>
@@ -205,7 +210,7 @@
                <string notr="true">color: rgb(237, 51, 59);</string>
               </property>
               <property name="text">
-               <string>Nome em uso</string>
+               <string/>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -266,148 +271,16 @@
                 <bold>true</bold>
                </font>
               </property>
+              <property name="styleSheet">
+               <string notr="true">border:1px solid  rgb(30, 30, 30)</string>
+              </property>
               <property name="frameShape">
-               <enum>QFrame::StyledPanel</enum>
+               <enum>QFrame::NoFrame</enum>
               </property>
               <property name="frameShadow">
                <enum>QFrame::Raised</enum>
               </property>
               <layout class="QGridLayout" name="gridLayout">
-               <item row="3" column="0">
-                <widget class="QRadioButton" name="radioButton_nodejs">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color:white</string>
-                 </property>
-                 <property name="text">
-                  <string>NodeJS</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/node</normaloff>:/icons/node</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>22</width>
-                   <height>24</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="3">
-                <widget class="QRadioButton" name="radioButton_web">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color:white</string>
-                 </property>
-                 <property name="text">
-                  <string>CSS HTML</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/csshtml</normaloff>:/icons/csshtml</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>29</width>
-                   <height>24</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="7">
-                <widget class="QRadioButton" name="radioButton_kotlin">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color:white</string>
-                 </property>
-                 <property name="text">
-                  <string>Kotlin</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/kotlin</normaloff>:/icons/kotlin</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>20</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="4" column="0">
-                <widget class="QRadioButton" name="radioButton_argular">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color:white</string>
-                 </property>
-                 <property name="text">
-                  <string>Angular</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/angular</normaloff>:/icons/angular</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>23</width>
-                   <height>26</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="6" column="7">
-                <widget class="QRadioButton" name="radioButton_nenhum">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color:white</string>
-                 </property>
-                 <property name="text">
-                  <string>Nenhuma</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/nehum</normaloff>:/icons/nehum</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>27</width>
-                   <height>28</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
                <item row="3" column="7">
                 <widget class="QRadioButton" name="radioButton_c">
                  <property name="font">
@@ -418,7 +291,7 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
                   <string>C</string>
@@ -435,33 +308,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="0" column="3">
-                <widget class="QRadioButton" name="radioButton_java">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color:white</string>
-                 </property>
-                 <property name="text">
-                  <string>Java</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/java</normaloff>:/icons/java</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>20</width>
-                   <height>26</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
                <item row="6" column="0">
                 <widget class="QRadioButton" name="radioButton_swift">
                  <property name="font">
@@ -472,7 +318,7 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
                   <string>Swift</string>
@@ -489,8 +335,8 @@
                  </property>
                 </widget>
                </item>
-               <item row="6" column="3">
-                <widget class="QRadioButton" name="radioButton_vue">
+               <item row="4" column="7">
+                <widget class="QRadioButton" name="radioButton_ruby">
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
@@ -499,25 +345,25 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
-                  <string>Vue</string>
+                  <string>Ruby</string>
                  </property>
                  <property name="icon">
                   <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/vue</normaloff>:/icons/vue</iconset>
+                   <normaloff>:/icons/ruby</normaloff>:/icons/ruby</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>23</width>
+                   <width>22</width>
                    <height>23</height>
                   </size>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="4">
-                <widget class="QRadioButton" name="radioButton_react">
+               <item row="0" column="7">
+                <widget class="QRadioButton" name="radioButton_kotlin">
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
@@ -526,14 +372,95 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
-                  <string>React</string>
+                  <string>Kotlin</string>
                  </property>
                  <property name="icon">
                   <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/react</normaloff>:/icons/react</iconset>
+                   <normaloff>:/icons/kotlin</normaloff>:/icons/kotlin</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="0" column="3">
+                <widget class="QRadioButton" name="radioButton_java">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white;border:0;outline:0</string>
+                 </property>
+                 <property name="text">
+                  <string>Java</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources/resources.qrc">
+                   <normaloff>:/icons/java</normaloff>:/icons/java</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>20</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="3">
+                <widget class="QRadioButton" name="radioButton_php">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white;border:0;outline:0</string>
+                 </property>
+                 <property name="text">
+                  <string>PHP</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources/resources.qrc">
+                   <normaloff>:/icons/php</normaloff>:/icons/php</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>35</width>
+                   <height>30</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="4" column="0">
+                <widget class="QRadioButton" name="radioButton_argular">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white;border:0;outline:0</string>
+                 </property>
+                 <property name="text">
+                  <string>Angular</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources/resources.qrc">
+                   <normaloff>:/icons/angular</normaloff>:/icons/angular</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
@@ -553,7 +480,7 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
                   <string>Python</string>
@@ -570,33 +497,6 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="4">
-                <widget class="QRadioButton" name="radioButton_csharp">
-                 <property name="font">
-                  <font>
-                   <pointsize>12</pointsize>
-                   <weight>75</weight>
-                   <bold>true</bold>
-                  </font>
-                 </property>
-                 <property name="styleSheet">
-                  <string notr="true">color:white</string>
-                 </property>
-                 <property name="text">
-                  <string>C#</string>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/c#</normaloff>:/icons/c#</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>23</width>
-                   <height>26</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
                <item row="0" column="4">
                 <widget class="QRadioButton" name="radioButton_javascript">
                  <property name="font">
@@ -607,7 +507,7 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
                   <string>JavaScript</string>
@@ -624,8 +524,8 @@
                  </property>
                 </widget>
                </item>
-               <item row="3" column="3">
-                <widget class="QRadioButton" name="radioButton_php">
+               <item row="4" column="3">
+                <widget class="QRadioButton" name="radioButton_web">
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
@@ -634,25 +534,25 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
-                  <string>PHP</string>
+                  <string>CSS HTML</string>
                  </property>
                  <property name="icon">
                   <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/php</normaloff>:/icons/php</iconset>
+                   <normaloff>:/icons/csshtml</normaloff>:/icons/csshtml</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
-                   <width>35</width>
-                   <height>30</height>
+                   <width>29</width>
+                   <height>24</height>
                   </size>
                  </property>
                 </widget>
                </item>
-               <item row="4" column="7">
-                <widget class="QRadioButton" name="radioButton_ruby">
+               <item row="4" column="4">
+                <widget class="QRadioButton" name="radioButton_react">
                  <property name="font">
                   <font>
                    <pointsize>12</pointsize>
@@ -661,18 +561,126 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
-                  <string>Ruby</string>
+                  <string>React</string>
                  </property>
                  <property name="icon">
                   <iconset resource="../resources/resources.qrc">
-                   <normaloff>:/icons/ruby</normaloff>:/icons/ruby</iconset>
+                   <normaloff>:/icons/react</normaloff>:/icons/react</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>23</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="4">
+                <widget class="QRadioButton" name="radioButton_csharp">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white;border:0;outline:0</string>
+                 </property>
+                 <property name="text">
+                  <string>C#</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources/resources.qrc">
+                   <normaloff>:/icons/c#</normaloff>:/icons/c#</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>23</width>
+                   <height>26</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="3" column="0">
+                <widget class="QRadioButton" name="radioButton_nodejs">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white;border:0;outline:0</string>
+                 </property>
+                 <property name="text">
+                  <string>NodeJS</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources/resources.qrc">
+                   <normaloff>:/icons/node</normaloff>:/icons/node</iconset>
                  </property>
                  <property name="iconSize">
                   <size>
                    <width>22</width>
+                   <height>24</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="7">
+                <widget class="QRadioButton" name="radioButton_nenhum">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white;border:0;outline:0</string>
+                 </property>
+                 <property name="text">
+                  <string>Nenhuma</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources/resources.qrc">
+                   <normaloff>:/icons/nehum</normaloff>:/icons/nehum</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>27</width>
+                   <height>28</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+               <item row="6" column="3">
+                <widget class="QRadioButton" name="radioButton_vue">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white;border:0;outline:0</string>
+                 </property>
+                 <property name="text">
+                  <string>Vue</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources/resources.qrc">
+                   <normaloff>:/icons/vue</normaloff>:/icons/vue</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>23</width>
                    <height>23</height>
                   </size>
                  </property>
@@ -688,7 +696,7 @@
                   </font>
                  </property>
                  <property name="styleSheet">
-                  <string notr="true">color:white</string>
+                  <string notr="true">color:white;border:0;outline:0</string>
                  </property>
                  <property name="text">
                   <string>C++</string>
@@ -765,7 +773,7 @@
                <string notr="true">color: rgb(237, 51, 59);</string>
               </property>
               <property name="text">
-               <string>A escolha é obrigatória</string>
+               <string/>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -825,7 +833,7 @@
 background-color: rgb(45, 53, 211);
 border:0;
 padding:10px;
-border-radius:10px</string>
+border-radius:10px;outline:0</string>
            </property>
            <property name="text">
             <string>Começar</string>

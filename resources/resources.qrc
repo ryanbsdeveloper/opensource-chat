@@ -1,15 +1,12 @@
 <RCC>
   <qresource prefix="icons">
     <file>nehum</file>
-    <file>nehum</file>
     <file>ruby</file>
     <file>c++</file>
     <file>vue</file>
     <file>swift</file>
-    <file>ruby</file>
     <file>react</file>
     <file>csshtml</file>
-    <file>c++</file>
     <file>c#</file>
     <file>c</file>
     <file>angular</file>
