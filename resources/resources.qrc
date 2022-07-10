@@ -1,6 +1,22 @@
 <RCC>
   <qresource prefix="icons">
+    <file>nehum</file>
+    <file>nehum</file>
+    <file>ruby</file>
+    <file>c++</file>
+    <file>vue</file>
+    <file>swift</file>
+    <file>ruby</file>
+    <file>react</file>
+    <file>csshtml</file>
+    <file>c++</file>
+    <file>c#</file>
+    <file>c</file>
+    <file>angular</file>
+    <file>users-solid.svg</file>
+    <file>flag-solid.svg</file>
     <file>comment-dots-solid.svg</file>
+    <file>logo_chat.png</file>
     <file>github-brands.svg</file>
     <file>java</file>
     <file>js</file>
@@ -10,7 +26,6 @@
     <file>php</file>
     <file>python</file>
     <file>Google-Chat-Logo.png</file>
-    <file>users-solid.svg</file>
     <file>paper-plane-solid.svg</file>
     <file>logo.png</file>
     <file>talk.png</file>

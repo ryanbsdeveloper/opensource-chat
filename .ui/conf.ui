@@ -1,0 +1,569 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Conf</class>
+ <widget class="QWidget" name="Conf">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>522</width>
+    <height>304</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../resources/resources.qrc">
+    <normaloff>:/icons/gear-solid.svg</normaloff>:/icons/gear-solid.svg</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(43, 43, 43);</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QFrame" name="frame">
+     <property name="frameShape">
+      <enum>QFrame::NoFrame</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>30</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>15</pointsize>
+          <weight>75</weight>
+          <bold>true</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(255, 255, 255);</string>
+        </property>
+        <property name="text">
+         <string>Configurações</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QFrame" name="frame_2">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Raised</enum>
+        </property>
+        <layout class="QVBoxLayout" name="verticalLayout_3">
+         <property name="spacing">
+          <number>0</number>
+         </property>
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="QFrame" name="frame_3">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>60</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_4">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QLabel" name="label_2">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:white</string>
+              </property>
+              <property name="text">
+               <string>Apagar todas a mensagens?</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="btn_apagar_conversas">
+              <property name="minimumSize">
+               <size>
+                <width>0</width>
+                <height>37</height>
+               </size>
+              </property>
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+                <weight>75</weight>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="cursor">
+               <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">
+
+QPushButton{
+background-color:#5f6368;
+border:1px solid rgb(237, 51, 59);
+border-radius:10px
+}
+QPushButton:hover{
+color:rgb(237, 51, 59);
+}</string>
+              </property>
+              <property name="text">
+               <string>Apagar mensagens</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame_4">
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_5">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item>
+             <widget class="QCheckBox" name="checkBox_notificacoes">
+              <property name="font">
+               <font>
+                <pointsize>12</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">
+QCheckBox{
+color:white
+}</string>
+              </property>
+              <property name="text">
+               <string>Desativar notificações</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QFrame" name="frame_5">
+           <property name="frameShape">
+            <enum>QFrame::NoFrame</enum>
+           </property>
+           <property name="frameShadow">
+            <enum>QFrame::Raised</enum>
+           </property>
+           <layout class="QVBoxLayout" name="verticalLayout_6">
+            <property name="spacing">
+             <number>0</number>
+            </property>
+            <property name="leftMargin">
+             <number>0</number>
+            </property>
+            <property name="topMargin">
+             <number>0</number>
+            </property>
+            <property name="rightMargin">
+             <number>0</number>
+            </property>
+            <property name="bottomMargin">
+             <number>0</number>
+            </property>
+            <item alignment="Qt::AlignLeft">
+             <widget class="QFrame" name="frame_6">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <property name="spacing">
+                <number>5</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item alignment="Qt::AlignLeft|Qt::AlignBottom">
+                <widget class="QLabel" name="label_3">
+                 <property name="font">
+                  <font>
+                   <pointsize>14</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:#5f6368</string>
+                 </property>
+                 <property name="text">
+                  <string>Tecnologia favorita atual:</string>
+                 </property>
+                </widget>
+               </item>
+               <item alignment="Qt::AlignBottom">
+                <widget class="QLabel" name="label_tec_favorita">
+                 <property name="font">
+                  <font>
+                   <pointsize>13</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white</string>
+                 </property>
+                 <property name="text">
+                  <string>TextLabel</string>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frame_7">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QVBoxLayout" name="verticalLayout_7">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>9</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="label_5">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color:white</string>
+                 </property>
+                 <property name="text">
+                  <string>Mudar de tecnologia</string>
+                 </property>
+                 <property name="alignment">
+                  <set>Qt::AlignCenter</set>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QComboBox" name="comboBox_tec">
+                 <property name="font">
+                  <font>
+                   <pointsize>13</pointsize>
+                  </font>
+                 </property>
+                 <property name="maxVisibleItems">
+                  <number>12</number>
+                 </property>
+                 <item>
+                  <property name="text">
+                   <string>Python</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/python</normaloff>:/icons/python</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Java</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/java</normaloff>:/icons/java</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>JavaScript</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/js</normaloff>:/icons/js</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Kotlin</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/kotlin</normaloff>:/icons/kotlin</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>NodeJS</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/node</normaloff>:/icons/node</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>PHP</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/php</normaloff>:/icons/php</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>C#</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/c#</normaloff>:/icons/c#</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>C</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/c</normaloff>:/icons/c</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Angular</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/angular</normaloff>:/icons/angular</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>CSS HTML</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/csshtml</normaloff>:/icons/csshtml</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>React</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/react</normaloff>:/icons/react</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Ruby</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/ruby</normaloff>:/icons/ruby</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Swift</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/swift</normaloff>:/icons/swift</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Vue</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/vue</normaloff>:/icons/vue</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>C++</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/c++</normaloff>:/icons/c++</iconset>
+                  </property>
+                 </item>
+                 <item>
+                  <property name="text">
+                   <string>Nenhuma</string>
+                  </property>
+                  <property name="icon">
+                   <iconset resource="../resources/resources.qrc">
+                    <normaloff>:/icons/nehum</normaloff>:/icons/nehum</iconset>
+                  </property>
+                 </item>
+                </widget>
+               </item>
+               <item alignment="Qt::AlignRight">
+                <widget class="QFrame" name="frame_8">
+                 <property name="frameShape">
+                  <enum>QFrame::NoFrame</enum>
+                 </property>
+                 <property name="frameShadow">
+                  <enum>QFrame::Raised</enum>
+                 </property>
+                 <layout class="QHBoxLayout" name="horizontalLayout_2">
+                  <item>
+                   <widget class="QPushButton" name="btn_salvar">
+                    <property name="minimumSize">
+                     <size>
+                      <width>150</width>
+                      <height>0</height>
+                     </size>
+                    </property>
+                    <property name="font">
+                     <font>
+                      <pointsize>14</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color: rgb(255, 255, 255);
+background-color: rgb(45, 53, 211);
+border:0;
+padding:10px;
+border-radius:10px</string>
+                    </property>
+                    <property name="text">
+                     <string>Salvar</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </item>
+              </layout>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../resources/resources.qrc"/>
+ </resources>
+ <connections/>
+</ui>
