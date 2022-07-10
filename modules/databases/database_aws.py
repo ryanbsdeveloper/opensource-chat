@@ -27,16 +27,32 @@ class User(Base):
 
 
 
-class Mensagens(Base):
-    __tablename__ = "mensagens"
-
-    id = sql.Column(sql.Integer, index=True, primary_key=True)
-    texto = sql.Column(sql.String(2000), index=True)
-    nome = sql.Column(sql.String(50), index=True)
-    tecnologia = sql.Column(sql.String(50), index=True)
-    
-
 def add_tables():
     Base.metadata.create_all(bind=engine)
 
+def add_user(nome, tecnologia, online, reports, acesso):
+    dados = User(
+        nome=nome,
+        tecnologia=tecnologia,
+        online=online,
+        reports=reports,
+        acesso=acesso,)
+
+    session.add(dados)
+    session.commit()
+    session.flush()
+
+
+def list_users(completo=None):
+    query = session.query(User).all()
+    session.commit()
+
+    users = []
+    if completo:
+        return query
+    else:
+        for user in query:
+            users.append(user.nome)
+
+    return users
 

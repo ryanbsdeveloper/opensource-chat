@@ -1,12 +1,12 @@
 <RCC>
   <qresource prefix="icons">
-    <file>nehum</file>
     <file>ruby</file>
+    <file>nenhuma</file>
+    <file>css html</file>
     <file>c++</file>
     <file>vue</file>
     <file>swift</file>
     <file>react</file>
-    <file>csshtml</file>
     <file>c#</file>
     <file>c</file>
     <file>angular</file>
@@ -16,10 +16,10 @@
     <file>logo_chat.png</file>
     <file>github-brands.svg</file>
     <file>java</file>
-    <file>js</file>
     <file>gear-solid.svg</file>
+    <file>nodejs</file>
+    <file>javascript</file>
     <file>kotlin</file>
-    <file>node</file>
     <file>php</file>
     <file>python</file>
     <file>Google-Chat-Logo.png</file>

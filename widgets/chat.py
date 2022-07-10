@@ -120,25 +120,22 @@ class Ui_Chat(object):
 
         self.horizontalLayout_6.addWidget(self.label_5)
 
-        self.nome_developer = QLabel(self.frame_8)
-        self.nome_developer.setObjectName(u"nome_developer")
+        self.developer = QPushButton(self.frame_8)
+        self.developer.setObjectName(u"developer")
         font5 = QFont()
-        font5.setPointSize(16)
+        font5.setPointSize(17)
         font5.setBold(True)
         font5.setWeight(75)
-        self.nome_developer.setFont(font5)
-        self.nome_developer.setStyleSheet(u"color:white")
+        self.developer.setFont(font5)
+        self.developer.setLayoutDirection(Qt.RightToLeft)
+        self.developer.setStyleSheet(u"border:0; color:white")
+        icon1 = QIcon()
+        icon1.addFile(u":/icons/python", QSize(), QIcon.Normal, QIcon.Off)
+        self.developer.setIcon(icon1)
+        self.developer.setIconSize(QSize(32, 32))
+        self.developer.setAutoDefault(False)
 
-        self.horizontalLayout_6.addWidget(self.nome_developer)
-
-        self.logo = QLabel(self.frame_8)
-        self.logo.setObjectName(u"logo")
-        self.logo.setMaximumSize(QSize(30, 30))
-        self.logo.setPixmap(QPixmap(u":/icons/python"))
-        self.logo.setScaledContents(True)
-        self.logo.setWordWrap(False)
-
-        self.horizontalLayout_6.addWidget(self.logo)
+        self.horizontalLayout_6.addWidget(self.developer)
 
 
         self.horizontalLayout_5.addWidget(self.frame_8, 0, Qt.AlignHCenter)
@@ -148,9 +145,9 @@ class Ui_Chat(object):
         self.btn_config.setMaximumSize(QSize(35, 16777215))
         self.btn_config.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_config.setStyleSheet(u"border:0;outline:0")
-        icon1 = QIcon()
-        icon1.addFile(u":/icons/gear-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_config.setIcon(icon1)
+        icon2 = QIcon()
+        icon2.addFile(u":/icons/gear-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_config.setIcon(icon2)
         self.btn_config.setIconSize(QSize(33, 30))
 
         self.horizontalLayout_5.addWidget(self.btn_config)
@@ -174,6 +171,7 @@ class Ui_Chat(object):
         self.horizontalLayout.setContentsMargins(9, 0, -1, 9)
         self.frame_3 = QFrame(self.frame)
         self.frame_3.setObjectName(u"frame_3")
+        self.frame_3.setMinimumSize(QSize(0, 0))
         self.frame_3.setFrameShape(QFrame.NoFrame)
         self.frame_3.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame_3)
@@ -202,7 +200,7 @@ class Ui_Chat(object):
         self.scrollArea.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 765, 495))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 680, 495))
         self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.frame_13 = QFrame(self.scrollAreaWidgetContents_2)
@@ -295,9 +293,9 @@ class Ui_Chat(object):
         self.btn_msg.setObjectName(u"btn_msg")
         self.btn_msg.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_msg.setStyleSheet(u"border:0;outline:0")
-        icon2 = QIcon()
-        icon2.addFile(u":/icons/paper-plane-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_msg.setIcon(icon2)
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/paper-plane-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_msg.setIcon(icon3)
         self.btn_msg.setIconSize(QSize(27, 27))
 
         self.horizontalLayout_4.addWidget(self.btn_msg)
@@ -358,7 +356,8 @@ class Ui_Chat(object):
 
         self.frame_12 = QFrame(self.frame)
         self.frame_12.setObjectName(u"frame_12")
-        self.frame_12.setMinimumSize(QSize(350, 0))
+        self.frame_12.setMinimumSize(QSize(100, 0))
+        self.frame_12.setMaximumSize(QSize(435, 16777215))
         self.frame_12.setFrameShape(QFrame.StyledPanel)
         self.frame_12.setFrameShadow(QFrame.Raised)
         self.verticalLayout_4 = QVBoxLayout(self.frame_12)
@@ -388,7 +387,18 @@ class Ui_Chat(object):
 
         self.verticalLayout_4.addWidget(self.frame_15, 0, Qt.AlignHCenter)
 
-        self.frame_16 = QFrame(self.frame_12)
+        self.scrollArea_2 = QScrollArea(self.frame_12)
+        self.scrollArea_2.setObjectName(u"scrollArea_2")
+        self.scrollArea_2.setFrameShape(QFrame.NoFrame)
+        self.scrollArea_2.setWidgetResizable(True)
+        self.scrollAreaWidgetContents = QWidget()
+        self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 415, 86))
+        self.verticalLayout_8 = QVBoxLayout(self.scrollAreaWidgetContents)
+        self.verticalLayout_8.setSpacing(0)
+        self.verticalLayout_8.setObjectName(u"verticalLayout_8")
+        self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.frame_16 = QFrame(self.scrollAreaWidgetContents)
         self.frame_16.setObjectName(u"frame_16")
         self.frame_16.setStyleSheet(u"border-bottom:1px solid #5f6368;")
         self.frame_16.setFrameShape(QFrame.NoFrame)
@@ -451,17 +461,17 @@ class Ui_Chat(object):
         font12.setPointSize(8)
         self.pushButton.setFont(font12)
         self.pushButton.setStyleSheet(u"border:0")
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/flag-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.pushButton.setIcon(icon3)
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/flag-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.pushButton.setIcon(icon4)
         self.pushButton.setIconSize(QSize(17, 20))
 
         self.horizontalLayout_11.addWidget(self.pushButton, 0, Qt.AlignRight)
 
 
-        self.verticalLayout_4.addWidget(self.frame_16)
+        self.verticalLayout_8.addWidget(self.frame_16)
 
-        self.frame_18 = QFrame(self.frame_12)
+        self.frame_18 = QFrame(self.scrollAreaWidgetContents)
         self.frame_18.setObjectName(u"frame_18")
         self.frame_18.setStyleSheet(u"border-bottom:1px solid #5f6368;")
         self.frame_18.setFrameShape(QFrame.NoFrame)
@@ -513,13 +523,17 @@ class Ui_Chat(object):
         self.pushButton_2.setObjectName(u"pushButton_2")
         self.pushButton_2.setFont(font12)
         self.pushButton_2.setStyleSheet(u"border:0")
-        self.pushButton_2.setIcon(icon3)
+        self.pushButton_2.setIcon(icon4)
         self.pushButton_2.setIconSize(QSize(17, 20))
 
         self.horizontalLayout_13.addWidget(self.pushButton_2, 0, Qt.AlignRight)
 
 
-        self.verticalLayout_4.addWidget(self.frame_18)
+        self.verticalLayout_8.addWidget(self.frame_18)
+
+        self.scrollArea_2.setWidget(self.scrollAreaWidgetContents)
+
+        self.verticalLayout_4.addWidget(self.scrollArea_2)
 
 
         self.horizontalLayout.addWidget(self.frame_12, 0, Qt.AlignTop)
@@ -540,8 +554,7 @@ class Ui_Chat(object):
         self.label_3.setText(QCoreApplication.translate("Chat", u"Chat developers", None))
         self.label_6.setText(QCoreApplication.translate("Chat", u"Brasil", None))
         self.label_5.setText(QCoreApplication.translate("Chat", u"Developer:", None))
-        self.nome_developer.setText(QCoreApplication.translate("Chat", u"ryanl", None))
-        self.logo.setText("")
+        self.developer.setText(QCoreApplication.translate("Chat", u"ryanl", None))
         self.btn_config.setText("")
         self.label_11.setText(QCoreApplication.translate("Chat", u"<fred>", None))
         self.label_12.setText("")
