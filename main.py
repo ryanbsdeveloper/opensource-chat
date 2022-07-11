@@ -1,6 +1,6 @@
 import sys
-from PySide2.QtWidgets import QMainWindow, QApplication, QFrame, QVBoxLayout, QLabel, QDialog, QRadioButton
-from PySide2.QtGui import QFont, QIcon
+from PySide2.QtWidgets import *
+from PySide2.QtGui import QFont, QIcon, QPixmap, QCursor
 from PySide2.QtCore import *
 from widgets.chat import Ui_Chat
 from widgets.conf import Ui_Conf
@@ -24,6 +24,7 @@ class Login(QDialog, Ui_Login):
         timer = QTimer(self)
         timer.timeout.connect(self.tecnologia)
         timer.start(500)
+
 
         # Button
         self.btn_comecar.clicked.connect(self.developer)
@@ -75,20 +76,114 @@ class Chat(QMainWindow, Ui_Chat):
         self.input_msg.returnPressed.connect(self.btn_msg.click)
         # Initial
         self.developer_log()
+        self.users()
+        
+        timer_users = QTimer(self)
+        timer_users.timeout.connect(self.users)
+        timer_users.start(1000)
 
         # Others windows
         self.conf = Conf(self)
         self.btn_config.clicked.connect(self.open_conf)
     
+    # Users community
+    def users(self):
+        users = database_aws.list_users(True)
+
+        for user in users:
+            if user.nome not in database_local.list_users():
+                database_local.add_users(user.nome, user.tecnologia)
+                frame = QFrame(self.scrollAreaWidgetContents)
+                frame.setObjectName(u"frame_16")
+                frame.setStyleSheet(u"border-bottom:1px solid #5f6368;")
+                frame.setFrameShape(QFrame.NoFrame)
+                frame.setFrameShadow(QFrame.Raised)
+                horizontalLayout = QHBoxLayout(frame)
+                horizontalLayout.setSpacing(0)
+                horizontalLayout.setObjectName(u"horizontalLayout_11")
+                horizontalLayout.setContentsMargins(0, 0, -1, 0)
+                frame_2 = QFrame(frame)
+                frame_2.setObjectName(u"frame_17")
+                frame_2.setFrameShape(QFrame.NoFrame)
+                frame_2.setFrameShadow(QFrame.Raised)
+
+                horizontalLayout_12 = QHBoxLayout(frame_2)
+                horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+                label_19 = QLabel(frame_2)
+                label_19.setObjectName(u"label")
+                font11 = QFont()
+                font11.setPointSize(12)
+                font11.setBold(False)
+                font11.setWeight(50)
+                label_19.setFont(font11)
+                if str(user.online) == 'True':
+                    label_19.setStyleSheet(u"border:0;\n"
+                "color: rgb(37, 135, 29);")
+                else:
+                    label_19.setStyleSheet(u"border:0;\n"
+                "color: rgb(0, 0, 0);") 
+                label_19.setText('◉') 
+
+                horizontalLayout_12.addWidget(label_19)
+                font10 = QFont()
+                font10.setPointSize(12)
+                label_15 = QLabel(frame_2)
+                label_15.setObjectName(u"label_15")
+                label_15.setFont(font10)
+                label_15.setStyleSheet(u"border:0; color:white")
+                label_15.setText('Developer:')
+                horizontalLayout_12.addWidget(label_15)
+
+                label_10 = QLabel(frame_2)
+                label_10.setObjectName(u"label_10")
+                font12 = QFont()
+                font12.setPointSize(13)
+                font12.setBold(True)
+                font12.setWeight(75)
+                label_10.setFont(font12)
+                label_10.setStyleSheet(u"color:#5f6368; border:0")
+                label_10.setText(f'{user.nome}')
+
+                horizontalLayout_12.addWidget(label_10)
+
+                label_14 = QLabel(frame_2)
+                label_14.setObjectName(u"label_14")
+                label_14.setMaximumSize(QSize(25, 25))
+                label_14.setStyleSheet(u"border:0")
+                label_14.setPixmap(QPixmap(f":/icons/{user.tecnologia.lower()}"))
+                label_14.setScaledContents(True)
+
+                horizontalLayout_12.addWidget(label_14)
+
+
+                horizontalLayout.addWidget(frame_2, 0, Qt.AlignLeft)
+
+                pushButton = QPushButton(frame)
+                pushButton.setObjectName(u"pushButton")
+                font13 = QFont()
+                font13.setPointSize(8)
+                pushButton.setFont(font13)
+                pushButton.setStyleSheet(u"border:0")
+                icon4 = QIcon()
+                icon4.addFile(u":/icons/flag-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+                pushButton.setCursor(QCursor(Qt.PointingHandCursor))
+                pushButton.setIcon(icon4)
+                pushButton.setIconSize(QSize(17, 20))
+                pushButton.setStatusTip(user.nome)
+                pushButton.clicked.connect(lambda: print(f'reportar {user.nome}'))
+                horizontalLayout.addWidget(pushButton, 0, Qt.AlignRight)
+
+                self.verticalLayout_8.addWidget(frame)
+
+
     # Developer log
     def developer_log(self):
         nome = database_local.is_user(True).nome
         tecnologia = database_local.is_user(True).tecnologia
         icon1 = QIcon()
         icon1.addFile(f":/icons/{tecnologia.lower()}", QSize(), QIcon.Normal, QIcon.Off)
-
         self.developer.setText(nome)
-        self.developer.setIcon(icon1)       
+        self.developer.setIcon(icon1)
 
     # Add mensages
     def add_my_msg(self):

@@ -23,6 +23,13 @@ class User(Base):
     nome = sql.Column(sql.String(50), index=True, )
     tecnologia = sql.Column(sql.String(50), index=True)
 
+class Users(Base):
+    __tablename__ = "users_geral"
+
+    id = sql.Column(sql.Integer, index=True, primary_key=True)
+    nome = sql.Column(sql.String(50), index=True, )
+    tecnologia = sql.Column(sql.String(50), index=True)
+
 
 class Mensagens(Base):
     __tablename__ = "mensagens"
@@ -50,7 +57,7 @@ def add_user_local(nome, tecnologia):
 def is_user(datas=None):
     query = session.query(User).first()
     session.commit()
-    
+
     if datas:
         return query
     else:
@@ -59,4 +66,24 @@ def is_user(datas=None):
         else:
             return False
 
+def add_users(nome, tecnologia):
+    dados = Users(
+        nome=nome,
+        tecnologia=tecnologia
+    )
 
+    session.add(dados)
+    session.commit()
+    session.flush()
+
+def list_users():
+    query = session.query(Users).all()
+    session.commit()
+
+    users = []
+    for user in query:
+        users.append(user.nome)
+
+    return users
+
+print(list_users())

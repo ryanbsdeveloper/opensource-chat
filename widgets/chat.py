@@ -12,7 +12,6 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-
 class Ui_Chat(object):
     def setupUi(self, Chat):
         if not Chat.objectName():
@@ -210,6 +209,33 @@ class Ui_Chat(object):
         self.frame_13.setFrameShadow(QFrame.Raised)
         self.verticalLayout_7 = QVBoxLayout(self.frame_13)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
+        self.frame_20 = QFrame(self.frame_13)
+        self.frame_20.setObjectName(u"frame_20")
+        self.frame_20.setFrameShape(QFrame.StyledPanel)
+        self.frame_20.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_9 = QVBoxLayout(self.frame_20)
+        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
+        self.label_21 = QLabel(self.frame_20)
+        self.label_21.setObjectName(u"label_21")
+        self.label_21.setMaximumSize(QSize(16777215, 40))
+        font7 = QFont()
+        font7.setPointSize(15)
+        font7.setBold(False)
+        font7.setWeight(50)
+        self.label_21.setFont(font7)
+        self.label_21.setStyleSheet(u"padding:5px;\n"
+"color:white;\n"
+"color: rgb(45, 53, 211);\n"
+"background-color: rgb(124, 121, 183);")
+        self.label_21.setScaledContents(True)
+        self.label_21.setWordWrap(False)
+        self.label_21.setMargin(0)
+
+        self.verticalLayout_9.addWidget(self.label_21, 0, Qt.AlignHCenter)
+
+
+        self.verticalLayout_7.addWidget(self.frame_20)
+
         self.frame_11 = QFrame(self.frame_13)
         self.frame_11.setObjectName(u"frame_11")
         self.frame_11.setMaximumSize(QSize(16777215, 80))
@@ -229,13 +255,13 @@ class Ui_Chat(object):
         self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
         self.label_11 = QLabel(self.frame_14)
         self.label_11.setObjectName(u"label_11")
-        font7 = QFont()
-        font7.setPointSize(15)
-        font7.setBold(True)
-        font7.setItalic(False)
-        font7.setWeight(75)
-        font7.setStrikeOut(False)
-        self.label_11.setFont(font7)
+        font8 = QFont()
+        font8.setPointSize(15)
+        font8.setBold(True)
+        font8.setItalic(False)
+        font8.setWeight(75)
+        font8.setStrikeOut(False)
+        self.label_11.setFont(font8)
         self.label_11.setStyleSheet(u"color:#5f6368")
 
         self.horizontalLayout_10.addWidget(self.label_11, 0, Qt.AlignRight)
@@ -254,9 +280,9 @@ class Ui_Chat(object):
         self.label_13 = QLabel(self.frame_11)
         self.label_13.setObjectName(u"label_13")
         self.label_13.setMaximumSize(QSize(16777215, 40))
-        font8 = QFont()
-        font8.setPointSize(15)
-        self.label_13.setFont(font8)
+        font9 = QFont()
+        font9.setPointSize(15)
+        self.label_13.setFont(font9)
         self.label_13.setStyleSheet(u"padding:5px;\n"
 "color:white;\n"
 "background-color: rgb(60, 60, 60);")
@@ -302,9 +328,9 @@ class Ui_Chat(object):
 
         self.input_msg = QLineEdit(self.frame_5)
         self.input_msg.setObjectName(u"input_msg")
-        font9 = QFont()
-        font9.setPointSize(12)
-        self.input_msg.setFont(font9)
+        font10 = QFont()
+        font10.setPointSize(12)
+        self.input_msg.setFont(font10)
         self.input_msg.setStyleSheet(u"\n"
 "QLineEdit{\n"
 "padding:10px;color:white;\n"
@@ -391,13 +417,14 @@ class Ui_Chat(object):
         self.scrollArea_2.setObjectName(u"scrollArea_2")
         self.scrollArea_2.setFrameShape(QFrame.NoFrame)
         self.scrollArea_2.setWidgetResizable(True)
+        self.scrollArea_2.setAlignment(Qt.AlignBottom|Qt.AlignLeading|Qt.AlignLeft)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 415, 86))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 401, 102))
         self.verticalLayout_8 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
-        self.verticalLayout_8.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_8.setContentsMargins(0, 0, 0, 16)
         self.frame_16 = QFrame(self.scrollAreaWidgetContents)
         self.frame_16.setObjectName(u"frame_16")
         self.frame_16.setStyleSheet(u"border-bottom:1px solid #5f6368;")
@@ -415,11 +442,11 @@ class Ui_Chat(object):
         self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
         self.label_19 = QLabel(self.frame_17)
         self.label_19.setObjectName(u"label_19")
-        font10 = QFont()
-        font10.setPointSize(12)
-        font10.setBold(False)
-        font10.setWeight(50)
-        self.label_19.setFont(font10)
+        font11 = QFont()
+        font11.setPointSize(12)
+        font11.setBold(False)
+        font11.setWeight(50)
+        self.label_19.setFont(font11)
         self.label_19.setStyleSheet(u"border:0;\n"
 "color: rgb(37, 135, 29);")
 
@@ -427,18 +454,18 @@ class Ui_Chat(object):
 
         self.label_15 = QLabel(self.frame_17)
         self.label_15.setObjectName(u"label_15")
-        self.label_15.setFont(font9)
+        self.label_15.setFont(font10)
         self.label_15.setStyleSheet(u"border:0; color:white")
 
         self.horizontalLayout_12.addWidget(self.label_15)
 
         self.label_10 = QLabel(self.frame_17)
         self.label_10.setObjectName(u"label_10")
-        font11 = QFont()
-        font11.setPointSize(13)
-        font11.setBold(True)
-        font11.setWeight(75)
-        self.label_10.setFont(font11)
+        font12 = QFont()
+        font12.setPointSize(13)
+        font12.setBold(True)
+        font12.setWeight(75)
+        self.label_10.setFont(font12)
         self.label_10.setStyleSheet(u"color:#5f6368; border:0")
 
         self.horizontalLayout_12.addWidget(self.label_10)
@@ -457,9 +484,10 @@ class Ui_Chat(object):
 
         self.pushButton = QPushButton(self.frame_16)
         self.pushButton.setObjectName(u"pushButton")
-        font12 = QFont()
-        font12.setPointSize(8)
-        self.pushButton.setFont(font12)
+        font13 = QFont()
+        font13.setPointSize(8)
+        self.pushButton.setFont(font13)
+        self.pushButton.setCursor(QCursor(Qt.PointingHandCursor))
         self.pushButton.setStyleSheet(u"border:0")
         icon4 = QIcon()
         icon4.addFile(u":/icons/flag-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
@@ -495,14 +523,14 @@ class Ui_Chat(object):
 
         self.label_16 = QLabel(self.frame_19)
         self.label_16.setObjectName(u"label_16")
-        self.label_16.setFont(font9)
+        self.label_16.setFont(font10)
         self.label_16.setStyleSheet(u"border:0; color:white")
 
         self.horizontalLayout_14.addWidget(self.label_16)
 
         self.label_17 = QLabel(self.frame_19)
         self.label_17.setObjectName(u"label_17")
-        self.label_17.setFont(font11)
+        self.label_17.setFont(font12)
         self.label_17.setStyleSheet(u"color:#5f6368; border:0")
 
         self.horizontalLayout_14.addWidget(self.label_17)
@@ -521,7 +549,8 @@ class Ui_Chat(object):
 
         self.pushButton_2 = QPushButton(self.frame_18)
         self.pushButton_2.setObjectName(u"pushButton_2")
-        self.pushButton_2.setFont(font12)
+        self.pushButton_2.setFont(font13)
+        self.pushButton_2.setCursor(QCursor(Qt.PointingHandCursor))
         self.pushButton_2.setStyleSheet(u"border:0")
         self.pushButton_2.setIcon(icon4)
         self.pushButton_2.setIconSize(QSize(17, 20))
@@ -556,6 +585,7 @@ class Ui_Chat(object):
         self.label_5.setText(QCoreApplication.translate("Chat", u"Developer:", None))
         self.developer.setText(QCoreApplication.translate("Chat", u"ryanl", None))
         self.btn_config.setText("")
+        self.label_21.setText(QCoreApplication.translate("Chat", u"Seja Bem vindo a comunidade", None))
         self.label_11.setText(QCoreApplication.translate("Chat", u"<fred>", None))
         self.label_12.setText("")
         self.label_13.setText(QCoreApplication.translate("Chat", u"Boa noite galera, Tudo bem?", None))
