@@ -188,7 +188,7 @@
               </property>
              </widget>
             </item>
-            <item alignment="Qt::AlignHCenter">
+            <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
              <widget class="QLineEdit" name="input_nome">
               <property name="minimumSize">
                <size>
@@ -362,6 +362,33 @@ QLineEdit:focus{
                     </property>
                    </widget>
                   </item>
+                  <item row="2" column="0">
+                   <widget class="QRadioButton" name="radioButton_argular">
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color:white;border:0;outline:0</string>
+                    </property>
+                    <property name="text">
+                     <string>Angular</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="../resources/resources.qrc">
+                      <normaloff>:/icons/angular</normaloff>:/icons/angular</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>23</width>
+                      <height>26</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
                   <item row="0" column="1">
                    <widget class="QRadioButton" name="radioButton_java">
                     <property name="font">
@@ -385,60 +412,6 @@ QLineEdit:focus{
                      <size>
                       <width>20</width>
                       <height>26</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="2">
-                   <widget class="QRadioButton" name="radioButton_javascript">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color:white;border:0;outline:0</string>
-                    </property>
-                    <property name="text">
-                     <string>JavaScript</string>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/javascript</normaloff>:/icons/javascript</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="0" column="3">
-                   <widget class="QRadioButton" name="radioButton_kotlin">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color:white;border:0;outline:0</string>
-                    </property>
-                    <property name="text">
-                     <string>Kotlin</string>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/kotlin</normaloff>:/icons/kotlin</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>20</width>
-                      <height>20</height>
                      </size>
                     </property>
                    </widget>
@@ -470,8 +443,8 @@ QLineEdit:focus{
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="1">
-                   <widget class="QRadioButton" name="radioButton_php">
+                  <item row="0" column="3">
+                   <widget class="QRadioButton" name="radioButton_kotlin">
                     <property name="font">
                      <font>
                       <pointsize>12</pointsize>
@@ -483,16 +456,16 @@ QLineEdit:focus{
                      <string notr="true">color:white;border:0;outline:0</string>
                     </property>
                     <property name="text">
-                     <string>PHP</string>
+                     <string>Kotlin</string>
                     </property>
                     <property name="icon">
                      <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/php</normaloff>:/icons/php</iconset>
+                      <normaloff>:/icons/kotlin</normaloff>:/icons/kotlin</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
-                      <width>35</width>
-                      <height>30</height>
+                      <width>20</width>
+                      <height>20</height>
                      </size>
                     </property>
                    </widget>
@@ -524,8 +497,8 @@ QLineEdit:focus{
                     </property>
                    </widget>
                   </item>
-                  <item row="1" column="3">
-                   <widget class="QRadioButton" name="radioButton_c">
+                  <item row="2" column="2">
+                   <widget class="QRadioButton" name="radioButton_react">
                     <property name="font">
                      <font>
                       <pointsize>12</pointsize>
@@ -537,38 +510,11 @@ QLineEdit:focus{
                      <string notr="true">color:white;border:0;outline:0</string>
                     </property>
                     <property name="text">
-                     <string>C</string>
+                     <string>React</string>
                     </property>
                     <property name="icon">
                      <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/c</normaloff>:/icons/c</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>23</width>
-                      <height>26</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="0">
-                   <widget class="QRadioButton" name="radioButton_argular">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color:white;border:0;outline:0</string>
-                    </property>
-                    <property name="text">
-                     <string>Angular</string>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/angular</normaloff>:/icons/angular</iconset>
+                      <normaloff>:/icons/react</normaloff>:/icons/react</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
@@ -605,8 +551,8 @@ QLineEdit:focus{
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="2">
-                   <widget class="QRadioButton" name="radioButton_react">
+                  <item row="3" column="2">
+                   <widget class="QRadioButton" name="radioButton_cmais">
                     <property name="font">
                      <font>
                       <pointsize>12</pointsize>
@@ -618,43 +564,16 @@ QLineEdit:focus{
                      <string notr="true">color:white;border:0;outline:0</string>
                     </property>
                     <property name="text">
-                     <string>React</string>
+                     <string>C++</string>
                     </property>
                     <property name="icon">
                      <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/react</normaloff>:/icons/react</iconset>
+                      <normaloff>:/icons/c++</normaloff>:/icons/c++</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
                       <width>23</width>
-                      <height>26</height>
-                     </size>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="2" column="3">
-                   <widget class="QRadioButton" name="radioButton_ruby">
-                    <property name="font">
-                     <font>
-                      <pointsize>12</pointsize>
-                      <weight>75</weight>
-                      <bold>true</bold>
-                     </font>
-                    </property>
-                    <property name="styleSheet">
-                     <string notr="true">color:white;border:0;outline:0</string>
-                    </property>
-                    <property name="text">
-                     <string>Ruby</string>
-                    </property>
-                    <property name="icon">
-                     <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/ruby</normaloff>:/icons/ruby</iconset>
-                    </property>
-                    <property name="iconSize">
-                     <size>
-                      <width>22</width>
-                      <height>23</height>
+                      <height>29</height>
                      </size>
                     </property>
                    </widget>
@@ -713,8 +632,8 @@ QLineEdit:focus{
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="2">
-                   <widget class="QRadioButton" name="radioButton_cmais">
+                  <item row="0" column="2">
+                   <widget class="QRadioButton" name="radioButton_javascript">
                     <property name="font">
                      <font>
                       <pointsize>12</pointsize>
@@ -726,16 +645,43 @@ QLineEdit:focus{
                      <string notr="true">color:white;border:0;outline:0</string>
                     </property>
                     <property name="text">
-                     <string>C++</string>
+                     <string>JavaScript</string>
                     </property>
                     <property name="icon">
                      <iconset resource="../resources/resources.qrc">
-                      <normaloff>:/icons/c++</normaloff>:/icons/c++</iconset>
+                      <normaloff>:/icons/javascript</normaloff>:/icons/javascript</iconset>
                     </property>
                     <property name="iconSize">
                      <size>
-                      <width>23</width>
-                      <height>29</height>
+                      <width>20</width>
+                      <height>20</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QRadioButton" name="radioButton_php">
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color:white;border:0;outline:0</string>
+                    </property>
+                    <property name="text">
+                     <string>PHP</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="../resources/resources.qrc">
+                      <normaloff>:/icons/php</normaloff>:/icons/php</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>35</width>
+                      <height>30</height>
                      </size>
                     </property>
                    </widget>
@@ -763,6 +709,60 @@ QLineEdit:focus{
                      <size>
                       <width>27</width>
                       <height>28</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="3">
+                   <widget class="QRadioButton" name="radioButton_c">
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color:white;border:0;outline:0</string>
+                    </property>
+                    <property name="text">
+                     <string>C</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="../resources/resources.qrc">
+                      <normaloff>:/icons/c</normaloff>:/icons/c</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>23</width>
+                      <height>26</height>
+                     </size>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="3">
+                   <widget class="QRadioButton" name="radioButton_ruby">
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                      <weight>75</weight>
+                      <bold>true</bold>
+                     </font>
+                    </property>
+                    <property name="styleSheet">
+                     <string notr="true">color:white;border:0;outline:0</string>
+                    </property>
+                    <property name="text">
+                     <string>Ruby</string>
+                    </property>
+                    <property name="icon">
+                     <iconset resource="../resources/resources.qrc">
+                      <normaloff>:/icons/ruby</normaloff>:/icons/ruby</iconset>
+                    </property>
+                    <property name="iconSize">
+                     <size>
+                      <width>22</width>
+                      <height>23</height>
                      </size>
                     </property>
                    </widget>

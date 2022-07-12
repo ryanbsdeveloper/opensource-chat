@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="icons">
+    <file>eye-solid.svg</file>
+    <file>eye-slash-solid.svg</file>
     <file>ruby</file>
     <file>nenhuma</file>
     <file>css html</file>

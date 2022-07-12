@@ -320,8 +320,30 @@
              </property>
              <item alignment="Qt::AlignRight">
               <widget class="QPushButton" name="pushButton">
+               <property name="font">
+                <font>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="cursor">
+                <cursorShape>PointingHandCursor</cursorShape>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">color:#fff;border:0</string>
+               </property>
                <property name="text">
                 <string>Ocultar membros</string>
+               </property>
+               <property name="icon">
+                <iconset resource="../resources/resources.qrc">
+                 <normaloff>:/icons/eye-slash-solid.svg</normaloff>:/icons/eye-slash-solid.svg</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>20</width>
+                 <height>20</height>
+                </size>
                </property>
               </widget>
              </item>
@@ -336,6 +358,12 @@
     </item>
     <item>
      <widget class="QFrame" name="frame">
+      <property name="font">
+       <font>
+        <weight>50</weight>
+        <bold>false</bold>
+       </font>
+      </property>
       <property name="styleSheet">
        <string notr="true">background-color: rgb(43, 43, 43);</string>
       </property>
@@ -878,7 +906,7 @@ border:1px solid rgb(32, 47, 177)
                <x>0</x>
                <y>0</y>
                <width>417</width>
-               <height>86</height>
+               <height>68</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
