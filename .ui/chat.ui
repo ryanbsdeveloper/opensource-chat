@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1157</width>
+    <width>1172</width>
     <height>728</height>
    </rect>
   </property>
@@ -453,7 +453,7 @@ border-radius:5px</string>
                 <enum>Qt::ScrollBarAlwaysOff</enum>
                </property>
                <property name="sizeAdjustPolicy">
-                <enum>QAbstractScrollArea::AdjustToContents</enum>
+                <enum>QAbstractScrollArea::AdjustToContentsOnFirstShow</enum>
                </property>
                <property name="widgetResizable">
                 <bool>true</bool>
@@ -466,7 +466,7 @@ border-radius:5px</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>1115</width>
+                  <width>1130</width>
                   <height>495</height>
                  </rect>
                 </property>
@@ -551,6 +551,12 @@ background-color: rgb(120, 123, 217);</string>
                        <property name="spacing">
                         <number>2</number>
                        </property>
+                       <property name="topMargin">
+                        <number>0</number>
+                       </property>
+                       <property name="bottomMargin">
+                        <number>0</number>
+                       </property>
                        <item alignment="Qt::AlignLeft">
                         <widget class="QFrame" name="frame_14">
                          <property name="maximumSize">
@@ -586,9 +592,9 @@ background-color: rgb(120, 123, 217);</string>
                             <property name="font">
                              <font>
                               <pointsize>15</pointsize>
-                              <weight>75</weight>
+                              <weight>50</weight>
                               <italic>false</italic>
-                              <bold>true</bold>
+                              <bold>false</bold>
                               <strikeout>false</strikeout>
                              </font>
                             </property>
@@ -596,7 +602,7 @@ background-color: rgb(120, 123, 217);</string>
                              <string notr="true">color:#5f6368</string>
                             </property>
                             <property name="text">
-                             <string>&lt;fred&gt;</string>
+                             <string>&lt; fred &gt;</string>
                             </property>
                            </widget>
                           </item>
@@ -657,6 +663,16 @@ background-color: rgb(60, 60, 60);</string>
                          </property>
                          <property name="margin">
                           <number>0</number>
+                         </property>
+                        </widget>
+                       </item>
+                       <item>
+                        <widget class="QLabel" name="label_10">
+                         <property name="styleSheet">
+                          <string notr="true">color:#5f6368</string>
+                         </property>
+                         <property name="text">
+                          <string>14:23</string>
                          </property>
                         </widget>
                        </item>

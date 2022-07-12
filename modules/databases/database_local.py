@@ -36,6 +36,7 @@ class Mensagens(Base):
 
     id = sql.Column(sql.Integer, index=True, primary_key=True)
     texto = sql.Column(sql.String(2000), index=True)
+    hora = sql.Column(sql.String(20), index=True)
     nome = sql.Column(sql.String(50), index=True)
     tecnologia = sql.Column(sql.String(50), index=True)
     
@@ -86,9 +87,10 @@ def list_users():
 
     return users
 
-def add_mensages(texto, nome, tecnologia):
+def add_mensages(texto, hora, nome, tecnologia):
     dados = Mensagens(
         texto=texto,
+        hora=hora,
         nome=nome,
         tecnologia=tecnologia
     )
@@ -101,3 +103,4 @@ def list_mensages():
     session.commit()
 
     return query
+

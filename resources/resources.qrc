@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>fundo.jpg</file>
     <file>eye-solid.svg</file>
     <file>eye-slash-solid.svg</file>
     <file>ruby</file>

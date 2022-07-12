@@ -1,11 +1,12 @@
 import sys
 from PySide2.QtWidgets import *
-from PySide2.QtGui import QFont, QIcon, QPixmap, QCursor
+from PySide2.QtGui import QFont, QIcon, QPixmap, QCursor, QPainter
 from PySide2.QtCore import *
 from widgets.chat import Ui_Chat
 from widgets.conf import Ui_Conf
 from widgets.login import Ui_Login
 from modules.databases import database_aws, database_local
+from modules.utils import main
 
 import resources.resources
 
@@ -260,6 +261,22 @@ class Chat(QMainWindow, Ui_Chat):
         label.setWordWrap(False)
         label.setMargin(0)
 
+        font8 = QFont()
+        font8.setPointSize(11)
+
+        label2 = QLabel()
+        label2.setObjectName(u"label_981")
+        label2.setMaximumSize(QSize(16777215, 40))
+        label2.setFont(font8)
+        label2.setStyleSheet(u"color:#5f6368")
+        label2.setScaledContents(True)
+        label2.setWordWrap(True)
+        label2.setMargin(0)
+        label2.setText(main.hour())
+        label2.setAlignment(Qt.AlignRight)
+
+        verticalLayout.addWidget(label2)
+
         if msg:
             label.setText(QCoreApplication.translate("MainWindow", f"{msg}", None))
             verticalLayout.addWidget(label)
@@ -268,7 +285,7 @@ class Chat(QMainWindow, Ui_Chat):
 
             #add db
             user = database_local.is_user(True)
-            database_local.add_mensages(msg, user.nome, user.tecnologia)
+            database_local.add_mensages(msg, main.hour(), user.nome, user.tecnologia)
 
     # saved messages
     def messages(self):
@@ -281,7 +298,7 @@ class Chat(QMainWindow, Ui_Chat):
                 frame.setObjectName(u"frame_6436")
                 frame.setFrameShape(QFrame.NoFrame)
                 frame.setFrameShadow(QFrame.Raised)
-                frame.setMaximumSize(QSize(16777215, 40))
+                frame.setMaximumSize(QSize(16777215, 70))
 
                 verticalLayout = QVBoxLayout(frame)
                 verticalLayout.setSpacing(0)
@@ -300,10 +317,27 @@ class Chat(QMainWindow, Ui_Chat):
                 label.setStyleSheet(u"padding:5px;\n"
         "background:#34449e;color:white")
                 label.setScaledContents(True)
-                label.setWordWrap(False)
+                label.setWordWrap(True)
                 label.setMargin(0)
                 label.setText(QCoreApplication.translate("MainWindow", f"{message.texto}", None))
+
                 verticalLayout.addWidget(label)
+
+                font8 = QFont()
+                font8.setPointSize(11)
+
+                label2 = QLabel()
+                label2.setObjectName(u"label_981")
+                label2.setMaximumSize(QSize(16777215, 40))
+                label2.setFont(font8)
+                label2.setStyleSheet(u"color:#5f6368")
+                label2.setScaledContents(True)
+                label2.setWordWrap(True)
+                label2.setMargin(0)
+                label2.setText(message.hora)
+                label2.setAlignment(Qt.AlignRight)
+
+                verticalLayout.addWidget(label2)
                 self.verticalLayout_7.addWidget(frame)
             else:
                 pass
@@ -320,7 +354,7 @@ class Chat(QMainWindow, Ui_Chat):
         width = self.frame_12.width()
 
         if width < 200:
-            extend_width = 400
+            extend_width = 390
             icon3 = QIcon()
             icon3.addFile(u":/icons/eye-slash-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
             self.btn_ocultar_mostrar.setIcon(icon3)
