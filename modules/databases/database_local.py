@@ -85,5 +85,3 @@ def list_users():
         users.append(user.nome)
 
     return users
-
-print(list_users())
