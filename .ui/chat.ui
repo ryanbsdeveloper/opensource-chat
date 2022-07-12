@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Chat developers</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../resources/resources.qrc">
@@ -319,7 +319,7 @@
               <number>0</number>
              </property>
              <item alignment="Qt::AlignRight">
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="btn_ocultar_mostrar">
                <property name="font">
                 <font>
                  <weight>75</weight>
@@ -333,11 +333,11 @@
                 <string notr="true">color:#fff;border:0</string>
                </property>
                <property name="text">
-                <string>Ocultar membros</string>
+                <string>Mostrar membros</string>
                </property>
                <property name="icon">
                 <iconset resource="../resources/resources.qrc">
-                 <normaloff>:/icons/eye-slash-solid.svg</normaloff>:/icons/eye-slash-solid.svg</iconset>
+                 <normaloff>:/icons/eye-solid.svg</normaloff>:/icons/eye-solid.svg</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -457,7 +457,7 @@ border-radius:5px</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>680</width>
+                  <width>1115</width>
                   <height>495</height>
                  </rect>
                 </property>
@@ -615,6 +615,12 @@ background-color: rgb(94, 92, 100);</string>
                        </item>
                        <item alignment="Qt::AlignLeft">
                         <widget class="QLabel" name="label_13">
+                         <property name="minimumSize">
+                          <size>
+                           <width>0</width>
+                           <height>0</height>
+                          </size>
+                         </property>
                          <property name="maximumSize">
                           <size>
                            <width>16777215</width>
@@ -818,13 +824,13 @@ border:1px solid rgb(32, 47, 177)
         <widget class="QFrame" name="frame_12">
          <property name="minimumSize">
           <size>
-           <width>100</width>
+           <width>0</width>
            <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
-           <width>435</width>
+           <width>0</width>
            <height>16777215</height>
           </size>
          </property>
@@ -894,6 +900,9 @@ border:1px solid rgb(32, 47, 177)
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
+            <property name="horizontalScrollBarPolicy">
+             <enum>Qt::ScrollBarAlwaysOff</enum>
+            </property>
             <property name="widgetResizable">
              <bool>true</bool>
             </property>
@@ -905,7 +914,7 @@ border:1px solid rgb(32, 47, 177)
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>417</width>
+               <width>16</width>
                <height>68</height>
               </rect>
              </property>

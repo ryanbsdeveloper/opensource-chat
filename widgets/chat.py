@@ -12,6 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+import resources_rc
 
 class Ui_Chat(object):
     def setupUi(self, Chat):
@@ -163,10 +164,20 @@ class Ui_Chat(object):
         self.verticalLayout_10.setSpacing(0)
         self.verticalLayout_10.setObjectName(u"verticalLayout_10")
         self.verticalLayout_10.setContentsMargins(0, 0, 0, 0)
-        self.pushButton = QPushButton(self.frame_16)
-        self.pushButton.setObjectName(u"pushButton")
+        self.btn_ocultar_mostrar = QPushButton(self.frame_16)
+        self.btn_ocultar_mostrar.setObjectName(u"btn_ocultar_mostrar")
+        font6 = QFont()
+        font6.setBold(True)
+        font6.setWeight(75)
+        self.btn_ocultar_mostrar.setFont(font6)
+        self.btn_ocultar_mostrar.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_ocultar_mostrar.setStyleSheet(u"color:#fff;border:0")
+        icon3 = QIcon()
+        icon3.addFile(u":/icons/eye-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_ocultar_mostrar.setIcon(icon3)
+        self.btn_ocultar_mostrar.setIconSize(QSize(20, 20))
 
-        self.verticalLayout_10.addWidget(self.pushButton, 0, Qt.AlignRight)
+        self.verticalLayout_10.addWidget(self.btn_ocultar_mostrar, 0, Qt.AlignRight)
 
 
         self.formLayout.setWidget(1, QFormLayout.FieldRole, self.frame_16)
@@ -179,6 +190,10 @@ class Ui_Chat(object):
 
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
+        font7 = QFont()
+        font7.setBold(False)
+        font7.setWeight(50)
+        self.frame.setFont(font7)
         self.frame.setStyleSheet(u"background-color: rgb(43, 43, 43);")
         self.frame.setFrameShape(QFrame.NoFrame)
         self.frame.setFrameShadow(QFrame.Raised)
@@ -195,10 +210,7 @@ class Ui_Chat(object):
         self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
         self.frame_4 = QFrame(self.frame_3)
         self.frame_4.setObjectName(u"frame_4")
-        font6 = QFont()
-        font6.setBold(False)
-        font6.setWeight(50)
-        self.frame_4.setFont(font6)
+        self.frame_4.setFont(font7)
         self.frame_4.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
 "border-radius:5px")
         self.frame_4.setFrameShape(QFrame.NoFrame)
@@ -216,7 +228,7 @@ class Ui_Chat(object):
         self.scrollArea.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 680, 495))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1115, 495))
         self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.frame_13 = QFrame(self.scrollAreaWidgetContents_2)
@@ -235,11 +247,11 @@ class Ui_Chat(object):
         self.label_21 = QLabel(self.frame_20)
         self.label_21.setObjectName(u"label_21")
         self.label_21.setMaximumSize(QSize(16777215, 40))
-        font7 = QFont()
-        font7.setPointSize(15)
-        font7.setBold(False)
-        font7.setWeight(50)
-        self.label_21.setFont(font7)
+        font8 = QFont()
+        font8.setPointSize(15)
+        font8.setBold(False)
+        font8.setWeight(50)
+        self.label_21.setFont(font8)
         self.label_21.setStyleSheet(u"padding:5px;\n"
 "color:white;\n"
 "color: rgb(45, 53, 211);\n"
@@ -272,13 +284,13 @@ class Ui_Chat(object):
         self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
         self.label_11 = QLabel(self.frame_14)
         self.label_11.setObjectName(u"label_11")
-        font8 = QFont()
-        font8.setPointSize(15)
-        font8.setBold(True)
-        font8.setItalic(False)
-        font8.setWeight(75)
-        font8.setStrikeOut(False)
-        self.label_11.setFont(font8)
+        font9 = QFont()
+        font9.setPointSize(15)
+        font9.setBold(True)
+        font9.setItalic(False)
+        font9.setWeight(75)
+        font9.setStrikeOut(False)
+        self.label_11.setFont(font9)
         self.label_11.setStyleSheet(u"color:#5f6368")
 
         self.horizontalLayout_10.addWidget(self.label_11, 0, Qt.AlignRight)
@@ -296,10 +308,11 @@ class Ui_Chat(object):
 
         self.label_13 = QLabel(self.frame_11)
         self.label_13.setObjectName(u"label_13")
+        self.label_13.setMinimumSize(QSize(0, 0))
         self.label_13.setMaximumSize(QSize(16777215, 40))
-        font9 = QFont()
-        font9.setPointSize(15)
-        self.label_13.setFont(font9)
+        font10 = QFont()
+        font10.setPointSize(15)
+        self.label_13.setFont(font10)
         self.label_13.setStyleSheet(u"padding:5px;\n"
 "color:white;\n"
 "background-color: rgb(60, 60, 60);")
@@ -336,18 +349,18 @@ class Ui_Chat(object):
         self.btn_msg.setObjectName(u"btn_msg")
         self.btn_msg.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_msg.setStyleSheet(u"border:0;outline:0")
-        icon3 = QIcon()
-        icon3.addFile(u":/icons/paper-plane-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-        self.btn_msg.setIcon(icon3)
+        icon4 = QIcon()
+        icon4.addFile(u":/icons/paper-plane-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+        self.btn_msg.setIcon(icon4)
         self.btn_msg.setIconSize(QSize(27, 27))
 
         self.horizontalLayout_4.addWidget(self.btn_msg)
 
         self.input_msg = QLineEdit(self.frame_5)
         self.input_msg.setObjectName(u"input_msg")
-        font10 = QFont()
-        font10.setPointSize(12)
-        self.input_msg.setFont(font10)
+        font11 = QFont()
+        font11.setPointSize(12)
+        self.input_msg.setFont(font11)
         self.input_msg.setStyleSheet(u"\n"
 "QLineEdit{\n"
 "padding:10px;color:white;\n"
@@ -399,8 +412,8 @@ class Ui_Chat(object):
 
         self.frame_12 = QFrame(self.frame)
         self.frame_12.setObjectName(u"frame_12")
-        self.frame_12.setMinimumSize(QSize(100, 0))
-        self.frame_12.setMaximumSize(QSize(435, 16777215))
+        self.frame_12.setMinimumSize(QSize(0, 0))
+        self.frame_12.setMaximumSize(QSize(0, 16777215))
         self.frame_12.setFrameShape(QFrame.NoFrame)
         self.frame_12.setFrameShadow(QFrame.Raised)
         self.verticalLayout_4 = QVBoxLayout(self.frame_12)
@@ -433,11 +446,12 @@ class Ui_Chat(object):
         self.scrollArea_2 = QScrollArea(self.frame_12)
         self.scrollArea_2.setObjectName(u"scrollArea_2")
         self.scrollArea_2.setFrameShape(QFrame.NoFrame)
+        self.scrollArea_2.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setAlignment(Qt.AlignBottom|Qt.AlignLeading|Qt.AlignLeft)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 417, 86))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 16, 68))
         self.verticalLayout_8 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
@@ -460,14 +474,14 @@ class Ui_Chat(object):
     # setupUi
 
     def retranslateUi(self, Chat):
-        Chat.setWindowTitle(QCoreApplication.translate("Chat", u"MainWindow", None))
+        Chat.setWindowTitle(QCoreApplication.translate("Chat", u"Chat developers", None))
         self.label.setText("")
         self.label_3.setText(QCoreApplication.translate("Chat", u"Chat developers", None))
         self.label_6.setText(QCoreApplication.translate("Chat", u"Brasil", None))
         self.label_5.setText(QCoreApplication.translate("Chat", u"Developer:", None))
         self.developer.setText(QCoreApplication.translate("Chat", u"ryanl", None))
         self.btn_config.setText("")
-        self.pushButton.setText(QCoreApplication.translate("Chat", u"Ocultar membros", None))
+        self.btn_ocultar_mostrar.setText(QCoreApplication.translate("Chat", u"Mostrar membros", None))
         self.label_21.setText(QCoreApplication.translate("Chat", u"Seja Bem vindo a comunidade", None))
         self.label_11.setText(QCoreApplication.translate("Chat", u"<fred>", None))
         self.label_12.setText("")

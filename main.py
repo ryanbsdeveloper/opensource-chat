@@ -81,7 +81,10 @@ class Chat(QMainWindow, Ui_Chat):
         # Others windows
         self.conf = Conf(self)
         self.btn_config.clicked.connect(self.open_conf)
-    
+
+        # Hide members
+        self.btn_ocultar_mostrar.clicked.connect(self.animation_members)
+
     # Users community
     def users(self):
         users = database_aws.list_users(True)
@@ -253,7 +256,6 @@ class Chat(QMainWindow, Ui_Chat):
 
                 self.verticalLayout_8.addWidget(frame)
 
-
     # Developer log
     def developer_log(self):
         nome = database_local.is_user(True).nome
@@ -306,6 +308,29 @@ class Chat(QMainWindow, Ui_Chat):
     def open_conf(self):
         self.conf.exec_()
 
+    # Animation view members
+    def animation_members(self):
+        width = self.frame_12.width()
+
+        if width < 200:
+            extend_width = 435
+            icon3 = QIcon()
+            icon3.addFile(u":/icons/eye-slash-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+            self.btn_ocultar_mostrar.setIcon(icon3)
+            self.btn_ocultar_mostrar.setText('Ocultar membros')
+
+        else:
+            extend_width = 0
+            icon3 = QIcon()
+            icon3.addFile(u":/icons/eye-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
+            self.btn_ocultar_mostrar.setIcon(icon3)
+            self.btn_ocultar_mostrar.setText('Mostrar membros')
+    
+        self.animation = QPropertyAnimation(self.frame_12, b'maximumWidth')
+        self.animation.setDuration(200)
+        self.animation.setStartValue(width)
+        self.animation.setEndValue(extend_width)
+        self.animation.start()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
