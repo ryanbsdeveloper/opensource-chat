@@ -85,3 +85,19 @@ def list_users():
         users.append(user.nome)
 
     return users
+
+def add_mensages(texto, nome, tecnologia):
+    dados = Mensagens(
+        texto=texto,
+        nome=nome,
+        tecnologia=tecnologia
+    )
+    session.add(dados)
+    session.commit()
+    session.flush()
+
+def list_mensages():
+    query = session.query(Mensagens).all()
+    session.commit()
+
+    return query

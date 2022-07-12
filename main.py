@@ -77,6 +77,7 @@ class Chat(QMainWindow, Ui_Chat):
         # Initial
         self.developer_log()
         self.users()
+        self.messages()
 
         # Others windows
         self.conf = Conf(self)
@@ -300,6 +301,46 @@ class Chat(QMainWindow, Ui_Chat):
             verticalLayout.addWidget(label)
             self.verticalLayout_7.addWidget(frame)
             self.input_msg.setText('')
+
+            #add db
+            user = database_local.is_user(True)
+            database_local.add_mensages(msg, user.nome, user.tecnologia)
+
+    # saved messages
+    def messages(self):
+        messages = database_local.list_mensages()
+        user = database_local.is_user(True)
+        
+        for message in messages:
+            if user.nome == message.nome:
+                frame = QFrame()
+                frame.setObjectName(u"frame_6436")
+                frame.setFrameShape(QFrame.NoFrame)
+                frame.setFrameShadow(QFrame.Raised)
+                frame.setMaximumSize(QSize(16777215, 40))
+
+                verticalLayout = QVBoxLayout(frame)
+                verticalLayout.setSpacing(0)
+                verticalLayout.setObjectName(u"verticalLayout_42313")
+                verticalLayout.setContentsMargins(-1, 0, -1, 0)
+                verticalLayout.setAlignment(Qt.AlignRight)
+
+
+                font8 = QFont()
+                font8.setPointSize(15)
+
+                label = QLabel()
+                label.setObjectName(u"label_981")
+                label.setMaximumSize(QSize(16777215, 40))
+                label.setFont(font8)
+                label.setStyleSheet(u"padding:5px;\n"
+        "background:#34449e;color:white")
+                label.setScaledContents(True)
+                label.setWordWrap(False)
+                label.setMargin(0)
+                label.setText(QCoreApplication.translate("MainWindow", f"{message.texto}", None))
+                verticalLayout.addWidget(label)
+                self.verticalLayout_7.addWidget(frame)
 
     def ResizeScroll(self, min, maxi):
         self.scrollArea.verticalScrollBar().setValue(maxi)
