@@ -112,7 +112,7 @@ class Chat(QMainWindow, Ui_Chat):
                 label_19 = QLabel(frame_2)
                 label_19.setObjectName(u"label")
                 font11 = QFont()
-                font11.setPointSize(12)
+                font11.setPointSize(14)
                 font11.setBold(False)
                 font11.setWeight(50)
                 label_19.setFont(font11)
@@ -126,7 +126,7 @@ class Chat(QMainWindow, Ui_Chat):
 
                 horizontalLayout_12.addWidget(label_19)
                 font10 = QFont()
-                font10.setPointSize(12)
+                font10.setPointSize(13)
                 label_15 = QLabel(frame_2)
                 label_15.setObjectName(u"label_15")
                 label_15.setFont(font10)
@@ -137,7 +137,7 @@ class Chat(QMainWindow, Ui_Chat):
                 label_10 = QLabel(frame_2)
                 label_10.setObjectName(u"label_10")
                 font12 = QFont()
-                font12.setPointSize(13)
+                font12.setPointSize(14)
                 font12.setBold(True)
                 font12.setWeight(75)
                 label_10.setFont(font12)
@@ -148,31 +148,13 @@ class Chat(QMainWindow, Ui_Chat):
 
                 label_14 = QLabel(frame_2)
                 label_14.setObjectName(u"label_14")
-                label_14.setMaximumSize(QSize(25, 25))
+                label_14.setMaximumSize(QSize(32, 28))
                 label_14.setStyleSheet(u"border:0")
                 label_14.setPixmap(QPixmap(f":/icons/{user.tecnologia.lower()}"))
                 label_14.setScaledContents(True)
 
                 horizontalLayout_12.addWidget(label_14)
-
-
                 horizontalLayout.addWidget(frame_2, 0, Qt.AlignLeft)
-
-                pushButton = QPushButton(frame)
-                pushButton.setObjectName(u"pushButton")
-                font13 = QFont()
-                font13.setPointSize(8)
-                pushButton.setFont(font13)
-                pushButton.setStyleSheet(u"border:0")
-                icon4 = QIcon()
-                icon4.addFile(u":/icons/flag-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-                pushButton.setCursor(QCursor(Qt.PointingHandCursor))
-                pushButton.setIcon(icon4)
-                pushButton.setIconSize(QSize(17, 20))
-                pushButton.setStatusTip(user.nome)
-                pushButton.clicked.connect(lambda: print(f'reportar {user.nome}'))
-                horizontalLayout.addWidget(pushButton, 0, Qt.AlignRight)
-
                 self.verticalLayout_8.addWidget(frame)
             else:
                 frame = QFrame(self.scrollAreaWidgetContents)
@@ -194,7 +176,7 @@ class Chat(QMainWindow, Ui_Chat):
                 label_19 = QLabel(frame_2)
                 label_19.setObjectName(u"label")
                 font11 = QFont()
-                font11.setPointSize(12)
+                font11.setPointSize(14)
                 font11.setBold(False)
                 font11.setWeight(50)
                 label_19.setFont(font11)
@@ -208,7 +190,7 @@ class Chat(QMainWindow, Ui_Chat):
 
                 horizontalLayout_12.addWidget(label_19)
                 font10 = QFont()
-                font10.setPointSize(12)
+                font10.setPointSize(13)
                 label_15 = QLabel(frame_2)
                 label_15.setObjectName(u"label_15")
                 label_15.setFont(font10)
@@ -219,7 +201,7 @@ class Chat(QMainWindow, Ui_Chat):
                 label_10 = QLabel(frame_2)
                 label_10.setObjectName(u"label_10")
                 font12 = QFont()
-                font12.setPointSize(13)
+                font12.setPointSize(14)
                 font12.setBold(True)
                 font12.setWeight(75)
                 label_10.setFont(font12)
@@ -230,31 +212,13 @@ class Chat(QMainWindow, Ui_Chat):
 
                 label_14 = QLabel(frame_2)
                 label_14.setObjectName(u"label_14")
-                label_14.setMaximumSize(QSize(25, 25))
+                label_14.setMaximumSize(QSize(32, 28))
                 label_14.setStyleSheet(u"border:0")
                 label_14.setPixmap(QPixmap(f":/icons/{user.tecnologia.lower()}"))
                 label_14.setScaledContents(True)
 
                 horizontalLayout_12.addWidget(label_14)
-
-
                 horizontalLayout.addWidget(frame_2, 0, Qt.AlignLeft)
-
-                pushButton = QPushButton(frame)
-                pushButton.setObjectName(u"pushButton")
-                font13 = QFont()
-                font13.setPointSize(8)
-                pushButton.setFont(font13)
-                pushButton.setStyleSheet(u"border:0")
-                icon4 = QIcon()
-                icon4.addFile(u":/icons/flag-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
-                pushButton.setCursor(QCursor(Qt.PointingHandCursor))
-                pushButton.setIcon(icon4)
-                pushButton.setIconSize(QSize(17, 20))
-                pushButton.setStatusTip(user.nome)
-                pushButton.clicked.connect(lambda: print(f'reportar {user.nome}'))
-                horizontalLayout.addWidget(pushButton, 0, Qt.AlignRight)
-
                 self.verticalLayout_8.addWidget(frame)
 
     # Developer log
@@ -341,6 +305,8 @@ class Chat(QMainWindow, Ui_Chat):
                 label.setText(QCoreApplication.translate("MainWindow", f"{message.texto}", None))
                 verticalLayout.addWidget(label)
                 self.verticalLayout_7.addWidget(frame)
+            else:
+                pass
 
     def ResizeScroll(self, min, maxi):
         self.scrollArea.verticalScrollBar().setValue(maxi)
@@ -354,7 +320,7 @@ class Chat(QMainWindow, Ui_Chat):
         width = self.frame_12.width()
 
         if width < 200:
-            extend_width = 435
+            extend_width = 400
             icon3 = QIcon()
             icon3.addFile(u":/icons/eye-slash-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
             self.btn_ocultar_mostrar.setIcon(icon3)

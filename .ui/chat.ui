@@ -273,6 +273,15 @@
                <property name="cursor">
                 <cursorShape>PointingHandCursor</cursorShape>
                </property>
+               <property name="toolTip">
+                <string/>
+               </property>
+               <property name="toolTipDuration">
+                <number>1</number>
+               </property>
+               <property name="accessibleDescription">
+                <string/>
+               </property>
                <property name="styleSheet">
                 <string notr="true">border:0;outline:0</string>
                </property>
@@ -504,8 +513,8 @@ border-radius:5px</string>
                          <property name="styleSheet">
                           <string notr="true">padding:5px;
 color:white;
-color: rgb(45, 53, 211);
-background-color: rgb(94, 92, 100);</string>
+color: #fff;
+background-color: rgb(120, 123, 217);</string>
                          </property>
                          <property name="text">
                           <string>Seja Bem vindo a comunidade</string>

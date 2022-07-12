@@ -33,7 +33,7 @@
     <normaloff>:/icons/gear-solid.svg</normaloff>:/icons/gear-solid.svg</iconset>
   </property>
   <property name="autoFillBackground">
-   <bool>true</bool>
+   <bool>false</bool>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color: rgb(43, 43, 43);</string>
@@ -418,7 +418,7 @@ color:white;outline:0
                   </property>
                   <property name="icon">
                    <iconset resource="../resources/resources.qrc">
-                    <normaloff>:/icons/js</normaloff>:/icons/js</iconset>
+                    <normaloff>:/icons/javascript</normaloff>:/icons/javascript</iconset>
                   </property>
                  </item>
                  <item>
@@ -436,7 +436,7 @@ color:white;outline:0
                   </property>
                   <property name="icon">
                    <iconset resource="../resources/resources.qrc">
-                    <normaloff>:/icons/node</normaloff>:/icons/node</iconset>
+                    <normaloff>:/icons/nodejs</normaloff>:/icons/nodejs</iconset>
                   </property>
                  </item>
                  <item>
@@ -481,7 +481,7 @@ color:white;outline:0
                   </property>
                   <property name="icon">
                    <iconset resource="../resources/resources.qrc">
-                    <normaloff>:/icons/csshtml</normaloff>:/icons/csshtml</iconset>
+                    <normaloff>:/icons/css html</normaloff>:/icons/css html</iconset>
                   </property>
                  </item>
                  <item>
@@ -535,7 +535,7 @@ color:white;outline:0
                   </property>
                   <property name="icon">
                    <iconset resource="../resources/resources.qrc">
-                    <normaloff>:/icons/nehum</normaloff>:/icons/nehum</iconset>
+                    <normaloff>:/icons/nenhuma</normaloff>:/icons/nenhuma</iconset>
                   </property>
                  </item>
                 </widget>

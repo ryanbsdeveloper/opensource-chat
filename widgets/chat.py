@@ -144,6 +144,7 @@ class Ui_Chat(object):
         self.btn_config.setObjectName(u"btn_config")
         self.btn_config.setMaximumSize(QSize(35, 16777215))
         self.btn_config.setCursor(QCursor(Qt.PointingHandCursor))
+        self.btn_config.setToolTipDuration(1)
         self.btn_config.setStyleSheet(u"border:0;outline:0")
         icon2 = QIcon()
         icon2.addFile(u":/icons/gear-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
@@ -253,8 +254,8 @@ class Ui_Chat(object):
         self.label_21.setFont(font8)
         self.label_21.setStyleSheet(u"padding:5px;\n"
 "color:white;\n"
-"color: rgb(45, 53, 211);\n"
-"background-color: rgb(94, 92, 100);")
+"color: #fff;\n"
+"background-color: rgb(120, 123, 217);")
         self.label_21.setScaledContents(True)
         self.label_21.setWordWrap(False)
         self.label_21.setMargin(0)
@@ -479,6 +480,12 @@ class Ui_Chat(object):
         self.label_6.setText(QCoreApplication.translate("Chat", u"Brasil", None))
         self.label_5.setText(QCoreApplication.translate("Chat", u"Developer:", None))
         self.developer.setText(QCoreApplication.translate("Chat", u"ryanl", None))
+#if QT_CONFIG(tooltip)
+        self.btn_config.setToolTip("")
+#endif // QT_CONFIG(tooltip)
+#if QT_CONFIG(accessibility)
+        self.btn_config.setAccessibleDescription("")
+#endif // QT_CONFIG(accessibility)
         self.btn_config.setText("")
         self.btn_ocultar_mostrar.setText(QCoreApplication.translate("Chat", u"Mostrar membros", None))
         self.label_21.setText(QCoreApplication.translate("Chat", u"Seja Bem vindo a comunidade", None))
