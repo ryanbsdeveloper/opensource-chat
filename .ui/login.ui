@@ -39,6 +39,47 @@
    <bool>true</bool>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="leftMargin">
+    <number>9</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QLabel" name="sem_internet">
+     <property name="maximumSize">
+      <size>
+       <width>1000000</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="font">
+      <font>
+       <pointsize>12</pointsize>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(246, 97, 81);
+color:white;
+border-radius:5px</string>
+     </property>
+     <property name="text">
+      <string>Verifique sua conexão com a internet, e reinicie o aplicativo.</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+     <property name="margin">
+      <number>2</number>
+     </property>
+    </widget>
+   </item>
    <item>
     <widget class="QFrame" name="frame">
      <property name="minimumSize">
@@ -63,8 +104,11 @@
       <property name="spacing">
        <number>9</number>
       </property>
+      <property name="topMargin">
+       <number>7</number>
+      </property>
       <property name="bottomMargin">
-       <number>0</number>
+       <number>13</number>
       </property>
       <item>
        <widget class="QLabel" name="label">
@@ -181,7 +225,7 @@
                <string notr="true">color:#5f6368</string>
               </property>
               <property name="text">
-               <string>Esse nome não poderá ser atualizado posteriormente</string>
+               <string>Esse nome não poderá ser alterado posteriormente</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -247,16 +291,10 @@ QLineEdit:focus{
             <enum>QFrame::Raised</enum>
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
-            <property name="spacing">
-             <number>5</number>
-            </property>
-            <property name="topMargin">
-             <number>0</number>
-            </property>
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item alignment="Qt::AlignVCenter">
+            <item>
              <widget class="QLabel" name="label_3">
               <property name="maximumSize">
                <size>
@@ -274,6 +312,24 @@ QLineEdit:focus{
               </property>
               <property name="text">
                <string>Tecnologia favorita</string>
+              </property>
+              <property name="alignment">
+               <set>Qt::AlignCenter</set>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_9">
+              <property name="font">
+               <font>
+                <pointsize>11</pointsize>
+               </font>
+              </property>
+              <property name="styleSheet">
+               <string notr="true">color:#5f6368</string>
+              </property>
+              <property name="text">
+               <string>Tecnologia não poderá ser alterada posteriormente</string>
               </property>
               <property name="alignment">
                <set>Qt::AlignCenter</set>
@@ -773,7 +829,7 @@ QLineEdit:focus{
               </layout>
              </widget>
             </item>
-            <item alignment="Qt::AlignLeft">
+            <item>
              <widget class="QFrame" name="frame_7">
               <property name="minimumSize">
                <size>
@@ -897,7 +953,7 @@ QLineEdit:focus{
          <property name="bottomMargin">
           <number>0</number>
          </property>
-         <item>
+         <item alignment="Qt::AlignTop">
           <widget class="QPushButton" name="btn_comecar">
            <property name="minimumSize">
             <size>

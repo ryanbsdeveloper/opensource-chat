@@ -16,12 +16,14 @@ Session = sessionmaker()
 Session.configure(bind=engine)
 session = Session()
 
+
 class User(Base):
     __tablename__ = "user"
 
     id = sql.Column(sql.Integer, index=True, primary_key=True)
     nome = sql.Column(sql.String(50), index=True, )
     tecnologia = sql.Column(sql.String(50), index=True)
+
 
 class Users(Base):
     __tablename__ = "users_geral"
@@ -39,10 +41,11 @@ class Mensagens(Base):
     hora = sql.Column(sql.String(20), index=True)
     nome = sql.Column(sql.String(50), index=True)
     tecnologia = sql.Column(sql.String(50), index=True)
-    
+
 
 def add_tables():
     Base.metadata.create_all(bind=engine)
+
 
 def add_user_local(nome, tecnologia):
     session.query(User).filter(User.id == 1).update(
@@ -54,6 +57,7 @@ def add_user_local(nome, tecnologia):
 
     session.commit()
     session.flush()
+
 
 def is_user(datas=None):
     query = session.query(User).first()
@@ -67,6 +71,7 @@ def is_user(datas=None):
         else:
             return False
 
+
 def add_users(nome, tecnologia):
     dados = Users(
         nome=nome,
@@ -76,6 +81,7 @@ def add_users(nome, tecnologia):
     session.add(dados)
     session.commit()
     session.flush()
+
 
 def list_users():
     query = session.query(Users).all()
@@ -87,7 +93,8 @@ def list_users():
 
     return users
 
-def add_mensages(texto, hora, nome, tecnologia):
+
+def add_messages(texto, hora, nome, tecnologia):
     dados = Mensagens(
         texto=texto,
         hora=hora,
@@ -98,9 +105,17 @@ def add_mensages(texto, hora, nome, tecnologia):
     session.commit()
     session.flush()
 
-def list_mensages():
+
+def list_messages():
     query = session.query(Mensagens).all()
     session.commit()
 
     return query
+
+
+def del_messages():
+    dados = delete(Mensagens)
+    session.execute(dados)
+    session.commit()
+    session.flush()
 
