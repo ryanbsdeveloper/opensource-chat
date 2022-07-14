@@ -12,6 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+
 class Ui_Chat(object):
     def setupUi(self, Chat):
         if not Chat.objectName():
@@ -254,48 +255,6 @@ class Ui_Chat(object):
         self.verticalLayout_7 = QVBoxLayout(self.frame_13)
         self.verticalLayout_7.setObjectName(u"verticalLayout_7")
         self.verticalLayout_7.setContentsMargins(-1, 0, -1, -1)
-        self.frame_20 = QFrame(self.frame_13)
-        self.frame_20.setObjectName(u"frame_20")
-        self.frame_20.setFrameShape(QFrame.NoFrame)
-        self.frame_20.setFrameShadow(QFrame.Raised)
-        self.verticalLayout_9 = QVBoxLayout(self.frame_20)
-        self.verticalLayout_9.setSpacing(0)
-        self.verticalLayout_9.setObjectName(u"verticalLayout_9")
-        self.verticalLayout_9.setContentsMargins(-1, 0, -1, 0)
-        self.label_14 = QLabel(self.frame_20)
-        self.label_14.setObjectName(u"label_14")
-        font9 = QFont()
-        font9.setPointSize(15)
-        font9.setBold(False)
-        font9.setItalic(False)
-        font9.setWeight(50)
-        font9.setStrikeOut(False)
-        self.label_14.setFont(font9)
-        self.label_14.setStyleSheet(u"color:#5f6368")
-
-        self.verticalLayout_9.addWidget(self.label_14, 0, Qt.AlignHCenter)
-
-        self.label_21 = QLabel(self.frame_20)
-        self.label_21.setObjectName(u"label_21")
-        self.label_21.setMaximumSize(QSize(16777215, 40))
-        font10 = QFont()
-        font10.setPointSize(15)
-        font10.setBold(False)
-        font10.setWeight(50)
-        self.label_21.setFont(font10)
-        self.label_21.setStyleSheet(u"padding:5px;\n"
-"color:white;\n"
-"color: #fff;\n"
-"background-color: rgb(120, 123, 217);")
-        self.label_21.setScaledContents(True)
-        self.label_21.setWordWrap(False)
-        self.label_21.setMargin(0)
-
-        self.verticalLayout_9.addWidget(self.label_21, 0, Qt.AlignHCenter)
-
-
-        self.verticalLayout_7.addWidget(self.frame_20)
-
 
         self.verticalLayout_6.addWidget(self.frame_13, 0, Qt.AlignTop)
 
@@ -458,8 +417,6 @@ class Ui_Chat(object):
         self.btn_config.setText("")
         self.btn_ocultar_mostrar.setText(QCoreApplication.translate("Chat", u"Mostrar membros", None))
         self.sem_internet.setText(QCoreApplication.translate("Chat", u"Verifique sua conex\u00e3o com a internet, e reinicie o aplicativo.", None))
-        self.label_14.setText(QCoreApplication.translate("Chat", u"< Sistema >", None))
-        self.label_21.setText(QCoreApplication.translate("Chat", u"Seja Bem vindo a comunidade", None))
         self.btn_msg.setText("")
         self.input_msg.setPlaceholderText(QCoreApplication.translate("Chat", u"Nova mensagem", None))
         self.label_7.setText(QCoreApplication.translate("Chat", u"Create by:", None))

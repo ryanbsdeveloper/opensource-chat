@@ -1,12 +1,12 @@
-from http.client import FORBIDDEN
-import sys
+import sys, threading
+from urllib.parse import SplitResult
 from PySide2.QtWidgets import *
-from PySide2.QtGui import QFont, QIcon, QPixmap, QCursor, QPainter
+from PySide2.QtGui import QFont, QIcon, QPixmap, QCursor, QPainter, QColor
 from PySide2.QtCore import *
-from sqlalchemy import true
 from widgets.chat import Ui_Chat
 from widgets.conf import Ui_Conf
 from widgets.login import Ui_Login
+from widgets.carregamento import Ui_SplashScreen
 from modules.databases import database_aws, database_local
 from modules.utils import main
 
@@ -18,6 +18,12 @@ class Conf(QDialog, Ui_Conf):
         super(Conf, self).__init__(parent)
         self.setupUi(self)
         self.btn_apagar_conversas.clicked.connect(self.del_messages)
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(20)
+        self.shadow.setXOffset(0)
+        self.shadow.setYOffset(0)
+        self.shadow.setColor(QColor(0, 0, 0, 150))
+        self.setGraphicsEffect(self.shadow)
 
     def del_messages(self):
         database_local.del_messages()
@@ -306,7 +312,7 @@ class Chat(QMainWindow, Ui_Chat):
                 label.setMaximumSize(QSize(16777215, 40))
                 label.setFont(font8)
                 label.setStyleSheet(u"padding:5px;\n"
-                                    "background:#34449e;color:white")
+                                    "background-color: rgb(23, 22, 93);color:white")
                 label.setScaledContents(True)
                 label.setWordWrap(True)
                 label.setMargin(0)
@@ -331,6 +337,50 @@ class Chat(QMainWindow, Ui_Chat):
 
                 verticalLayout.addWidget(label2)
                 self.verticalLayout_7.addWidget(frame)
+
+            elif message.nome == 'sistema':
+                frame_20 = QFrame()
+                frame_20.setObjectName(u"frame_20")
+                frame_20.setFrameShape(QFrame.NoFrame)
+                frame_20.setFrameShadow(QFrame.Raised)
+                verticalLayout_9 = QVBoxLayout(frame_20)
+                verticalLayout_9.setSpacing(0)
+                verticalLayout_9.setObjectName(u"verticalLayout_9")
+                verticalLayout_9.setContentsMargins(-1, 0, -1, 0)
+                label_14 = QLabel(frame_20)
+                label_14.setObjectName(u"label_14")
+                font9 = QFont()
+                font9.setPointSize(11)
+                font9.setBold(False)
+                font9.setItalic(False)
+                font9.setWeight(50)
+                font9.setStrikeOut(False)
+                label_14.setFont(font9)
+                label_14.setStyleSheet(u"color:#5f6368")
+                label_14.setText('< Sistema >')
+
+                verticalLayout_9.addWidget(label_14, 0, Qt.AlignHCenter)
+
+                label_21 = QLabel(frame_20)
+                label_21.setObjectName(u"label_21")
+                label_21.setMaximumSize(QSize(16777215, 40))
+                font10 = QFont()
+                font10.setPointSize(15)
+                font10.setBold(False)
+                font10.setWeight(50)
+                label_21.setFont(font10)
+                label_21.setStyleSheet(u"padding:5px;\n"
+        "color:white;\n"
+        "color: #fff;\n"
+        "background-color: rgb(141, 143, 218);")
+                label_21.setScaledContents(True)
+                label_21.setWordWrap(False)
+                label_21.setMargin(0)
+                label_21.setText(message.texto)
+
+                verticalLayout_9.addWidget(label_21, 0, Qt.AlignHCenter)
+                self.verticalLayout_7.addWidget(frame_20)
+
             else:
                 frame_11 = QFrame()
                 frame_11.setObjectName(u"frame_11")
@@ -440,11 +490,80 @@ class Chat(QMainWindow, Ui_Chat):
             self.btn_msg.setDisabled(False)
             self.input_msg.setDisabled(False)
 
+counter = 0
+class SplashScreen(QMainWindow, Ui_SplashScreen):
+    def __init__(self):
+        super(SplashScreen, self).__init__()
+        self.setupUi(self)
+
+        ## UI ==> INTERFACE CODES
+        ########################################################################
+
+        ## REMOVE TITLE BAR
+        self.setWindowFlag(Qt.FramelessWindowHint)
+        self.setAttribute(Qt.WA_TranslucentBackground)
+
+
+        ## DROP SHADOW EFFECT
+        self.shadow = QGraphicsDropShadowEffect(self)
+        self.shadow.setBlurRadius(20)
+        self.shadow.setXOffset(0)
+        self.shadow.setYOffset(0)
+        self.shadow.setColor(QColor(0, 0, 0, 150))
+        self.dropShadowFrame.setGraphicsEffect(self.shadow)
+
+        ## QTIMER ==> START
+        self.timer = QTimer()
+        self.timer.timeout.connect(self.progress)
+        # TIMER IN MILLISECONDS
+        self.timer.start(35)
+
+        # CHANGE DESCRIPTION
+
+        # Initial Text
+        self.label_description.setText("<strong>Bem vindo</strong> a comunidade")
+
+        # Change Texts
+        QTimer.singleShot(1000, lambda: self.label_description.setText("<strong>Verificando</strong> internet"))
+        QTimer.singleShot(2000, lambda: self.label_description.setText("<strong>Carregando</strong> mensagens"))
+
+
+        ## SHOW ==> MAIN WINDOW
+        ########################################################################
+        self.show()
+        ## ==> END ##
+
+    ## ==> APP FUNCTIONS
+    ########################################################################
+  
+
+    def progress(self):
+        global counter
+
+        # SET VALUE TO PROGRESS BAR
+        self.progressBar.setValue(counter)
+
+        # CLOSE SPLASH SCREE AND OPEN APP
+        if counter >= 100:
+            # STOP TIMER
+            self.label_description.setText("<strong>Abrindo o aplicativo</strong>")
+            self.timer.stop()
+
+            # SHOW MAIN WINDOW
+            self.main = Chat()
+            self.main.show()
+
+            # CLOSE SPLASH SCREEN
+            self.close()
+
+        # INCREASE COUNTER
+        counter += 1
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     if database_local.is_user():
-        window = Chat()
+        window = SplashScreen()
     else:
         window = Login()
     window.show()
