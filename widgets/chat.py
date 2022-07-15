@@ -322,7 +322,6 @@ class Ui_Chat(object):
         self.iconsaida = QLabel(self.frame_17)
         self.iconsaida.setObjectName(u"iconsaida")
         self.iconsaida.setMaximumSize(QSize(20, 20))
-        self.iconsaida.setPixmap(QPixmap(u":/icons/angles-right-solid.svg"))
         self.iconsaida.setScaledContents(True)
 
         self.horizontalLayout_11.addWidget(self.iconsaida, 0, Qt.AlignRight)
