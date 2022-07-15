@@ -1,4 +1,5 @@
 import sys, threading
+from time import sleep
 from urllib.parse import SplitResult
 from PySide2.QtWidgets import *
 from PySide2.QtGui import QFont, QIcon, QPixmap, QCursor, QPainter, QColor
@@ -97,12 +98,20 @@ class Chat(QMainWindow, Ui_Chat):
         self.btn_msg.clicked.connect(self.add_my_msg)
         self.scrollArea.verticalScrollBar().rangeChanged.connect(self.ResizeScroll)
         self.input_msg.returnPressed.connect(self.btn_msg.click)
+
         # Initial
+        self.ss15 = 10
         scroll = self.scrollArea.horizontalScrollBar()
         scroll.setDisabled(True)
         self.check_net()
+        self.list_members()
         self.developer_log()
         self.messages()
+
+        # Time
+        timer = QTimer(self)
+        timer.timeout.connect(self.check_net)
+        timer.start(1500)
 
         # Others windows
         self.conf = Conf(self)
@@ -111,6 +120,8 @@ class Chat(QMainWindow, Ui_Chat):
         # Hide members
         self.btn_ocultar_mostrar.clicked.connect(self.animation_members)
 
+        self.timer2 = QTimer(self)
+        self.timer2.timeout.connect(self.hide_segundos)
     # Users community
     def users(self):
         users = database_aws.list_users(True)
@@ -232,6 +243,7 @@ class Chat(QMainWindow, Ui_Chat):
 
     # Add mensages
     def add_my_msg(self):
+        self.ss15 = 10
         msg = self.input_msg.text()
 
         frame = QFrame()
@@ -253,7 +265,7 @@ class Chat(QMainWindow, Ui_Chat):
         label.setMaximumSize(QSize(16777215, 40))
         label.setFont(font8)
         label.setStyleSheet(u"padding:5px;\n"
-                            "background:#34449e;color:white")
+                            "background-color: rgb(23, 22, 93);color:white")
         label.setScaledContents(True)
         label.setWordWrap(False)
         label.setMargin(0)
@@ -272,18 +284,47 @@ class Chat(QMainWindow, Ui_Chat):
         label2.setAlignment(Qt.AlignRight)
 
         if msg:
-            label.setText(QCoreApplication.translate(
-                "MainWindow", f"{msg}", None))
-            verticalLayout.addWidget(label)
-            verticalLayout.addWidget(label2)
+            if len(msg) < 60:
 
-            self.verticalLayout_7.addWidget(frame)
-            self.input_msg.setText('')
+                label.setText(QCoreApplication.translate(
+                    "MainWindow", f"{msg}", None))
+                verticalLayout.addWidget(label)
+                verticalLayout.addWidget(label2)
 
-            # add db
-            user = database_local.is_user(True)
-            database_local.add_messages(
-                msg, main.hour(), user.nome, user.tecnologia)
+                self.verticalLayout_7.addWidget(frame)
+                self.input_msg.setText('')
+
+                # add db
+                user = database_local.is_user(True)
+                database_local.add_messages(
+                    msg, main.hour(), user.nome, user.tecnologia)
+                
+                # next msg
+                self.hide_segundos()
+            else:
+                self.saida_msg.setText('Mensagem muito grande, divida ela e tente novamente')
+                self.saida_msg.setStyleSheet('color:rgb(246, 97, 81);')
+
+
+    def hide_segundos(self):
+        self.timer2.start(1000)
+        self.saida_msg.setText(f'{self.ss15} segundos para proxima mensagem.')
+        self.saida_msg.setStyleSheet('color:#5f6368')
+
+        if self.ss15 == 0:
+            self.timer2.stop()
+            self.input_msg.setDisabled(False)
+            self.btn_msg.setDisabled(False)     
+            self.iconsaida.setPixmap(QPixmap(u":/icons/angles-d.svg"))
+            self.saida_msg.setText('')
+            self.ss15 = 10
+        else:
+            self.input_msg.setDisabled(True)
+            self.iconsaida.setPixmap(QPixmap(u":/icons/angles-right-solid.svg"))
+            self.btn_msg.setDisabled(True)
+            self.developer.click()
+
+        self.ss15 = self.ss15 - 1
 
     # saved messages
     def messages(self):
@@ -453,43 +494,71 @@ class Chat(QMainWindow, Ui_Chat):
         self.conf.exec_()
 
     # Animation view members
-    def animation_members(self):
+    def animation_members(self, fechado=False):
         width = self.frame_12.width()
 
-        if width < 200:
-            extend_width = 390
-            icon3 = QIcon()
-            icon3.addFile(u":/icons/eye-slash-solid.svg",
-                          QSize(), QIcon.Normal, QIcon.Off)
-            self.btn_ocultar_mostrar.setIcon(icon3)
-            self.btn_ocultar_mostrar.setText('Ocultar membros')
-
-        else:
+        if width == 350 or fechado:
             extend_width = 0
             icon3 = QIcon()
             icon3.addFile(u":/icons/eye-solid.svg",
                           QSize(), QIcon.Normal, QIcon.Off)
             self.btn_ocultar_mostrar.setIcon(icon3)
             self.btn_ocultar_mostrar.setText('Mostrar membros')
+        else:
+            extend_width = 350
+            icon3 = QIcon()
+            icon3.addFile(u":/icons/eye-slash-solid.svg",
+                          QSize(), QIcon.Normal, QIcon.Off)
+            self.btn_ocultar_mostrar.setIcon(icon3)
+            self.btn_ocultar_mostrar.setText('Ocultar membros')
 
         self.animation = QPropertyAnimation(self.frame_12, b'maximumWidth')
-        self.animation.setDuration(200)
+        self.animation.setDuration(300)
         self.animation.setStartValue(width)
         self.animation.setEndValue(extend_width)
         self.animation.start()
 
+    def animation_net(self, acesso):
+        if acesso:
+            self.sem_internet.setStyleSheet(u"background-color: rgb(246, 97, 81);\n"
+    "color:white;\n"
+    "border-radius:5px")        
+        else:
+            self.sem_internet.setStyleSheet(u"background-color: rgba(0, 0, 0, 0);\n"
+            "color:rgba(0, 0, 0, 0);\n"
+            "border-radius:5px")
+    
     # check net
     def check_net(self):
         if not main.access_internet():
-            self.sem_internet.show()
+            self.animation_net(True)
+            self.animation_members(True)
+
             self.btn_msg.setDisabled(True)
+            self.btn_ocultar_mostrar.setDisabled(True)
             self.input_msg.setDisabled(True)
         else:
-            self.users()
-            self.sem_internet.hide()
+            self.animation_net(False)
+            self.btn_ocultar_mostrar.setDisabled(False)
             self.btn_msg.setDisabled(False)
             self.input_msg.setDisabled(False)
 
+    def list_members(self):
+        if main.access_internet():
+            self.users()
+        else:
+            font2 = QFont()
+            font2.setPointSize(10)
+            font2.setBold(True)
+            font2.setWeight(75)
+            self.label_4.hide()
+            self.label_2.setFont(font2)
+            self.label_2.setStyleSheet('color: rgb(246, 97, 81)')
+            self.label_2.setText('Para mostrar membros, reinicie o aplicativo.')
+
+    def chat_messages(self):
+        pass
+    
 counter = 0
 class SplashScreen(QMainWindow, Ui_SplashScreen):
     def __init__(self):

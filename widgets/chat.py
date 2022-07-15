@@ -43,10 +43,10 @@ class Ui_Chat(object):
         self.frame_7.setFrameShadow(QFrame.Raised)
         self.formLayout = QFormLayout(self.frame_7)
         self.formLayout.setObjectName(u"formLayout")
-        self.formLayout.setContentsMargins(9, -1, 9, 0)
+        self.formLayout.setContentsMargins(9, 0, 9, 0)
         self.frame_10 = QFrame(self.frame_7)
         self.frame_10.setObjectName(u"frame_10")
-        self.frame_10.setMinimumSize(QSize(0, 120))
+        self.frame_10.setMinimumSize(QSize(0, 78))
         self.frame_10.setFrameShape(QFrame.NoFrame)
         self.frame_10.setFrameShadow(QFrame.Raised)
         self.horizontalLayout_8 = QHBoxLayout(self.frame_10)
@@ -92,7 +92,7 @@ class Ui_Chat(object):
         self.horizontalLayout_8.addWidget(self.label_6)
 
 
-        self.formLayout.setWidget(0, QFormLayout.LabelRole, self.frame_10)
+        self.formLayout.setWidget(1, QFormLayout.LabelRole, self.frame_10)
 
         self.frame_2 = QFrame(self.frame_7)
         self.frame_2.setObjectName(u"frame_2")
@@ -155,7 +155,7 @@ class Ui_Chat(object):
         self.horizontalLayout_5.addWidget(self.btn_config)
 
 
-        self.formLayout.setWidget(0, QFormLayout.FieldRole, self.frame_2)
+        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.frame_2)
 
         self.frame_16 = QFrame(self.frame_7)
         self.frame_16.setObjectName(u"frame_16")
@@ -181,11 +181,11 @@ class Ui_Chat(object):
         self.verticalLayout_10.addWidget(self.btn_ocultar_mostrar, 0, Qt.AlignRight)
 
 
-        self.formLayout.setWidget(1, QFormLayout.FieldRole, self.frame_16)
+        self.formLayout.setWidget(2, QFormLayout.FieldRole, self.frame_16)
 
         self.sem_internet = QLabel(self.frame_7)
         self.sem_internet.setObjectName(u"sem_internet")
-        self.sem_internet.setMaximumSize(QSize(1000000, 16777215))
+        self.sem_internet.setMaximumSize(QSize(1000000, 50))
         font7 = QFont()
         font7.setPointSize(12)
         self.sem_internet.setFont(font7)
@@ -195,7 +195,7 @@ class Ui_Chat(object):
         self.sem_internet.setAlignment(Qt.AlignCenter)
         self.sem_internet.setMargin(2)
 
-        self.formLayout.setWidget(2, QFormLayout.SpanningRole, self.sem_internet)
+        self.formLayout.setWidget(0, QFormLayout.SpanningRole, self.sem_internet)
 
 
         self.horizontalLayout_3.addWidget(self.frame_7)
@@ -214,7 +214,7 @@ class Ui_Chat(object):
         self.frame.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.frame)
         self.horizontalLayout.setObjectName(u"horizontalLayout")
-        self.horizontalLayout.setContentsMargins(9, 0, 4, 9)
+        self.horizontalLayout.setContentsMargins(9, 0, 4, 0)
         self.frame_3 = QFrame(self.frame)
         self.frame_3.setObjectName(u"frame_3")
         self.frame_3.setMinimumSize(QSize(0, 0))
@@ -244,7 +244,7 @@ class Ui_Chat(object):
         self.scrollArea.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1151, 495))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1151, 498))
         self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.frame_13 = QFrame(self.scrollAreaWidgetContents_2)
@@ -303,6 +303,75 @@ class Ui_Chat(object):
 
         self.verticalLayout_2.addWidget(self.frame_5)
 
+        self.frame_11 = QFrame(self.frame_3)
+        self.frame_11.setObjectName(u"frame_11")
+        self.frame_11.setFrameShape(QFrame.NoFrame)
+        self.frame_11.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_10 = QHBoxLayout(self.frame_11)
+        self.horizontalLayout_10.setSpacing(0)
+        self.horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+        self.horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
+        self.frame_17 = QFrame(self.frame_11)
+        self.frame_17.setObjectName(u"frame_17")
+        self.frame_17.setFrameShape(QFrame.NoFrame)
+        self.frame_17.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_11 = QHBoxLayout(self.frame_17)
+        self.horizontalLayout_11.setSpacing(5)
+        self.horizontalLayout_11.setObjectName(u"horizontalLayout_11")
+        self.horizontalLayout_11.setContentsMargins(0, 0, 0, 0)
+        self.iconsaida = QLabel(self.frame_17)
+        self.iconsaida.setObjectName(u"iconsaida")
+        self.iconsaida.setMaximumSize(QSize(20, 20))
+        self.iconsaida.setPixmap(QPixmap(u":/icons/angles-right-solid.svg"))
+        self.iconsaida.setScaledContents(True)
+
+        self.horizontalLayout_11.addWidget(self.iconsaida, 0, Qt.AlignRight)
+
+        self.saida_msg = QLabel(self.frame_17)
+        self.saida_msg.setObjectName(u"saida_msg")
+        self.saida_msg.setFont(font6)
+        self.saida_msg.setStyleSheet(u"color:rgb(246, 97, 81);")
+
+        self.horizontalLayout_11.addWidget(self.saida_msg, 0, Qt.AlignHCenter)
+
+
+        self.horizontalLayout_10.addWidget(self.frame_17, 0, Qt.AlignRight)
+
+        self.frame_14 = QFrame(self.frame_11)
+        self.frame_14.setObjectName(u"frame_14")
+        self.frame_14.setFrameShape(QFrame.NoFrame)
+        self.frame_14.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_2 = QHBoxLayout(self.frame_14)
+        self.horizontalLayout_2.setSpacing(5)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.label_7 = QLabel(self.frame_14)
+        self.label_7.setObjectName(u"label_7")
+        self.label_7.setStyleSheet(u"color:#5f6368")
+
+        self.horizontalLayout_2.addWidget(self.label_7)
+
+        self.label_8 = QLabel(self.frame_14)
+        self.label_8.setObjectName(u"label_8")
+        self.label_8.setMaximumSize(QSize(20, 20))
+        self.label_8.setStyleSheet(u"color:#5f6368")
+        self.label_8.setPixmap(QPixmap(u":/icons/github-brands.svg"))
+        self.label_8.setScaledContents(True)
+
+        self.horizontalLayout_2.addWidget(self.label_8)
+
+        self.label_9 = QLabel(self.frame_14)
+        self.label_9.setObjectName(u"label_9")
+        self.label_9.setStyleSheet(u"color:#5f6368")
+
+        self.horizontalLayout_2.addWidget(self.label_9)
+
+
+        self.horizontalLayout_10.addWidget(self.frame_14, 0, Qt.AlignRight)
+
+
+        self.verticalLayout_2.addWidget(self.frame_11)
+
         self.frame_9 = QFrame(self.frame_3)
         self.frame_9.setObjectName(u"frame_9")
         self.frame_9.setMaximumSize(QSize(16777215, 20))
@@ -311,27 +380,6 @@ class Ui_Chat(object):
         self.horizontalLayout_7 = QHBoxLayout(self.frame_9)
         self.horizontalLayout_7.setObjectName(u"horizontalLayout_7")
         self.horizontalLayout_7.setContentsMargins(0, 0, 0, 0)
-        self.label_7 = QLabel(self.frame_9)
-        self.label_7.setObjectName(u"label_7")
-        self.label_7.setStyleSheet(u"color:#5f6368")
-
-        self.horizontalLayout_7.addWidget(self.label_7)
-
-        self.label_8 = QLabel(self.frame_9)
-        self.label_8.setObjectName(u"label_8")
-        self.label_8.setMaximumSize(QSize(20, 20))
-        self.label_8.setStyleSheet(u"color:#5f6368")
-        self.label_8.setPixmap(QPixmap(u":/icons/github-brands.svg"))
-        self.label_8.setScaledContents(True)
-
-        self.horizontalLayout_7.addWidget(self.label_8)
-
-        self.label_9 = QLabel(self.frame_9)
-        self.label_9.setObjectName(u"label_9")
-        self.label_9.setStyleSheet(u"color:#5f6368")
-
-        self.horizontalLayout_7.addWidget(self.label_9)
-
 
         self.verticalLayout_2.addWidget(self.frame_9, 0, Qt.AlignRight)
 
@@ -416,9 +464,11 @@ class Ui_Chat(object):
 #endif // QT_CONFIG(accessibility)
         self.btn_config.setText("")
         self.btn_ocultar_mostrar.setText(QCoreApplication.translate("Chat", u"Mostrar membros", None))
-        self.sem_internet.setText(QCoreApplication.translate("Chat", u"Verifique sua conex\u00e3o com a internet, e reinicie o aplicativo.", None))
+        self.sem_internet.setText(QCoreApplication.translate("Chat", u"Verifique sua conex\u00e3o com a internet.", None))
         self.btn_msg.setText("")
         self.input_msg.setPlaceholderText(QCoreApplication.translate("Chat", u"Nova mensagem", None))
+        self.iconsaida.setText("")
+        self.saida_msg.setText("")
         self.label_7.setText(QCoreApplication.translate("Chat", u"Create by:", None))
         self.label_8.setText("")
         self.label_9.setText(QCoreApplication.translate("Chat", u"ryanbsdeveloper", None))

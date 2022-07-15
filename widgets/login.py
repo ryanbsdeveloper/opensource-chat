@@ -26,7 +26,23 @@ class Ui_Login(object):
         Login.setStyleSheet(u"background-color: rgb(43, 43, 43);")
         Login.setModal(True)
         self.verticalLayout = QVBoxLayout(Login)
+        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName(u"verticalLayout")
+        self.verticalLayout.setContentsMargins(9, 0, -1, 0)
+        self.sem_internet = QLabel(Login)
+        self.sem_internet.setObjectName(u"sem_internet")
+        self.sem_internet.setMaximumSize(QSize(1000000, 16777215))
+        font = QFont()
+        font.setPointSize(12)
+        self.sem_internet.setFont(font)
+        self.sem_internet.setStyleSheet(u"background-color: rgb(246, 97, 81);\n"
+"color:white;\n"
+"border-radius:5px")
+        self.sem_internet.setAlignment(Qt.AlignCenter)
+        self.sem_internet.setMargin(2)
+
+        self.verticalLayout.addWidget(self.sem_internet)
+
         self.frame = QFrame(Login)
         self.frame.setObjectName(u"frame")
         self.frame.setMinimumSize(QSize(604, 501))
@@ -36,15 +52,15 @@ class Ui_Login(object):
         self.verticalLayout_2 = QVBoxLayout(self.frame)
         self.verticalLayout_2.setSpacing(9)
         self.verticalLayout_2.setObjectName(u"verticalLayout_2")
-        self.verticalLayout_2.setContentsMargins(-1, -1, -1, 0)
+        self.verticalLayout_2.setContentsMargins(-1, 7, -1, 13)
         self.label = QLabel(self.frame)
         self.label.setObjectName(u"label")
-        self.label.setMaximumSize(QSize(16777215, 20))
-        font = QFont()
-        font.setPointSize(14)
-        font.setBold(True)
-        font.setWeight(75)
-        self.label.setFont(font)
+        self.label.setMaximumSize(QSize(16777215, 23))
+        font1 = QFont()
+        font1.setPointSize(15)
+        font1.setBold(True)
+        font1.setWeight(75)
+        self.label.setFont(font1)
         self.label.setStyleSheet(u"color:white")
         self.label.setAlignment(Qt.AlignCenter)
 
@@ -70,9 +86,9 @@ class Ui_Login(object):
         self.label_2 = QLabel(self.frame_3)
         self.label_2.setObjectName(u"label_2")
         self.label_2.setMaximumSize(QSize(16777215, 20))
-        font1 = QFont()
-        font1.setPointSize(15)
-        self.label_2.setFont(font1)
+        font2 = QFont()
+        font2.setPointSize(15)
+        self.label_2.setFont(font2)
         self.label_2.setStyleSheet(u"color:white")
         self.label_2.setAlignment(Qt.AlignCenter)
 
@@ -80,9 +96,9 @@ class Ui_Login(object):
 
         self.label_8 = QLabel(self.frame_3)
         self.label_8.setObjectName(u"label_8")
-        font2 = QFont()
-        font2.setPointSize(11)
-        self.label_8.setFont(font2)
+        font3 = QFont()
+        font3.setPointSize(11)
+        self.label_8.setFont(font3)
         self.label_8.setStyleSheet(u"color:#5f6368")
         self.label_8.setAlignment(Qt.AlignCenter)
 
@@ -91,9 +107,9 @@ class Ui_Login(object):
         self.input_nome = QLineEdit(self.frame_3)
         self.input_nome.setObjectName(u"input_nome")
         self.input_nome.setMinimumSize(QSize(300, 0))
-        font3 = QFont()
-        font3.setPointSize(13)
-        self.input_nome.setFont(font3)
+        font4 = QFont()
+        font4.setPointSize(13)
+        self.input_nome.setFont(font4)
         self.input_nome.setStyleSheet(u"QLineEdit{\n"
 "padding:10px;color:white;outline:0;border:1px solid  rgb(30, 30, 30)\n"
 "}\n"
@@ -105,9 +121,7 @@ class Ui_Login(object):
 
         self.erro_nome = QLabel(self.frame_3)
         self.erro_nome.setObjectName(u"erro_nome")
-        font4 = QFont()
-        font4.setPointSize(12)
-        self.erro_nome.setFont(font4)
+        self.erro_nome.setFont(font)
         self.erro_nome.setStyleSheet(u"color: rgb(237, 51, 59);")
         self.erro_nome.setAlignment(Qt.AlignCenter)
 
@@ -123,10 +137,11 @@ class Ui_Login(object):
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.verticalLayout_5 = QVBoxLayout(self.frame_4)
         self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(-1, -1, -1, 0)
         self.label_3 = QLabel(self.frame_4)
         self.label_3.setObjectName(u"label_3")
         self.label_3.setMaximumSize(QSize(16777215, 24))
-        self.label_3.setFont(font1)
+        self.label_3.setFont(font2)
         self.label_3.setStyleSheet(u"color:white")
         self.label_3.setAlignment(Qt.AlignCenter)
 
@@ -134,7 +149,7 @@ class Ui_Login(object):
 
         self.label_9 = QLabel(self.frame_4)
         self.label_9.setObjectName(u"label_9")
-        self.label_9.setFont(font2)
+        self.label_9.setFont(font3)
         self.label_9.setStyleSheet(u"color:#5f6368")
         self.label_9.setAlignment(Qt.AlignCenter)
 
@@ -364,7 +379,11 @@ class Ui_Login(object):
         self.tec_escolhida = QPushButton(self.frame_7)
         self.tec_escolhida.setObjectName(u"tec_escolhida")
         self.tec_escolhida.setMinimumSize(QSize(0, 41))
-        self.tec_escolhida.setFont(font)
+        font7 = QFont()
+        font7.setPointSize(14)
+        font7.setBold(True)
+        font7.setWeight(75)
+        self.tec_escolhida.setFont(font7)
         self.tec_escolhida.setStyleSheet(u"border:0;color:white")
         self.tec_escolhida.setIconSize(QSize(45, 32))
 
@@ -375,7 +394,7 @@ class Ui_Login(object):
 
         self.erro_tecnologia = QLabel(self.frame_4)
         self.erro_tecnologia.setObjectName(u"erro_tecnologia")
-        self.erro_tecnologia.setFont(font4)
+        self.erro_tecnologia.setFont(font)
         self.erro_tecnologia.setStyleSheet(u"color: rgb(237, 51, 59);")
         self.erro_tecnologia.setAlignment(Qt.AlignCenter)
 
@@ -398,7 +417,7 @@ class Ui_Login(object):
         self.btn_comecar = QPushButton(self.frame_6)
         self.btn_comecar.setObjectName(u"btn_comecar")
         self.btn_comecar.setMinimumSize(QSize(150, 0))
-        self.btn_comecar.setFont(font)
+        self.btn_comecar.setFont(font7)
         self.btn_comecar.setCursor(QCursor(Qt.PointingHandCursor))
         self.btn_comecar.setStyleSheet(u"color: rgb(255, 255, 255);\n"
 "background-color: rgb(45, 53, 211);\n"
@@ -406,7 +425,7 @@ class Ui_Login(object):
 "padding:10px;\n"
 "border-radius:10px;outline:0")
 
-        self.verticalLayout_6.addWidget(self.btn_comecar)
+        self.verticalLayout_6.addWidget(self.btn_comecar, 0, Qt.AlignTop)
 
 
         self.verticalLayout_2.addWidget(self.frame_6, 0, Qt.AlignHCenter|Qt.AlignVCenter)
@@ -422,6 +441,7 @@ class Ui_Login(object):
 
     def retranslateUi(self, Login):
         Login.setWindowTitle(QCoreApplication.translate("Login", u"Chat developer ", None))
+        self.sem_internet.setText(QCoreApplication.translate("Login", u"Verifique sua conex\u00e3o com a internet.", None))
         self.label.setText(QCoreApplication.translate("Login", u"Configura\u00e7\u00e3o inicial", None))
         self.label_2.setText(QCoreApplication.translate("Login", u"Nome de desenvolvedor", None))
         self.label_8.setText(QCoreApplication.translate("Login", u"Esse nome n\u00e3o poder\u00e1 ser alterado posteriormente", None))

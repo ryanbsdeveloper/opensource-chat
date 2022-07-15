@@ -70,7 +70,7 @@ color:white;
 border-radius:5px</string>
      </property>
      <property name="text">
-      <string>Verifique sua conexão com a internet, e reinicie o aplicativo.</string>
+      <string>Verifique sua conexão com a internet.</string>
      </property>
      <property name="alignment">
       <set>Qt::AlignCenter</set>
