@@ -133,6 +133,7 @@ class Chat(QMainWindow, Ui_Chat):
         self.list_members()
         self.developer_log()
         self.messages()
+        self.chat_messages()
 
         # Time
         timer = QTimer(self)
@@ -330,7 +331,6 @@ class Chat(QMainWindow, Ui_Chat):
             else:
                 self.saida_msg.setText('Mensagem muito grande, divida ela e tente novamente')
                 self.saida_msg.setStyleSheet('color:rgb(246, 97, 81);')
-
 
     def hide_segundos(self):
         self.timer2.start(1000)
