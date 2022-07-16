@@ -172,7 +172,7 @@ class Ui_Chat(object):
         font6.setWeight(75)
         self.btn_ocultar_mostrar.setFont(font6)
         self.btn_ocultar_mostrar.setCursor(QCursor(Qt.PointingHandCursor))
-        self.btn_ocultar_mostrar.setStyleSheet(u"color:#fff;border:0")
+        self.btn_ocultar_mostrar.setStyleSheet(u"color:#fff;border:0;outline:0")
         icon3 = QIcon()
         icon3.addFile(u":/icons/eye-solid.svg", QSize(), QIcon.Normal, QIcon.Off)
         self.btn_ocultar_mostrar.setIcon(icon3)
@@ -418,6 +418,74 @@ class Ui_Chat(object):
 
         self.verticalLayout_4.addWidget(self.frame_15, 0, Qt.AlignHCenter)
 
+        self.frame_19 = QFrame(self.frame_12)
+        self.frame_19.setObjectName(u"frame_19")
+        self.frame_19.setStyleSheet(u"border-bottom:1px solid #5f6368")
+        self.frame_19.setFrameShape(QFrame.NoFrame)
+        self.frame_19.setFrameShadow(QFrame.Raised)
+        self.verticalLayout_5 = QVBoxLayout(self.frame_19)
+        self.verticalLayout_5.setSpacing(0)
+        self.verticalLayout_5.setObjectName(u"verticalLayout_5")
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 1)
+        self.frame_20 = QFrame(self.frame_19)
+        self.frame_20.setObjectName(u"frame_20")
+        self.frame_20.setStyleSheet(u"border:0")
+        self.frame_20.setFrameShape(QFrame.NoFrame)
+        self.frame_20.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_13 = QHBoxLayout(self.frame_20)
+        self.horizontalLayout_13.setObjectName(u"horizontalLayout_13")
+        self.horizontalLayout_13.setContentsMargins(0, 0, 75, 0)
+        self.label_14 = QLabel(self.frame_20)
+        self.label_14.setObjectName(u"label_14")
+        self.label_14.setMaximumSize(QSize(30, 25))
+        self.label_14.setPixmap(QPixmap(u":/icons/crown-solid.svg"))
+        self.label_14.setScaledContents(True)
+
+        self.horizontalLayout_13.addWidget(self.label_14)
+
+
+        self.verticalLayout_5.addWidget(self.frame_20, 0, Qt.AlignHCenter)
+
+        self.frame_18 = QFrame(self.frame_19)
+        self.frame_18.setObjectName(u"frame_18")
+        self.frame_18.setStyleSheet(u"border:0")
+        self.frame_18.setFrameShape(QFrame.NoFrame)
+        self.frame_18.setFrameShadow(QFrame.Raised)
+        self.horizontalLayout_12 = QHBoxLayout(self.frame_18)
+        self.horizontalLayout_12.setObjectName(u"horizontalLayout_12")
+        self.horizontalLayout_12.setContentsMargins(-1, 0, -1, -1)
+        self.label_10 = QLabel(self.frame_18)
+        self.label_10.setObjectName(u"label_10")
+        font9 = QFont()
+        font9.setPointSize(13)
+        font9.setBold(True)
+        font9.setWeight(75)
+        self.label_10.setFont(font9)
+        self.label_10.setStyleSheet(u"color:white")
+
+        self.horizontalLayout_12.addWidget(self.label_10)
+
+        self.label_11 = QLabel(self.frame_18)
+        self.label_11.setObjectName(u"label_11")
+        self.label_11.setFont(font2)
+        self.label_11.setStyleSheet(u"color: rgb(206, 153, 25);")
+
+        self.horizontalLayout_12.addWidget(self.label_11)
+
+        self.label_12 = QLabel(self.frame_18)
+        self.label_12.setObjectName(u"label_12")
+        self.label_12.setMaximumSize(QSize(25, 25))
+        self.label_12.setPixmap(QPixmap(u":/icons/python"))
+        self.label_12.setScaledContents(True)
+
+        self.horizontalLayout_12.addWidget(self.label_12)
+
+
+        self.verticalLayout_5.addWidget(self.frame_18, 0, Qt.AlignLeft)
+
+
+        self.verticalLayout_4.addWidget(self.frame_19)
+
         self.scrollArea_2 = QScrollArea(self.frame_12)
         self.scrollArea_2.setObjectName(u"scrollArea_2")
         self.scrollArea_2.setFrameShape(QFrame.NoFrame)
@@ -473,5 +541,9 @@ class Ui_Chat(object):
         self.label_9.setText(QCoreApplication.translate("Chat", u"ryanbsdeveloper", None))
         self.label_4.setText("")
         self.label_2.setText(QCoreApplication.translate("Chat", u"Membros da comunidade", None))
+        self.label_14.setText("")
+        self.label_10.setText(QCoreApplication.translate("Chat", u"Developer:", None))
+        self.label_11.setText(QCoreApplication.translate("Chat", u"ryanbs", None))
+        self.label_12.setText("")
     # retranslateUi
 

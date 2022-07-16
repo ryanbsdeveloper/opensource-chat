@@ -1,3 +1,4 @@
+from re import S
 import sys, threading
 from time import sleep
 from urllib.parse import SplitResult
@@ -26,6 +27,9 @@ class Conf(QDialog, Ui_Conf):
         self.shadow.setColor(QColor(0, 0, 0, 150))
         self.setGraphicsEffect(self.shadow)
 
+        # buttons
+        self.btn_feedback.clicked.connect(self.send_feedback)
+
     def del_messages(self):
         database_local.del_messages()
         self.close()
@@ -37,6 +41,21 @@ class Conf(QDialog, Ui_Conf):
             else:
                 self.clearLayout(item.layout())
 
+    def send_feedback(self):
+        texto = self.texto_feedback.toPlainText()
+        user = database_local.is_user(True)
+        if len(texto) > 1999 or len(texto) == 0 :
+            self.saida.setStyleSheet('color:rgb(246, 97, 81);')
+            self.saida.setText('Escreva entre 1 e 2000 caracteres.')
+            return
+        try:
+            database_aws.add_feedback(user.nome, texto)
+        except:
+            self.saida.setStyleSheet('color:rgb(246, 97, 81);')
+            self.saida.setText('Sem internet ou erro no banco de dados')
+        else:
+            self.saida.setText('Feedback enviado com sucesso.')
+            self.texto_feedback.setPlainText('')
 
 class Login(QDialog, Ui_Login):
     def __init__(self, parent=None):
@@ -98,6 +117,13 @@ class Chat(QMainWindow, Ui_Chat):
         self.btn_msg.clicked.connect(self.add_my_msg)
         self.scrollArea.verticalScrollBar().rangeChanged.connect(self.ResizeScroll)
         self.input_msg.returnPressed.connect(self.btn_msg.click)
+
+        global window_obj
+        window_obj = self
+        action_hide.triggered.connect(lambda: self.hide())
+        action_show.triggered.connect(lambda: self.showNormal())
+        self.btn_msg.clicked.connect(lambda: notification(self, tray))
+
 
         # Initial
         self.ss15 = 10
@@ -513,7 +539,7 @@ class Chat(QMainWindow, Ui_Chat):
             self.btn_ocultar_mostrar.setText('Ocultar membros')
 
         self.animation = QPropertyAnimation(self.frame_12, b'maximumWidth')
-        self.animation.setDuration(300)
+        self.animation.setDuration(150)
         self.animation.setStartValue(width)
         self.animation.setEndValue(extend_width)
         self.animation.start()
@@ -559,6 +585,7 @@ class Chat(QMainWindow, Ui_Chat):
     def chat_messages(self):
         pass
     
+
 counter = 0
 class SplashScreen(QMainWindow, Ui_SplashScreen):
     def __init__(self):
@@ -628,12 +655,53 @@ class SplashScreen(QMainWindow, Ui_SplashScreen):
         # INCREASE COUNTER
         counter += 1
 
+def notification(self, tray: QSystemTrayIcon):
+    notificationTitle = 'Chat developers'
+    notificationMessage = 'Nova mensagem'
+    icon = QIcon(u":/icons/logo_chat.png")
+    duration = 3 * 1000 #3 seconds
+
+    tray.showMessage(notificationTitle, notificationMessage, icon, duration)
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     if database_local.is_user():
         window = SplashScreen()
+        if not QSystemTrayIcon.isSystemTrayAvailable():
+            QMessageBox.critical(None, "Notificações", "Não foi possível enviar notificações.")
+            sys.exit(1)
+            ########################################################################
+        ## Do Not completely exit the app when the last window is closed, 
+        ## Change value to true if you want to fully exit the app
+        ########################################################################
+        app.setQuitOnLastWindowClosed(False)
+
+
+        tray = QSystemTrayIcon(QIcon(u":/icons/logo_chat.png"), app)
+
+        menu = QMenu()
+
+        # action_tray_message = QAction("Show a message from tray")
+        # action_tray_message.triggered.connect(lambda: notification(window_obj, tray))
+        # menu.addAction(action_tray_message)
+
+        action_hide = QAction("Ocultar Janela")
+        menu.addAction(action_hide)
+
+        action_show = QAction("Mostrar janela")
+        menu.addAction(action_show)
+     
+        action_exit = QAction("Sair")
+        action_exit.triggered.connect(app.exit)
+        menu.addAction(action_exit)
+
+        tray.setContextMenu(menu)
+        
+        tray.show()
+
     else:
         window = Login()
+
     window.show()
     sys.exit(app.exec_())

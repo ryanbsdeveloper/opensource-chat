@@ -26,6 +26,13 @@ class User(Base):
     acesso = sql.Column(sql.Boolean, index=True)
 
 
+class FeedBack(Base):
+    __tablename__ = "feedbacks"
+
+    id = sql.Column(sql.Integer, index=True, primary_key=True)
+    nome = sql.Column(sql.String(50), index=True)
+    texto = sql.Column(sql.String(2000), index=True)
+
 
 def add_tables():
     Base.metadata.create_all(bind=engine)
@@ -42,7 +49,6 @@ def add_user(nome, tecnologia, online, reports, acesso):
     session.commit()
     session.flush()
 
-
 def list_users(completo=None):
     query = session.query(User).all()
     session.commit()
@@ -55,4 +61,13 @@ def list_users(completo=None):
             users.append(user.nome)
 
     return users
+
+def add_feedback(nome, texto):
+    dados = FeedBack(
+        nome=nome,
+        texto=texto)
+
+    session.add(dados)
+    session.commit()
+    session.flush()
 

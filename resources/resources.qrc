@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="icons">
+    <file>crown-solid.svg</file>
     <file>angles-right-solid.svg</file>
     <file>fundo.jpg</file>
     <file>eye-solid.svg</file>

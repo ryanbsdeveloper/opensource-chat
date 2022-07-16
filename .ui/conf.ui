@@ -10,13 +10,13 @@
     <x>0</x>
     <y>0</y>
     <width>479</width>
-    <height>200</height>
+    <height>304</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
     <width>479</width>
-    <height>200</height>
+    <height>304</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -63,6 +63,9 @@
       <enum>QFrame::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_2">
+      <property name="spacing">
+       <number>10</number>
+      </property>
       <property name="topMargin">
        <number>0</number>
       </property>
@@ -105,7 +108,7 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <property name="spacing">
-          <number>0</number>
+          <number>21</number>
          </property>
          <property name="leftMargin">
           <number>0</number>
@@ -135,7 +138,7 @@
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_4">
             <property name="spacing">
-             <number>0</number>
+             <number>2</number>
             </property>
             <property name="leftMargin">
              <number>0</number>
@@ -149,7 +152,7 @@
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item>
+            <item alignment="Qt::AlignHCenter">
              <widget class="QLabel" name="label_2">
               <property name="font">
                <font>
@@ -174,25 +177,32 @@
               </property>
               <property name="font">
                <font>
-                <pointsize>12</pointsize>
-                <weight>75</weight>
-                <bold>true</bold>
+                <pointsize>13</pointsize>
+                <weight>50</weight>
+                <bold>false</bold>
                </font>
               </property>
               <property name="cursor">
                <cursorShape>PointingHandCursor</cursorShape>
+              </property>
+              <property name="toolTip">
+               <string/>
+              </property>
+              <property name="whatsThis">
+               <string/>
               </property>
               <property name="styleSheet">
                <string notr="true">
 
 QPushButton{
 background-color:#5f6368;
-border:1px solid rgb(237, 51, 59);
+border:1px solid ;
 border-radius:10px;
 outline:0
 }
 QPushButton:hover{
 color:rgb(237, 51, 59);
+border:1px solid rgb(237, 51, 59);
 }</string>
               </property>
               <property name="text">
@@ -208,7 +218,7 @@ color:rgb(237, 51, 59);
            <property name="maximumSize">
             <size>
              <width>16777215</width>
-             <height>30</height>
+             <height>1100</height>
             </size>
            </property>
            <property name="frameShape">
@@ -219,7 +229,7 @@ color:rgb(237, 51, 59);
            </property>
            <layout class="QVBoxLayout" name="verticalLayout_5">
             <property name="spacing">
-             <number>0</number>
+             <number>3</number>
             </property>
             <property name="leftMargin">
              <number>0</number>
@@ -233,22 +243,117 @@ color:rgb(237, 51, 59);
             <property name="bottomMargin">
              <number>0</number>
             </property>
-            <item>
-             <widget class="QCheckBox" name="checkBox_notificacoes">
+            <item alignment="Qt::AlignHCenter">
+             <widget class="QLabel" name="label_3">
               <property name="font">
                <font>
                 <pointsize>12</pointsize>
                </font>
               </property>
               <property name="styleSheet">
-               <string notr="true">
-QCheckBox{
-color:white;outline:0
-}</string>
+               <string notr="true">color:white</string>
               </property>
               <property name="text">
-               <string>Desativar notificações</string>
+               <string>Enviar feedback do aplicativo ao desenvolvedor.</string>
               </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QTextEdit" name="texto_feedback">
+              <property name="styleSheet">
+               <string notr="true">
+QTextEdit{
+padding:3px;color:white;
+border-radius:5px;border:1px solid gray;
+outline:0
+}
+QTextEdit:focus{
+border:1px solid rgb(32, 47, 177)
+}</string>
+              </property>
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QFrame" name="frame_5">
+              <property name="frameShape">
+               <enum>QFrame::NoFrame</enum>
+              </property>
+              <property name="frameShadow">
+               <enum>QFrame::Raised</enum>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout">
+               <property name="spacing">
+                <number>0</number>
+               </property>
+               <property name="leftMargin">
+                <number>0</number>
+               </property>
+               <property name="topMargin">
+                <number>0</number>
+               </property>
+               <property name="rightMargin">
+                <number>0</number>
+               </property>
+               <property name="bottomMargin">
+                <number>0</number>
+               </property>
+               <item>
+                <widget class="QLabel" name="saida">
+                 <property name="font">
+                  <font>
+                   <pointsize>12</pointsize>
+                   <weight>75</weight>
+                   <bold>true</bold>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">color: rgb(11, 166, 15);</string>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                </widget>
+               </item>
+               <item alignment="Qt::AlignRight">
+                <widget class="QPushButton" name="btn_feedback">
+                 <property name="font">
+                  <font>
+                   <pointsize>13</pointsize>
+                   <weight>50</weight>
+                   <bold>false</bold>
+                  </font>
+                 </property>
+                 <property name="cursor">
+                  <cursorShape>PointingHandCursor</cursorShape>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">QPushButton{
+border-radius:10px;
+padding:8px;
+outline:0;
+color:white
+}
+</string>
+                 </property>
+                 <property name="text">
+                  <string>Enviar feedback</string>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../resources/resources.qrc">
+                   <normaloff>:/icons/paper-plane-solid.svg</normaloff>:/icons/paper-plane-solid.svg</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>20</width>
+                   <height>20</height>
+                  </size>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
