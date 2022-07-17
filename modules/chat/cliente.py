@@ -1,46 +1,29 @@
-import threading
-import socket
+import pika
+import ssl
+import json
 
 
-def main():
+class Cliente:
+    def __init__(self):
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        ssl_context.set_ciphers('ECDHE+AESGCM:!ECDSA')
 
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        url = f"amqps://ryanl:842684265santos@b-b86d75fd-5111-4c3c-b62c-b999e666760a.mq.us-east-1.amazonaws.com:5671"
+        parameters = pika.URLParameters(url)
+        parameters.ssl_options = pika.SSLOptions(context=ssl_context)
 
-    try:
-        client.connect(('localhost', 7777))
-    except:
-        return print('\nNão foi possívvel se conectar ao servidor!\n')
+        conexão = pika.BlockingConnection(parameters)
+        self.canal = conexão.channel()
 
-    username = input('developer: ')
-    # tecnologia = input('Tecnologia favorita: ')
-    print('\nConectado')
+    def send(self, nome: str, logo: str, message: str, hora: str):
 
-    thread1 = threading.Thread(target=receiveMessages, args=[client])
-    thread2 = threading.Thread(target=sendMessages, args=[client, username])
+        mensagem = json.dumps(
+            {"nome": nome, "logo": logo, "hora": hora, "mensagem": message})
 
-    thread1.start()
-    thread2.start()
-
-
-def receiveMessages(client):
-    while True:
-        try:
-            msg = client.recv(2048).decode('utf-8')
-            print(msg+'\n')
-        except:
-            print('\nNão foi possível permanecer conectado no servidor!\n')
-            print('Pressione <Enter> Para continuar...')
-            client.close()
-            break
-            
-
-def sendMessages(client, username):
-    while True:
-        try:
-            msg = input('\n')
-            client.send(f'<{username}> \n{msg}'.encode('utf-8'))
-        except:
-            return
+        self.canal.basic_publish(exchange='chat', body=mensagem, routing_key='tag_mensagem',
+                                 properties=pika.BasicProperties(delivery_mode=2))
+        self.canal.close()
 
 
-main()
+cliente = Cliente()
+cliente.send("guil", "java", "Bom dia", "13:06")
