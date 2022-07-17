@@ -3,7 +3,7 @@ import ssl
 import json
 
 
-class Cliente:
+class Dev:
     def __init__(self):
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         ssl_context.set_ciphers('ECDHE+AESGCM:!ECDSA')
@@ -24,6 +24,3 @@ class Cliente:
                                  properties=pika.BasicProperties(delivery_mode=2))
         self.canal.close()
 
-
-cliente = Cliente()
-cliente.send("guil", "java", "Bom dia", "13:06")
