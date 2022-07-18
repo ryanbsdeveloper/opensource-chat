@@ -34,6 +34,30 @@ class Ui_Conf(object):
         self.frame = QFrame(Conf)
         self.frame.setObjectName(u"frame")
         self.frame.setMaximumSize(QSize(461, 16777215))
+        self.frame.setStyleSheet(u"QScrollBar:vertical {   \n"
+"    border: 1px solid #999999;\n"
+"    background:white;\n"
+"    width:12px;    \n"
+"    margin: 0px 0px 0px 0px;\n"
+"    }\n"
+"    QScrollBar::handle:vertical {\n"
+"	background:rgb(255,255,255);\n"
+"    min-height: 0px;\n"
+"    }\n"
+"    QScrollBar::add-line:vertical {\n"
+"    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0px;\n"
+"    subcontrol-position: bottom;\n"
+"    subcontrol-origin: margin;\n"
+"    }\n"
+"    QScrollBar::sub-line:vertical {\n"
+"     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0 px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"    }")
         self.frame.setFrameShape(QFrame.NoFrame)
         self.frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame)
@@ -132,7 +156,31 @@ class Ui_Conf(object):
 "}\n"
 "QTextEdit:focus{\n"
 "border:1px solid rgb(32, 47, 177)\n"
-"}")
+"}\n"
+"QScrollBar:vertical {   \n"
+"    border: 1px solid #999999;\n"
+"    background:white;\n"
+"    width:12px;    \n"
+"    margin: 0px 0px 0px 0px;\n"
+"    }\n"
+"    QScrollBar::handle:vertical {\n"
+"	background:rgb(255,255,255);\n"
+"    min-height: 0px;\n"
+"    }\n"
+"    QScrollBar::add-line:vertical {\n"
+"    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0px;\n"
+"    subcontrol-position: bottom;\n"
+"    subcontrol-origin: margin;\n"
+"    }\n"
+"    QScrollBar::sub-line:vertical {\n"
+"     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0 px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"    }")
         self.texto_feedback.setFrameShape(QFrame.NoFrame)
 
         self.verticalLayout_5.addWidget(self.texto_feedback)

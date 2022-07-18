@@ -17,7 +17,7 @@ class Ui_Chat(object):
     def setupUi(self, Chat):
         if not Chat.objectName():
             Chat.setObjectName(u"Chat")
-        Chat.resize(1188, 728)
+        Chat.resize(905, 815)
         icon = QIcon()
         icon.addFile(u":/icons/logo_chat.png", QSize(), QIcon.Normal, QIcon.Off)
         Chat.setWindowIcon(icon)
@@ -226,8 +226,34 @@ class Ui_Chat(object):
         self.frame_4 = QFrame(self.frame_3)
         self.frame_4.setObjectName(u"frame_4")
         self.frame_4.setFont(font8)
-        self.frame_4.setStyleSheet(u"background-color: rgb(255, 255, 255);\n"
-"border-radius:5px")
+        self.frame_4.setStyleSheet(u"QFrame{\n"
+"background-color: rgb(255, 255, 255);\n"
+"border-radius:5px\n"
+"}\n"
+"QScrollBar:vertical {   \n"
+"    border: 1px solid #999999;\n"
+"    background:white;\n"
+"    width:12px;    \n"
+"    margin: 0px 0px 0px 0px;\n"
+"    }\n"
+"    QScrollBar::handle:vertical {\n"
+"	background:rgb(43,43,43);\n"
+"    min-height: 0px;\n"
+"    }\n"
+"    QScrollBar::add-line:vertical {\n"
+"    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0px;\n"
+"    subcontrol-position: bottom;\n"
+"    subcontrol-origin: margin;\n"
+"    }\n"
+"    QScrollBar::sub-line:vertical {\n"
+"     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0 px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"    }")
         self.frame_4.setFrameShape(QFrame.NoFrame)
         self.frame_4.setFrameShadow(QFrame.Raised)
         self.verticalLayout_3 = QVBoxLayout(self.frame_4)
@@ -237,6 +263,7 @@ class Ui_Chat(object):
         self.scrollArea.setObjectName(u"scrollArea")
         self.scrollArea.setLayoutDirection(Qt.LeftToRight)
         self.scrollArea.setAutoFillBackground(True)
+        self.scrollArea.setStyleSheet(u"background-color: rgb(255, 255, 255);")
         self.scrollArea.setFrameShape(QFrame.NoFrame)
         self.scrollArea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scrollArea.setSizeAdjustPolicy(QAbstractScrollArea.AdjustToContentsOnFirstShow)
@@ -244,7 +271,7 @@ class Ui_Chat(object):
         self.scrollArea.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 1151, 498))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 518, 585))
         self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.frame_13 = QFrame(self.scrollAreaWidgetContents_2)
@@ -388,7 +415,31 @@ class Ui_Chat(object):
         self.frame_12 = QFrame(self.frame)
         self.frame_12.setObjectName(u"frame_12")
         self.frame_12.setMinimumSize(QSize(0, 0))
-        self.frame_12.setMaximumSize(QSize(0, 16777215))
+        self.frame_12.setMaximumSize(QSize(350, 16777215))
+        self.frame_12.setStyleSheet(u"QScrollBar:vertical {   \n"
+"    border: 1px solid #999999;\n"
+"    background:white;\n"
+"    width:12px;    \n"
+"    margin: 0px 0px 0px 0px;\n"
+"    }\n"
+"    QScrollBar::handle:vertical {\n"
+"	background:rgb(255,255,255);\n"
+"    min-height: 0px;\n"
+"    }\n"
+"    QScrollBar::add-line:vertical {\n"
+"    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0px;\n"
+"    subcontrol-position: bottom;\n"
+"    subcontrol-origin: margin;\n"
+"    }\n"
+"    QScrollBar::sub-line:vertical {\n"
+"     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0 px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"    }")
         self.frame_12.setFrameShape(QFrame.NoFrame)
         self.frame_12.setFrameShadow(QFrame.Raised)
         self.verticalLayout_4 = QVBoxLayout(self.frame_12)
@@ -488,13 +539,37 @@ class Ui_Chat(object):
 
         self.scrollArea_2 = QScrollArea(self.frame_12)
         self.scrollArea_2.setObjectName(u"scrollArea_2")
+        self.scrollArea_2.setStyleSheet(u"QScrollBar:vertical {   \n"
+"    border: 1px solid #999999;\n"
+"    background:white;\n"
+"    width:12px;    \n"
+"    margin: 0px 0px 0px 0px;\n"
+"    }\n"
+"    QScrollBar::handle:vertical {\n"
+"	background:rgb(255,255,255);\n"
+"    min-height: 0px;\n"
+"    }\n"
+"    QScrollBar::add-line:vertical {\n"
+"    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0px;\n"
+"    subcontrol-position: bottom;\n"
+"    subcontrol-origin: margin;\n"
+"    }\n"
+"    QScrollBar::sub-line:vertical {\n"
+"     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,\n"
+"    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));\n"
+"    height: 0 px;\n"
+"    subcontrol-position: top;\n"
+"    subcontrol-origin: margin;\n"
+"    }")
         self.scrollArea_2.setFrameShape(QFrame.NoFrame)
         self.scrollArea_2.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         self.scrollArea_2.setWidgetResizable(True)
         self.scrollArea_2.setAlignment(Qt.AlignBottom|Qt.AlignLeading|Qt.AlignLeft)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 16, 68))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 332, 42))
         self.verticalLayout_8 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
@@ -530,7 +605,7 @@ class Ui_Chat(object):
         self.btn_config.setAccessibleDescription("")
 #endif // QT_CONFIG(accessibility)
         self.btn_config.setText("")
-        self.btn_ocultar_mostrar.setText(QCoreApplication.translate("Chat", u"Mostrar membros", None))
+        self.btn_ocultar_mostrar.setText(QCoreApplication.translate("Chat", u"Ocultar membros", None))
         self.sem_internet.setText(QCoreApplication.translate("Chat", u"Verifique sua conex\u00e3o com a internet.", None))
         self.btn_msg.setText("")
         self.input_msg.setPlaceholderText(QCoreApplication.translate("Chat", u"Nova mensagem", None))

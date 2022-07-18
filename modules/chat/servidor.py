@@ -29,3 +29,4 @@ class Servidor:
     def consuming(self):
         self.canal.basic_consume(queue='mensagens', on_message_callback=self.callback, auto_ack=True)
         self.canal.start_consuming() 
+

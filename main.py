@@ -1,10 +1,11 @@
-import sys, json, os
-from _thread import *
+from re import X
+import sys, json, os, threading
 from time import sleep
 from PySide2.QtWidgets import *
 from PySide2.QtGui import QFont, QIcon, QPixmap, QColor
 from PySide2 import Qt
 from PySide2.QtCore import *
+from sqlalchemy import true
 from widgets.chat import Ui_Chat
 from widgets.conf import Ui_Conf
 from widgets.login import Ui_Login
@@ -52,7 +53,7 @@ class Conf(QDialog, Ui_Conf):
             database_aws.add_feedback(user.nome, texto)
         except:
             self.saida.setStyleSheet('color:rgb(246, 97, 81);')
-            self.saida.setText('Sem internet ou erro no banco de dados')
+            self.saida.setText('Erro ao enviar feedback.')
         else:
             self.saida.setText('Feedback enviado com sucesso.')
             self.texto_feedback.setPlainText('')
@@ -111,19 +112,10 @@ class Login(QDialog, Ui_Login):
             self.chat.show()
 
 
-class ThreadClass(QThread):
-    # Create the signal
+class ThreadMessages(QThread):
     sig = Signal()
-    finish = Signal()                
-
     def __init__(self, mw, parent=None):
-#        self.mw = mw
-#        self.mbox = QtWidgets.QMessageBox()
         super().__init__(parent)
-#        self.sig.connect(self.showtime)
-
-#    def showtime(self, t):
-#        self.mw.label.setText(str(t))
 
     def run(self):
         while True:
@@ -134,7 +126,6 @@ class ThreadClass(QThread):
                 self.sig.emit()
                 #time.sleep(1)
                 QThread.msleep(1000)
-            
 
 
 class Chat(QMainWindow, Ui_Chat):
@@ -159,9 +150,10 @@ class Chat(QMainWindow, Ui_Chat):
         self.list_members()
         self.developer_log()
         self.messages()
-        self.t = ThreadClass(self)
+
+        self.t = ThreadMessages(self)
         self.t.start()
-        self.t.sig.connect(self.chat_messages)      
+        self.t.sig.connect(self.chat_messages)  
 
         # Time
         timer = QTimer(self)
@@ -178,8 +170,19 @@ class Chat(QMainWindow, Ui_Chat):
         # Hide members
         self.btn_ocultar_mostrar.clicked.connect(self.animation_members)
 
-        # connection rebbitmq chat
-        self.service()
+        try:
+            t1 = threading.Thread(target=servidor.Servidor().consuming)
+            t1.start()
+        except:
+            self.animation_net(True)
+            self.btn_msg.setDisabled(True)
+            self.btn_ocultar_mostrar.setDisabled(True)
+            self.input_msg.setDisabled(True)
+            self.sem_internet.setStyleSheet(u"background-color: rgb(246, 97, 81);\n"
+    "color:white;\n"
+    "border-radius:5px")     
+            self.sem_internet.setText('Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.')
+            timer.stop()
 
     # users community
     def users(self):
@@ -305,52 +308,63 @@ class Chat(QMainWindow, Ui_Chat):
         self.ss15 = 10
         msg = self.input_msg.text()
 
-        frame = QFrame()
-        frame.setObjectName(u"frame_6436")
-        frame.setFrameShape(QFrame.NoFrame)
-        frame.setFrameShadow(QFrame.Raised)
-        frame.setMaximumSize(QSize(16777215, 70))
-
-        verticalLayout = QVBoxLayout(frame)
+        frame_21 = QFrame()
+        frame_21.setObjectName(u"frame_21")
+        frame_21.setFrameShape(QFrame.NoFrame)
+        frame_21.setFrameShadow(QFrame.Raised)
+        horizontalLayout_14 = QHBoxLayout(frame_21)
+        horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+        frame_22 = QFrame(frame_21)
+        frame_22.setObjectName(u"frame_22")
+        frame_22.setFrameShape(QFrame.NoFrame)
+        frame_22.setFrameShadow(QFrame.Raised)
+        verticalLayout = QVBoxLayout(frame_22)
         verticalLayout.setSpacing(0)
-        verticalLayout.setObjectName(u"verticalLayout_42313")
-        verticalLayout.setContentsMargins(-1, 0, -1, 0)
-        verticalLayout.setAlignment(Qt.AlignRight)
+        verticalLayout.setObjectName(u"verticalLayout_9")
+        verticalLayout.setContentsMargins(0, 0, 0, 0)
+        label_1 = QLabel(frame_22)
+        label_1.setObjectName(u"label_15")
+        sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(label_1.sizePolicy().hasHeightForWidth())
+        label_1.setSizePolicy(sizePolicy)
+        
+        # width label
+        width = main.width_label(msg)
+        label_1.setMaximumSize(QSize(width, 16777215))
+        font9 = QFont()
+        font9.setFamily(u"Sans Serif")
+        font9.setPointSize(14)
+        label_1.setFont(font9)
+        label_1.setLayoutDirection(Qt.RightToLeft)
+        label_1.setStyleSheet(u"\n"
+                    "background-color: rgb(23, 22, 93);color:white")
+        label_1.setAlignment(Qt.AlignLeft)
+        label_1.setWordWrap(True)
+        label_1.setMargin(5)
+        label_1.setText(msg)
 
-        font8 = QFont()
-        font8.setPointSize(15)
-        label = QLabel()
-        label.setObjectName(u"label_981")
-        label.setMaximumSize(QSize(16777215, 40))
-        label.setFont(font8)
-        label.setStyleSheet(u"padding:5px;\n"
-                            "background-color: rgb(23, 22, 93);color:white")
-        label.setScaledContents(True)
-        label.setWordWrap(False)
-        label.setMargin(0)
 
-        font8 = QFont()
-        font8.setPointSize(11)
-        label2 = QLabel()
-        label2.setObjectName(u"label_981")
-        label2.setMaximumSize(QSize(16777215, 40))
-        label2.setFont(font8)
-        label2.setStyleSheet(u"color:#5f6368")
-        label2.setScaledContents(True)
-        label2.setWordWrap(True)
-        label2.setMargin(0)
-        label2.setText(main.hour())
-        label2.setAlignment(Qt.AlignRight)
+        label_2 = QLabel(frame_22)
+        label_2.setObjectName(u"label_13")
+        label_2.setMinimumSize(QSize(0, 0))
+        label_2.setStyleSheet(u"color:#5f6368")
+        label_2.setText(main.hour())
+        label_2.setAlignment(Qt.AlignRight)
+
+
+
+        horizontalLayout_14.addWidget(frame_22)
 
         if msg:
-            if len(msg) < 60:
+            if len(msg) < 300:
 
-                label.setText(QCoreApplication.translate(
-                    "MainWindow", f"{msg}", None))
-                verticalLayout.addWidget(label)
-                verticalLayout.addWidget(label2)
+                label_1.setText(msg)
+                verticalLayout.addWidget(label_1)
+                verticalLayout.addWidget(label_2)
 
-                self.verticalLayout_7.addWidget(frame)
+                self.verticalLayout_7.addWidget(frame_21)
                 self.input_msg.setText('')
 
                 # add db and send
@@ -358,10 +372,12 @@ class Chat(QMainWindow, Ui_Chat):
                 database_local.add_messages(
                     msg, main.hour(), user.nome, user.tecnologia)
                 
+                self.developer_send(user.nome, user.tecnologia, msg, main.hour())
+                
                 # next msg
                 self.hide_segundos()
             else:
-                self.saida_msg.setText('Mensagem muito grande, divida ela e tente novamente')
+                self.saida_msg.setText('Mensagem muito grande, maximo de 300 caracteres.')
                 self.saida_msg.setStyleSheet('color:rgb(246, 97, 81);')
 
     # time next message
@@ -392,51 +408,58 @@ class Chat(QMainWindow, Ui_Chat):
 
         for message in messages:
             if user.nome == message.nome:
-                frame = QFrame()
-                frame.setObjectName(u"frame_6436")
-                frame.setFrameShape(QFrame.NoFrame)
-                frame.setFrameShadow(QFrame.Raised)
-                frame.setMaximumSize(QSize(16777215, 70))
+                frame_21 = QFrame()
+                frame_21.setObjectName(u"frame_21")
+                frame_21.setFrameShape(QFrame.NoFrame)
+                frame_21.setFrameShadow(QFrame.Raised)
+                horizontalLayout_14 = QHBoxLayout(frame_21)
+                horizontalLayout_14.setObjectName(u"horizontalLayout_14")
+                frame_22 = QFrame(frame_21)
+                frame_22.setObjectName(u"frame_22")
+                frame_22.setFrameShape(QFrame.NoFrame)
+                frame_22.setFrameShadow(QFrame.Raised)
+                verticalLayout_9 = QVBoxLayout(frame_22)
+                verticalLayout_9.setSpacing(0)
+                verticalLayout_9.setObjectName(u"verticalLayout_9")
+                verticalLayout_9.setContentsMargins(0, 0, 0, 0)
+                label_15 = QLabel(frame_22)
+                label_15.setObjectName(u"label_15")
+                sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+                sizePolicy.setHorizontalStretch(0)
+                sizePolicy.setVerticalStretch(0)
+                sizePolicy.setHeightForWidth(label_15.sizePolicy().hasHeightForWidth())
+                label_15.setSizePolicy(sizePolicy)
+                
+                # width label
+                width = main.width_label(message.texto)
+                label_15.setMaximumSize(QSize(width, 16777215))
+                font9 = QFont()
+                font9.setFamily(u"Sans Serif")
+                font9.setPointSize(14)
+                label_15.setFont(font9)
+                label_15.setLayoutDirection(Qt.RightToLeft)
+                label_15.setStyleSheet(u"\n"
+                            "background-color: rgb(23, 22, 93);color:white")
+                label_15.setAlignment(Qt.AlignLeft)
+                label_15.setWordWrap(True)
+                label_15.setMargin(5)
+                label_15.setText(message.texto)
 
-                verticalLayout = QVBoxLayout(frame)
-                verticalLayout.setSpacing(0)
-                verticalLayout.setObjectName(u"verticalLayout_42313")
-                verticalLayout.setContentsMargins(-1, 0, -1, 0)
-                verticalLayout.setAlignment(Qt.AlignRight)
+                verticalLayout_9.addWidget(label_15)
 
-                font8 = QFont()
-                font8.setPointSize(15)
+                label_13 = QLabel(frame_22)
+                label_13.setObjectName(u"label_13")
+                label_13.setMinimumSize(QSize(0, 0))
+                label_13.setStyleSheet(u"color:#5f6368")
+                label_13.setText(message.hora)
+                label_13.setAlignment(Qt.AlignRight)
 
-                label = QLabel()
-                label.setObjectName(u"label_981")
-                label.setMaximumSize(QSize(16777215, 40))
-                label.setFont(font8)
-                label.setStyleSheet(u"padding:5px;\n"
-                                    "background-color: rgb(23, 22, 93);color:white")
-                label.setScaledContents(True)
-                label.setWordWrap(True)
-                label.setMargin(0)
-                label.setText(QCoreApplication.translate(
-                    "MainWindow", f"{message.texto}", None))
+                verticalLayout_9.addWidget(label_13)
 
-                verticalLayout.addWidget(label)
 
-                font8 = QFont()
-                font8.setPointSize(11)
+                horizontalLayout_14.addWidget(frame_22)
 
-                label2 = QLabel()
-                label2.setObjectName(u"label_981")
-                label2.setMaximumSize(QSize(16777215, 40))
-                label2.setFont(font8)
-                label2.setStyleSheet(u"color:#5f6368")
-                label2.setScaledContents(True)
-                label2.setWordWrap(True)
-                label2.setMargin(0)
-                label2.setText(message.hora)
-                label2.setAlignment(Qt.AlignRight)
-
-                verticalLayout.addWidget(label2)
-                self.verticalLayout_7.addWidget(frame)
+                self.verticalLayout_7.addWidget(frame_21)
 
             elif message.nome == 'sistema':
                 frame_20 = QFrame()
@@ -447,35 +470,24 @@ class Chat(QMainWindow, Ui_Chat):
                 verticalLayout_9.setSpacing(0)
                 verticalLayout_9.setObjectName(u"verticalLayout_9")
                 verticalLayout_9.setContentsMargins(-1, 0, -1, 0)
-                label_14 = QLabel(frame_20)
-                label_14.setObjectName(u"label_14")
-                font9 = QFont()
-                font9.setPointSize(11)
-                font9.setBold(False)
-                font9.setItalic(False)
-                font9.setWeight(50)
-                font9.setStrikeOut(False)
-                label_14.setFont(font9)
-                label_14.setStyleSheet(u"color:#5f6368")
-                label_14.setText('< Sistema >')
-
-                verticalLayout_9.addWidget(label_14, 0, Qt.AlignHCenter)
 
                 label_21 = QLabel(frame_20)
+                # width label
+                width = main.width_label(message.texto)
                 label_21.setObjectName(u"label_21")
-                label_21.setMaximumSize(QSize(16777215, 40))
+                label_21.setMaximumSize(QSize(width, 1000))
                 font10 = QFont()
-                font10.setPointSize(15)
+                font10.setFamily(u"Sans Serif")
+                font10.setPointSize(14)
                 font10.setBold(False)
                 font10.setWeight(50)
                 label_21.setFont(font10)
-                label_21.setStyleSheet(u"padding:5px;\n"
-        "color:white;\n"
-        "color: #fff;\n"
-        "background-color: rgb(141, 143, 218);")
+                label_21.setStyleSheet(
+        "color: white;\n"
+        "background-color: #34449e;")
                 label_21.setScaledContents(True)
                 label_21.setWordWrap(False)
-                label_21.setMargin(0)
+                label_21.setMargin(5)
                 label_21.setText(message.texto)
 
                 verticalLayout_9.addWidget(label_21, 0, Qt.AlignHCenter)
@@ -484,7 +496,7 @@ class Chat(QMainWindow, Ui_Chat):
             elif message.nome == 'ryanbs':
                 frame_11 = QFrame()
                 frame_11.setObjectName(u"frame_11")
-                frame_11.setMaximumSize(QSize(16777215, 80))
+                frame_11.setMaximumSize(QSize(16777215, 1000))
                 frame_11.setFrameShape(QFrame.NoFrame)
                 frame_11.setFrameShadow(QFrame.Raised)
                 verticalLayout_5 = QVBoxLayout(frame_11)
@@ -493,7 +505,7 @@ class Chat(QMainWindow, Ui_Chat):
                 verticalLayout_5.setContentsMargins(-1, 0, -1, 0)
                 frame_14 = QFrame(frame_11)
                 frame_14.setObjectName(u"frame_14")
-                frame_14.setMaximumSize(QSize(16777215, 30))
+                frame_14.setMaximumSize(QSize(16777215, 1000))
                 frame_14.setFrameShape(QFrame.NoFrame)
                 frame_14.setFrameShadow(QFrame.Raised)
                 horizontalLayout_10 = QHBoxLayout(frame_14)
@@ -501,11 +513,10 @@ class Chat(QMainWindow, Ui_Chat):
                 horizontalLayout_10.setObjectName(u"horizontalLayout_10")
                 horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
 
-                verticalLayout_5.addWidget(frame_14, 0, Qt.AlignLeft)
+                verticalLayout_5.addWidget(frame_14)
                 font4 = QFont()
                 font4.setPointSize(16)
-                font4.setBold(False)
-                font4.setWeight(50)
+                font4.setBold(True)
                 nome_msg = QPushButton(frame_11)
                 nome_msg.setObjectName(u"nome_msg")
                 nome_msg.setFont(font4)
@@ -520,21 +531,26 @@ class Chat(QMainWindow, Ui_Chat):
                 verticalLayout_5.addWidget(nome_msg, 0, Qt.AlignRight)
 
                 label_13 = QLabel(frame_11)
+
+                # width label
+                width = main.width_label(message.texto)
                 label_13.setObjectName(u"label_13")
                 label_13.setMinimumSize(QSize(0, 0))
-                label_13.setMaximumSize(QSize(16777215, 40))
+                label_13.setMaximumSize(QSize(width, 1000))
                 font11 = QFont()
-                font11.setPointSize(15)
+                font11.setFamily(u"Sans Serif")
+                font11.setPointSize(14)
                 label_13.setFont(font11)
-                label_13.setStyleSheet(u"padding:5px;\n"
+                label_13.setStyleSheet(
         "color:white;\n"
         "background-color: rgb(60, 60, 60);")
                 label_13.setScaledContents(True)
-                label_13.setWordWrap(False)
-                label_13.setMargin(0)
+                label_13.setWordWrap(True)
+                label_13.setMargin(5)
+
                 label_13.setText(message.texto)
 
-                verticalLayout_5.addWidget(label_13, 0, Qt.AlignLeft)
+                verticalLayout_5.addWidget(label_13)
 
                 label_10 = QLabel(frame_11)
                 label_10.setObjectName(u"label_10")
@@ -548,7 +564,7 @@ class Chat(QMainWindow, Ui_Chat):
             else:
                 frame_11 = QFrame()
                 frame_11.setObjectName(u"frame_11")
-                frame_11.setMaximumSize(QSize(16777215, 80))
+                frame_11.setMaximumSize(QSize(16777215, 1000))
                 frame_11.setFrameShape(QFrame.NoFrame)
                 frame_11.setFrameShadow(QFrame.Raised)
                 verticalLayout_5 = QVBoxLayout(frame_11)
@@ -557,7 +573,7 @@ class Chat(QMainWindow, Ui_Chat):
                 verticalLayout_5.setContentsMargins(-1, 0, -1, 0)
                 frame_14 = QFrame(frame_11)
                 frame_14.setObjectName(u"frame_14")
-                frame_14.setMaximumSize(QSize(16777215, 30))
+                frame_14.setMaximumSize(QSize(16777215, 1000))
                 frame_14.setFrameShape(QFrame.NoFrame)
                 frame_14.setFrameShadow(QFrame.Raised)
                 horizontalLayout_10 = QHBoxLayout(frame_14)
@@ -565,7 +581,7 @@ class Chat(QMainWindow, Ui_Chat):
                 horizontalLayout_10.setObjectName(u"horizontalLayout_10")
                 horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
 
-                verticalLayout_5.addWidget(frame_14, 0, Qt.AlignLeft)
+                verticalLayout_5.addWidget(frame_14)
                 font4 = QFont()
                 font4.setPointSize(16)
                 font4.setBold(False)
@@ -585,20 +601,23 @@ class Chat(QMainWindow, Ui_Chat):
 
                 label_13 = QLabel(frame_11)
                 label_13.setObjectName(u"label_13")
-                label_13.setMinimumSize(QSize(0, 0))
-                label_13.setMaximumSize(QSize(16777215, 40))
+
+                # width label
+                width = main.width_label(message.texto)
+                label_13.setMaximumSize(QSize(width, 1000))
                 font11 = QFont()
-                font11.setPointSize(15)
+                font11.setFamily(u"Sans Serif")
+                font11.setPointSize(14)
                 label_13.setFont(font11)
-                label_13.setStyleSheet(u"padding:5px;\n"
+                label_13.setStyleSheet(
         "color:white;\n"
         "background-color: rgb(60, 60, 60);")
                 label_13.setScaledContents(True)
-                label_13.setWordWrap(False)
-                label_13.setMargin(0)
+                label_13.setWordWrap(True)
+                label_13.setMargin(5)
                 label_13.setText(message.texto)
 
-                verticalLayout_5.addWidget(label_13, 0, Qt.AlignLeft)
+                verticalLayout_5.addWidget(label_13)
 
                 label_10 = QLabel(frame_11)
                 label_10.setObjectName(u"label_10")
@@ -641,7 +660,7 @@ class Chat(QMainWindow, Ui_Chat):
         self.animation.setStartValue(width)
         self.animation.setEndValue(extend_width)
         self.animation.start()
-   
+
     # animation view net
     def animation_net(self, acesso):
         if acesso:
@@ -667,7 +686,7 @@ class Chat(QMainWindow, Ui_Chat):
             self.btn_ocultar_mostrar.setDisabled(False)
             self.btn_msg.setDisabled(False)
             self.input_msg.setDisabled(False)
-    
+
     # members of community 
     def list_members(self):
         if main.access_internet():
@@ -694,7 +713,7 @@ class Chat(QMainWindow, Ui_Chat):
                     if dados['nome'] == 'ryanbs':
                         frame_11 = QFrame()
                         frame_11.setObjectName(u"frame_11")
-                        frame_11.setMaximumSize(QSize(16777215, 80))
+                        frame_11.setMaximumSize(QSize(16777215, 1000))
                         frame_11.setFrameShape(QFrame.NoFrame)
                         frame_11.setFrameShadow(QFrame.Raised)
                         verticalLayout_5 = QVBoxLayout(frame_11)
@@ -703,7 +722,7 @@ class Chat(QMainWindow, Ui_Chat):
                         verticalLayout_5.setContentsMargins(-1, 0, -1, 0)
                         frame_14 = QFrame(frame_11)
                         frame_14.setObjectName(u"frame_14")
-                        frame_14.setMaximumSize(QSize(16777215, 30))
+                        frame_14.setMaximumSize(QSize(16777215, 1000))
                         frame_14.setFrameShape(QFrame.NoFrame)
                         frame_14.setFrameShadow(QFrame.Raised)
                         horizontalLayout_10 = QHBoxLayout(frame_14)
@@ -711,11 +730,10 @@ class Chat(QMainWindow, Ui_Chat):
                         horizontalLayout_10.setObjectName(u"horizontalLayout_10")
                         horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
 
-                        verticalLayout_5.addWidget(frame_14, 0, Qt.AlignLeft)
+                        verticalLayout_5.addWidget(frame_14)
                         font4 = QFont()
                         font4.setPointSize(16)
                         font4.setBold(True)
-                        font4.setWeight(50)
                         nome_msg = QPushButton(frame_11)
                         nome_msg.setObjectName(u"nome_msg")
                         nome_msg.setFont(font4)
@@ -730,21 +748,26 @@ class Chat(QMainWindow, Ui_Chat):
                         verticalLayout_5.addWidget(nome_msg, 0, Qt.AlignRight)
 
                         label_13 = QLabel(frame_11)
+
+                        # width label
+                        width = main.width_label(dados['mensagem'])
                         label_13.setObjectName(u"label_13")
                         label_13.setMinimumSize(QSize(0, 0))
-                        label_13.setMaximumSize(QSize(16777215, 40))
+                        label_13.setMaximumSize(QSize(width, 1000))
                         font11 = QFont()
-                        font11.setPointSize(15)
+                        font11.setFamily(u"Sans Serif")
+                        font11.setPointSize(14)
                         label_13.setFont(font11)
-                        label_13.setStyleSheet(u"padding:5px;\n"
+                        label_13.setStyleSheet(
                 "color:white;\n"
                 "background-color: rgb(60, 60, 60);")
                         label_13.setScaledContents(True)
-                        label_13.setWordWrap(False)
-                        label_13.setMargin(0)
+                        label_13.setWordWrap(True)
+                        label_13.setMargin(5)
+
                         label_13.setText(dados['mensagem'])
 
-                        verticalLayout_5.addWidget(label_13, 0, Qt.AlignLeft)
+                        verticalLayout_5.addWidget(label_13)
 
                         label_10 = QLabel(frame_11)
                         label_10.setObjectName(u"label_10")
@@ -755,11 +778,12 @@ class Chat(QMainWindow, Ui_Chat):
 
                         self.verticalLayout_7.addWidget(frame_11)
                         file.truncate(0)
+                        database_local.add_messages(dados['mensagem'], dados['hora'], dados['nome'], dados['logo'].lower())
 
                     else:
                         frame_11 = QFrame()
                         frame_11.setObjectName(u"frame_11")
-                        frame_11.setMaximumSize(QSize(16777215, 80))
+                        frame_11.setMaximumSize(QSize(16777215, 1000))
                         frame_11.setFrameShape(QFrame.NoFrame)
                         frame_11.setFrameShadow(QFrame.Raised)
                         verticalLayout_5 = QVBoxLayout(frame_11)
@@ -768,7 +792,7 @@ class Chat(QMainWindow, Ui_Chat):
                         verticalLayout_5.setContentsMargins(-1, 0, -1, 0)
                         frame_14 = QFrame(frame_11)
                         frame_14.setObjectName(u"frame_14")
-                        frame_14.setMaximumSize(QSize(16777215, 30))
+                        frame_14.setMaximumSize(QSize(16777215, 1000))
                         frame_14.setFrameShape(QFrame.NoFrame)
                         frame_14.setFrameShadow(QFrame.Raised)
                         horizontalLayout_10 = QHBoxLayout(frame_14)
@@ -776,7 +800,7 @@ class Chat(QMainWindow, Ui_Chat):
                         horizontalLayout_10.setObjectName(u"horizontalLayout_10")
                         horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
 
-                        verticalLayout_5.addWidget(frame_14, 0, Qt.AlignLeft)
+                        verticalLayout_5.addWidget(frame_14)
                         font4 = QFont()
                         font4.setPointSize(16)
                         font4.setBold(False)
@@ -796,20 +820,23 @@ class Chat(QMainWindow, Ui_Chat):
 
                         label_13 = QLabel(frame_11)
                         label_13.setObjectName(u"label_13")
-                        label_13.setMinimumSize(QSize(0, 0))
-                        label_13.setMaximumSize(QSize(16777215, 40))
+
+                        # width label
+                        width = main.width_label(dados['mensagem'])
+                        label_13.setMaximumSize(QSize(width, 1000))
                         font11 = QFont()
-                        font11.setPointSize(15)
+                        font11.setFamily(u"Sans Serif")
+                        font11.setPointSize(14)
                         label_13.setFont(font11)
-                        label_13.setStyleSheet(u"padding:5px;\n"
+                        label_13.setStyleSheet(
                 "color:white;\n"
                 "background-color: rgb(60, 60, 60);")
                         label_13.setScaledContents(True)
-                        label_13.setWordWrap(False)
-                        label_13.setMargin(0)
+                        label_13.setWordWrap(True)
+                        label_13.setMargin(5)
                         label_13.setText(dados['mensagem'])
 
-                        verticalLayout_5.addWidget(label_13, 0, Qt.AlignLeft)
+                        verticalLayout_5.addWidget(label_13)
 
                         label_10 = QLabel(frame_11)
                         label_10.setObjectName(u"label_10")
@@ -820,34 +847,17 @@ class Chat(QMainWindow, Ui_Chat):
 
                         self.verticalLayout_7.addWidget(frame_11)
                         file.truncate(0)
+                        database_local.add_messages(dados['mensagem'], dados['hora'], dados['nome'], dados['logo'].lower())
 
-                notification(self, tray)
+                    notification(self, tray)
 
-    # services rabbit
-    def service(self):
-        try:
-            service = servidor.Servidor()
-            service.consuming()
-        except:
-            self.animation_net(True)
-            self.animation_members(True)
-
-            self.btn_msg.setDisabled(True)
-            self.btn_ocultar_mostrar.setDisabled(True)
-            self.input_msg.setDisabled(True)
-            self.sem_internet.setStyleSheet(u"background-color: rgb(246, 97, 81);\n"
-    "color:white;\n"
-    "border-radius:5px")     
-            self.sem_internet.setText('Erro ao se conectar ao servidor, reinicie o aplicativo.')
-
-    def developer(self, nome, tecnologia, mensagem, hora):
+    # send message rabbit 
+    def developer_send(self, nome, tecnologia, mensagem, hora):
         try:
             developer = dev.Dev()
             developer.send(nome=nome, logo=tecnologia, message=mensagem, hora=hora)
         except:
             self.animation_net(True)
-            self.animation_members(True)
-
             self.btn_msg.setDisabled(True)
             self.btn_ocultar_mostrar.setDisabled(True)
             self.input_msg.setDisabled(True)
@@ -855,7 +865,6 @@ class Chat(QMainWindow, Ui_Chat):
     "color:white;\n"
     "border-radius:5px")     
             self.sem_internet.setText('Erro inesperado ao enviar sua mensagem, reinicie o aplicativo.')
-
 
 counter = 0
 class SplashScreen(QMainWindow, Ui_SplashScreen):
@@ -943,27 +952,16 @@ if __name__ == '__main__':
         if not QSystemTrayIcon.isSystemTrayAvailable():
             QMessageBox.critical(None, "Notificações", "Não foi possível enviar notificações.")
             sys.exit(1)
-            ########################################################################
-        ## Do Not completely exit the app when the last window is closed, 
-        ## Change value to true if you want to fully exit the app
-        ########################################################################
+    
         app.setQuitOnLastWindowClosed(False)
-
-
         tray = QSystemTrayIcon(QIcon(u":/icons/logo_chat.png"), app)
 
         menu = QMenu()
-
-        # action_tray_message = QAction("Show a message from tray")
-        # action_tray_message.triggered.connect(lambda: notification(window_obj, tray))
-        # menu.addAction(action_tray_message)
-
         action_hide = QAction("Ocultar Janela")
         menu.addAction(action_hide)
-
         action_show = QAction("Mostrar janela")
         menu.addAction(action_show)
-     
+    
         action_exit = QAction("Sair")
         action_exit.triggered.connect(app.exit)
         menu.addAction(action_exit)

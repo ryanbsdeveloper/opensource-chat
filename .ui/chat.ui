@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1188</width>
-    <height>728</height>
+    <width>905</width>
+    <height>815</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -354,7 +354,7 @@
                 <string notr="true">color:#fff;border:0;outline:0</string>
                </property>
                <property name="text">
-                <string>Mostrar membros</string>
+                <string>Ocultar membros</string>
                </property>
                <property name="icon">
                 <iconset resource="../resources/resources.qrc">
@@ -472,29 +472,11 @@ border-radius:5px</string>
              </font>
             </property>
             <property name="styleSheet">
-             <string notr="true">background-color: rgb(255, 255, 255);
-border-radius:5px</string>
-            </property>
-            <property name="frameShape">
-             <enum>QFrame::NoFrame</enum>
-            </property>
-            <property name="frameShadow">
-             <enum>QFrame::Raised</enum>
-            </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
-             <property name="rightMargin">
-              <number>9</number>
-             </property>
-             <item>
-              <widget class="QScrollArea" name="scrollArea">
-               <property name="layoutDirection">
-                <enum>Qt::LeftToRight</enum>
-               </property>
-               <property name="autoFillBackground">
-                <bool>true</bool>
-               </property>
-               <property name="styleSheet">
-                <string notr="true">QScrollBar:vertical {   
+             <string notr="true">QFrame{
+background-color: rgb(255, 255, 255);
+border-radius:5px
+}
+QScrollBar:vertical {   
     border: 1px solid #999999;
     background:white;
     width:12px;    
@@ -518,6 +500,27 @@ border-radius:5px</string>
     subcontrol-position: top;
     subcontrol-origin: margin;
     }</string>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout_3">
+             <property name="rightMargin">
+              <number>9</number>
+             </property>
+             <item>
+              <widget class="QScrollArea" name="scrollArea">
+               <property name="layoutDirection">
+                <enum>Qt::LeftToRight</enum>
+               </property>
+               <property name="autoFillBackground">
+                <bool>true</bool>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: rgb(255, 255, 255);</string>
                </property>
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -539,8 +542,8 @@ border-radius:5px</string>
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>1151</width>
-                  <height>498</height>
+                  <width>518</width>
+                  <height>585</height>
                  </rect>
                 </property>
                 <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -851,9 +854,35 @@ border:1px solid rgb(32, 47, 177)
          </property>
          <property name="maximumSize">
           <size>
-           <width>0</width>
+           <width>350</width>
            <height>16777215</height>
           </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">QScrollBar:vertical {   
+    border: 1px solid #999999;
+    background:white;
+    width:12px;    
+    margin: 0px 0px 0px 0px;
+    }
+    QScrollBar::handle:vertical {
+	background:rgb(255,255,255);
+    min-height: 0px;
+    }
+    QScrollBar::add-line:vertical {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+    stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+    height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+    }
+    QScrollBar::sub-line:vertical {
+     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+    height: 0 px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+    }</string>
          </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
@@ -1065,6 +1094,32 @@ border:1px solid rgb(32, 47, 177)
           </item>
           <item>
            <widget class="QScrollArea" name="scrollArea_2">
+            <property name="styleSheet">
+             <string notr="true">QScrollBar:vertical {   
+    border: 1px solid #999999;
+    background:white;
+    width:12px;    
+    margin: 0px 0px 0px 0px;
+    }
+    QScrollBar::handle:vertical {
+	background:rgb(255,255,255);
+    min-height: 0px;
+    }
+    QScrollBar::add-line:vertical {
+    background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+    stop: 0 rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+    height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+    }
+    QScrollBar::sub-line:vertical {
+     background: qlineargradient(x1:0, y1:0, x2:1, y2:0,
+    stop: 0  rgb(32, 47, 130), stop: 0.5 rgb(32, 47, 130),  stop:1 rgb(32, 47, 130));
+    height: 0 px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+    }</string>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
@@ -1082,8 +1137,8 @@ border:1px solid rgb(32, 47, 177)
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>16</width>
-               <height>68</height>
+               <width>332</width>
+               <height>42</height>
               </rect>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_8">
@@ -1117,7 +1172,7 @@ border:1px solid rgb(32, 47, 177)
  </widget>
  <resources>
   <include location="../resources/resources.qrc"/>
-  <include location="../../../../../../.designer/resources/resources.qrc"/>
+  <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>
