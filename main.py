@@ -1,6 +1,9 @@
-from re import X
-import sys, json, os, threading
-from time import sleep
+import sys
+import pika
+import ssl
+import json
+import os
+import threading
 from PySide2.QtWidgets import *
 from PySide2.QtGui import QFont, QIcon, QPixmap, QColor
 from PySide2 import Qt
@@ -11,10 +14,60 @@ from widgets.conf import Ui_Conf
 from widgets.login import Ui_Login
 from widgets.carregamento import Ui_SplashScreen
 from modules.databases import database_aws, database_local
-from modules.chat import dev, servidor
+# from modules.chat import dev, servidor
 from modules.utils import main
 
 import resources.resources
+
+class Servidor:
+    def __init__(self) -> None:
+        self.BASE_DIR = os.path.dirname(__file__)
+
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        ssl_context.set_ciphers('ECDHE+AESGCM:!ECDSA')
+
+        url = f"amqps://ryanl:842684265santos@b-b86d75fd-5111-4c3c-b62c-b999e666760a.mq.us-east-1.amazonaws.com:5671"
+        parameters = pika.URLParameters(url)
+        parameters.ssl_options = pika.SSLOptions(context=ssl_context)
+
+        conexão = pika.BlockingConnection(parameters)
+        self.canal = conexão.channel()
+
+        self.canal.exchange_declare(exchange='chat', exchange_type='direct')
+        self.canal.queue_declare(queue='mensagens', exclusive=True)
+        self.canal.queue_bind(queue='mensagens', exchange='chat', routing_key='tag_mensagem')
+
+
+    def callback(self, ch, method, properties, body):
+        with open(f'{self.BASE_DIR}/mensagens.txt', 'w') as file:
+            file.write(f'{json.loads(body)}')
+        
+    def consuming(self):
+        self.canal.basic_consume(queue='mensagens', on_message_callback=self.callback, auto_ack=True)
+        self.canal.start_consuming() 
+
+
+class Dev:
+    def __init__(self):
+        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
+        ssl_context.set_ciphers('ECDHE+AESGCM:!ECDSA')
+
+        url = f"amqps://ryanl:842684265santos@b-b86d75fd-5111-4c3c-b62c-b999e666760a.mq.us-east-1.amazonaws.com:5671"
+        parameters = pika.URLParameters(url)
+        parameters.ssl_options = pika.SSLOptions(context=ssl_context)
+
+        conexão = pika.BlockingConnection(parameters)
+        self.canal = conexão.channel()
+
+    def send(self, nome: str, logo: str, message: str, hora: str):
+
+        mensagem = json.dumps(
+            {"nome": nome, "logo": logo, "hora": hora, "mensagem": message})
+
+        self.canal.basic_publish(exchange='chat', body=mensagem, routing_key='tag_mensagem',
+                                 properties=pika.BasicProperties(delivery_mode=2))
+        self.canal.close()
+
 
 class Conf(QDialog, Ui_Conf):
     def __init__(self, parent):
@@ -45,7 +98,7 @@ class Conf(QDialog, Ui_Conf):
     def send_feedback(self):
         texto = self.texto_feedback.toPlainText()
         user = database_local.is_user(True)
-        if len(texto) > 1999 or len(texto) == 0 :
+        if len(texto) > 1999 or len(texto) == 0:
             self.saida.setStyleSheet('color:rgb(246, 97, 81);')
             self.saida.setText('Escreva entre 1 e 2000 caracteres.')
             return
@@ -65,9 +118,18 @@ class Login(QDialog, Ui_Login):
         self.setupUi(self)
         self.boxElements = self.groupBox.children()
 
-        timer = QTimer(self)
-        timer.timeout.connect(self.tecnologia)
-        timer.start(500)
+        # initial
+        self.check_net()
+
+        # time
+        self.timer1 = QTimer(self)
+        self.timer1.timeout.connect(self.tecnologia)
+        self.timer1.start(500)
+
+        self.timer2 = QTimer(self)
+        self.timer2.timeout.connect(self.check_net)
+        self.timer2.start(1500)
+
         # Button
         self.btn_comecar.clicked.connect(self.developer)
 
@@ -110,25 +172,45 @@ class Login(QDialog, Ui_Login):
             self.chat = Chat()
             self.chat.show()
 
+    def check_net(self):
+        if not main.access_internet():
+            self.animation_net(True)
+
+            self.btn_comecar.setDisabled(True)
+        else:
+            self.animation_net(False)
+            self.btn_comecar.setDisabled(False)
+
+    def animation_net(self, acesso):
+        if acesso:
+            self.sem_internet.setStyleSheet(u"background-color: rgb(246, 97, 81);\n"
+                                            "color:white;\n"
+                                            "border-radius:5px")
+        else:
+            self.sem_internet.setStyleSheet(u"background-color: rgba(0, 0, 0, 0);\n"
+                                            "color:rgba(0, 0, 0, 0);\n"
+                                            "border-radius:5px")
+
 
 class ThreadMessages(QThread):
     sig = Signal()
+
     def __init__(self, mw=None, parent=None):
         super().__init__(parent)
 
     def run(self):
         try:
-            t1 = threading.Thread(target=servidor.Servidor().consuming)
+            t1 = threading.Thread(target=Servidor().consuming)
             t1.start()
         except:
             assert 'Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.'
         while True:
             BASE_DIR = os.path.dirname(__file__)
-            with open(f'{BASE_DIR}/modules/chat/mensagens.txt', 'r+') as file:
+            with open(f'{BASE_DIR}/mensagens.txt', 'r+') as file:
                 linha = file.readline()
             if linha:
                 self.sig.emit()
-                #time.sleep(1)
+                # time.sleep(1)
                 QThread.msleep(1000)
 
 
@@ -164,21 +246,22 @@ class Chat(QMainWindow, Ui_Chat):
         try:
             self.t = ThreadMessages(self)
             self.t.start()
-            self.t.sig.connect(self.chat_messages) 
-        except:  
+            self.t.sig.connect(self.chat_messages)
+        except:
             self.animation_net(True)
             self.animation_members(True)
 
             self.btn_msg.setDisabled(True)
             self.btn_ocultar_mostrar.setDisabled(True)
-            self.sem_internet.setText('Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.')
+            self.sem_internet.setText(
+                'Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.')
             self.input_msg.setDisabled(True)
             self.timer.stop()
 
          # Others windows
         self.conf = Conf(self)
         self.btn_config.clicked.connect(self.open_conf)
-        
+
         self.timer2 = QTimer(self)
         self.timer2.timeout.connect(self.hide_segundos)
 
@@ -330,7 +413,7 @@ class Chat(QMainWindow, Ui_Chat):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(label_1.sizePolicy().hasHeightForWidth())
         label_1.setSizePolicy(sizePolicy)
-        
+
         # width label
         width = main.width_label(msg)
         label_1.setMaximumSize(QSize(width, 16777215))
@@ -340,12 +423,11 @@ class Chat(QMainWindow, Ui_Chat):
         label_1.setFont(font9)
         label_1.setLayoutDirection(Qt.RightToLeft)
         label_1.setStyleSheet(u"\n"
-                    "background-color: rgb(23, 22, 93);color:white")
+                              "background-color: rgb(23, 22, 93);color:white")
         label_1.setAlignment(Qt.AlignLeft)
         label_1.setWordWrap(True)
         label_1.setMargin(5)
         label_1.setText(msg)
-
 
         label_2 = QLabel(frame_22)
         label_2.setObjectName(u"label_13")
@@ -353,8 +435,6 @@ class Chat(QMainWindow, Ui_Chat):
         label_2.setStyleSheet(u"color:#5f6368")
         label_2.setText(main.hour())
         label_2.setAlignment(Qt.AlignRight)
-
-
 
         horizontalLayout_14.addWidget(frame_22)
 
@@ -372,13 +452,15 @@ class Chat(QMainWindow, Ui_Chat):
                 user = database_local.is_user(True)
                 database_local.add_messages(
                     msg, main.hour(), user.nome, user.tecnologia)
-                
-                self.developer_send(user.nome, user.tecnologia, msg, main.hour())
-                
+
+                self.developer_send(
+                    user.nome, user.tecnologia, msg, main.hour())
+
                 # next msg
                 self.hide_segundos()
             else:
-                self.saida_msg.setText('Mensagem muito grande, maximo de 300 caracteres.')
+                self.saida_msg.setText(
+                    'Mensagem muito grande, maximo de 300 caracteres.')
                 self.saida_msg.setStyleSheet('color:rgb(246, 97, 81);')
 
     # time next message
@@ -390,13 +472,14 @@ class Chat(QMainWindow, Ui_Chat):
         if self.ss15 == 0:
             self.timer2.stop()
             self.input_msg.setDisabled(False)
-            self.btn_msg.setDisabled(False)     
+            self.btn_msg.setDisabled(False)
             self.iconsaida.setPixmap(QPixmap(u":/icons/angles-d.svg"))
             self.saida_msg.setText('')
             self.ss15 = 10
         else:
             self.input_msg.setDisabled(True)
-            self.iconsaida.setPixmap(QPixmap(u":/icons/angles-right-solid.svg"))
+            self.iconsaida.setPixmap(
+                QPixmap(u":/icons/angles-right-solid.svg"))
             self.btn_msg.setDisabled(True)
             self.developer.click()
 
@@ -425,12 +508,14 @@ class Chat(QMainWindow, Ui_Chat):
                 verticalLayout_9.setContentsMargins(0, 0, 0, 0)
                 label_15 = QLabel(frame_22)
                 label_15.setObjectName(u"label_15")
-                sizePolicy = QSizePolicy(QSizePolicy.Minimum, QSizePolicy.Preferred)
+                sizePolicy = QSizePolicy(
+                    QSizePolicy.Minimum, QSizePolicy.Preferred)
                 sizePolicy.setHorizontalStretch(0)
                 sizePolicy.setVerticalStretch(0)
-                sizePolicy.setHeightForWidth(label_15.sizePolicy().hasHeightForWidth())
+                sizePolicy.setHeightForWidth(
+                    label_15.sizePolicy().hasHeightForWidth())
                 label_15.setSizePolicy(sizePolicy)
-                
+
                 # width label
                 width = main.width_label(message.texto)
                 label_15.setMaximumSize(QSize(width, 16777215))
@@ -440,7 +525,7 @@ class Chat(QMainWindow, Ui_Chat):
                 label_15.setFont(font9)
                 label_15.setLayoutDirection(Qt.RightToLeft)
                 label_15.setStyleSheet(u"\n"
-                            "background-color: rgb(23, 22, 93);color:white")
+                                       "background-color: rgb(23, 22, 93);color:white")
                 label_15.setAlignment(Qt.AlignLeft)
                 label_15.setWordWrap(True)
                 label_15.setMargin(5)
@@ -456,7 +541,6 @@ class Chat(QMainWindow, Ui_Chat):
                 label_13.setAlignment(Qt.AlignRight)
 
                 verticalLayout_9.addWidget(label_13)
-
 
                 horizontalLayout_14.addWidget(frame_22)
 
@@ -484,8 +568,8 @@ class Chat(QMainWindow, Ui_Chat):
                 font10.setWeight(50)
                 label_21.setFont(font10)
                 label_21.setStyleSheet(
-        "color: white;\n"
-        "background-color: #34449e;")
+                    "color: white;\n"
+                    "background-color: #34449e;")
                 label_21.setScaledContents(True)
                 label_21.setWordWrap(False)
                 label_21.setMargin(5)
@@ -493,7 +577,7 @@ class Chat(QMainWindow, Ui_Chat):
 
                 verticalLayout_9.addWidget(label_21, 0, Qt.AlignHCenter)
                 self.verticalLayout_7.addWidget(frame_20)
-                
+
             elif message.nome == 'ryanbs':
                 frame_11 = QFrame()
                 frame_11.setObjectName(u"frame_11")
@@ -522,9 +606,11 @@ class Chat(QMainWindow, Ui_Chat):
                 nome_msg.setObjectName(u"nome_msg")
                 nome_msg.setFont(font4)
                 nome_msg.setLayoutDirection(Qt.RightToLeft)
-                nome_msg.setStyleSheet(u"color: rgb(206, 153, 25);;border:0;outline:0")
+                nome_msg.setStyleSheet(
+                    u"color: rgb(206, 153, 25);;border:0;outline:0")
                 icon4 = QIcon()
-                icon4.addFile(f":/icons/{message.tecnologia.lower()}", QSize(), QIcon.Normal, QIcon.Off)
+                icon4.addFile(
+                    f":/icons/{message.tecnologia.lower()}", QSize(), QIcon.Normal, QIcon.Off)
                 nome_msg.setIcon(icon4)
                 nome_msg.setIconSize(QSize(28, 24))
                 nome_msg.setText(f"{message.nome}")
@@ -543,8 +629,8 @@ class Chat(QMainWindow, Ui_Chat):
                 font11.setPointSize(14)
                 label_13.setFont(font11)
                 label_13.setStyleSheet(
-        "color:white;\n"
-        "background-color: rgb(60, 60, 60);")
+                    "color:white;\n"
+                    "background-color: rgb(60, 60, 60);")
                 label_13.setScaledContents(True)
                 label_13.setWordWrap(True)
                 label_13.setMargin(5)
@@ -593,7 +679,8 @@ class Chat(QMainWindow, Ui_Chat):
                 nome_msg.setLayoutDirection(Qt.RightToLeft)
                 nome_msg.setStyleSheet(u"color:#5f6368;border:0;outline:0")
                 icon4 = QIcon()
-                icon4.addFile(f":/icons/{message.tecnologia.lower()}", QSize(), QIcon.Normal, QIcon.Off)
+                icon4.addFile(
+                    f":/icons/{message.tecnologia.lower()}", QSize(), QIcon.Normal, QIcon.Off)
                 nome_msg.setIcon(icon4)
                 nome_msg.setIconSize(QSize(28, 24))
                 nome_msg.setText(f"{message.nome}")
@@ -611,8 +698,8 @@ class Chat(QMainWindow, Ui_Chat):
                 font11.setPointSize(14)
                 label_13.setFont(font11)
                 label_13.setStyleSheet(
-        "color:white;\n"
-        "background-color: rgb(60, 60, 60);")
+                    "color:white;\n"
+                    "background-color: rgb(60, 60, 60);")
                 label_13.setScaledContents(True)
                 label_13.setWordWrap(True)
                 label_13.setMargin(5)
@@ -666,13 +753,13 @@ class Chat(QMainWindow, Ui_Chat):
     def animation_net(self, acesso):
         if acesso:
             self.sem_internet.setStyleSheet(u"background-color: rgb(246, 97, 81);\n"
-    "color:white;\n"
-    "border-radius:5px")        
+                                            "color:white;\n"
+                                            "border-radius:5px")
         else:
             self.sem_internet.setStyleSheet(u"background-color: rgba(0, 0, 0, 0);\n"
-            "color:rgba(0, 0, 0, 0);\n"
-            "border-radius:5px")
-    
+                                            "color:rgba(0, 0, 0, 0);\n"
+                                            "border-radius:5px")
+
     # check net
     def check_net(self):
         if not main.access_internet():
@@ -688,7 +775,7 @@ class Chat(QMainWindow, Ui_Chat):
             self.btn_msg.setDisabled(False)
             self.input_msg.setDisabled(False)
 
-    # members of community 
+    # members of community
     def list_members(self):
         if main.access_internet():
             self.users()
@@ -700,12 +787,13 @@ class Chat(QMainWindow, Ui_Chat):
             self.label_4.hide()
             self.label_2.setFont(font2)
             self.label_2.setStyleSheet('color: rgb(246, 97, 81)')
-            self.label_2.setText('Para mostrar membros, reinicie o aplicativo.')
-    
+            self.label_2.setText(
+                'Para mostrar membros, reinicie o aplicativo.')
+
     # messages received
     def chat_messages(self):
         BASE_DIR = os.path.dirname(__file__)
-        with open(f'{BASE_DIR}/modules/chat/mensagens.txt', 'r+') as file:
+        with open(f'{BASE_DIR}/mensagens.txt', 'r+') as file:
             linha = file.readline()
             if linha:
                 dados = eval(linha)
@@ -728,7 +816,8 @@ class Chat(QMainWindow, Ui_Chat):
                         frame_14.setFrameShadow(QFrame.Raised)
                         horizontalLayout_10 = QHBoxLayout(frame_14)
                         horizontalLayout_10.setSpacing(2)
-                        horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+                        horizontalLayout_10.setObjectName(
+                            u"horizontalLayout_10")
                         horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
 
                         verticalLayout_5.addWidget(frame_14)
@@ -739,9 +828,11 @@ class Chat(QMainWindow, Ui_Chat):
                         nome_msg.setObjectName(u"nome_msg")
                         nome_msg.setFont(font4)
                         nome_msg.setLayoutDirection(Qt.RightToLeft)
-                        nome_msg.setStyleSheet(u"color: rgb(206, 153, 25);;border:0;outline:0")
+                        nome_msg.setStyleSheet(
+                            u"color: rgb(206, 153, 25);;border:0;outline:0")
                         icon4 = QIcon()
-                        icon4.addFile(f":/icons/{dados['logo'].lower()}", QSize(), QIcon.Normal, QIcon.Off)
+                        icon4.addFile(
+                            f":/icons/{dados['logo'].lower()}", QSize(), QIcon.Normal, QIcon.Off)
                         nome_msg.setIcon(icon4)
                         nome_msg.setIconSize(QSize(28, 24))
                         nome_msg.setText(f"{dados['nome']}")
@@ -760,8 +851,8 @@ class Chat(QMainWindow, Ui_Chat):
                         font11.setPointSize(14)
                         label_13.setFont(font11)
                         label_13.setStyleSheet(
-                "color:white;\n"
-                "background-color: rgb(60, 60, 60);")
+                            "color:white;\n"
+                            "background-color: rgb(60, 60, 60);")
                         label_13.setScaledContents(True)
                         label_13.setWordWrap(True)
                         label_13.setMargin(5)
@@ -779,7 +870,8 @@ class Chat(QMainWindow, Ui_Chat):
 
                         self.verticalLayout_7.addWidget(frame_11)
                         file.truncate(0)
-                        database_local.add_messages(dados['mensagem'], dados['hora'], dados['nome'], dados['logo'].lower())
+                        database_local.add_messages(
+                            dados['mensagem'], dados['hora'], dados['nome'], dados['logo'].lower())
 
                     else:
                         frame_11 = QFrame()
@@ -798,7 +890,8 @@ class Chat(QMainWindow, Ui_Chat):
                         frame_14.setFrameShadow(QFrame.Raised)
                         horizontalLayout_10 = QHBoxLayout(frame_14)
                         horizontalLayout_10.setSpacing(2)
-                        horizontalLayout_10.setObjectName(u"horizontalLayout_10")
+                        horizontalLayout_10.setObjectName(
+                            u"horizontalLayout_10")
                         horizontalLayout_10.setContentsMargins(0, 0, 0, 0)
 
                         verticalLayout_5.addWidget(frame_14)
@@ -810,9 +903,11 @@ class Chat(QMainWindow, Ui_Chat):
                         nome_msg.setObjectName(u"nome_msg")
                         nome_msg.setFont(font4)
                         nome_msg.setLayoutDirection(Qt.RightToLeft)
-                        nome_msg.setStyleSheet(u"color:#5f6368;border:0;outline:0")
+                        nome_msg.setStyleSheet(
+                            u"color:#5f6368;border:0;outline:0")
                         icon4 = QIcon()
-                        icon4.addFile(f":/icons/{dados['logo'].lower()}", QSize(), QIcon.Normal, QIcon.Off)
+                        icon4.addFile(
+                            f":/icons/{dados['logo'].lower()}", QSize(), QIcon.Normal, QIcon.Off)
                         nome_msg.setIcon(icon4)
                         nome_msg.setIconSize(QSize(28, 24))
                         nome_msg.setText(f"{dados['nome']}")
@@ -830,8 +925,8 @@ class Chat(QMainWindow, Ui_Chat):
                         font11.setPointSize(14)
                         label_13.setFont(font11)
                         label_13.setStyleSheet(
-                "color:white;\n"
-                "background-color: rgb(60, 60, 60);")
+                            "color:white;\n"
+                            "background-color: rgb(60, 60, 60);")
                         label_13.setScaledContents(True)
                         label_13.setWordWrap(True)
                         label_13.setMargin(5)
@@ -848,28 +943,34 @@ class Chat(QMainWindow, Ui_Chat):
 
                         self.verticalLayout_7.addWidget(frame_11)
                         file.truncate(0)
-                        database_local.add_messages(dados['mensagem'], dados['hora'], dados['nome'], dados['logo'].lower())
+                        database_local.add_messages(
+                            dados['mensagem'], dados['hora'], dados['nome'], dados['logo'].lower())
 
-                    t1 = threading.Thread(target=notification, args=[self, tray])
+                    t1 = threading.Thread(
+                        target=notification, args=[self, tray])
                     t1.start()
 
-    # send message rabbit 
+    # send message rabbit
     def developer_send(self, nome, tecnologia, mensagem, hora):
         try:
-            developer = dev.Dev()
-            developer.send(nome=nome, logo=tecnologia, message=mensagem, hora=hora)
+            developer = Dev()
+            developer.send(nome=nome, logo=tecnologia,
+                           message=mensagem, hora=hora)
         except:
             self.animation_net(True)
             self.btn_msg.setDisabled(True)
             self.btn_ocultar_mostrar.setDisabled(True)
             self.input_msg.setDisabled(True)
             self.sem_internet.setStyleSheet(u"background-color: rgb(246, 97, 81);\n"
-    "color:white;\n"
-    "border-radius:5px")     
-            self.sem_internet.setText('Erro inesperado ao enviar sua mensagem, reinicie o aplicativo.')
+                                            "color:white;\n"
+                                            "border-radius:5px")
+            self.sem_internet.setText(
+                'Erro inesperado ao enviar sua mensagem, reinicie o aplicativo.')
 
 
 counter = 0
+
+
 class SplashScreen(QMainWindow, Ui_SplashScreen):
     def __init__(self):
         super(SplashScreen, self).__init__()
@@ -889,10 +990,13 @@ class SplashScreen(QMainWindow, Ui_SplashScreen):
         self.timer.timeout.connect(self.progress)
         self.timer.start(35)
 
-        self.label_description.setText("<strong>Bem vindo</strong> a comunidade")
+        self.label_description.setText(
+            "<strong>Bem vindo</strong> a comunidade")
 
-        QTimer.singleShot(1000, lambda: self.label_description.setText("<strong>Verificando</strong> internet"))
-        QTimer.singleShot(2000, lambda: self.label_description.setText("<strong>Carregando</strong> mensagens"))
+        QTimer.singleShot(1000, lambda: self.label_description.setText(
+            "<strong>Verificando</strong> internet"))
+        QTimer.singleShot(2000, lambda: self.label_description.setText(
+            "<strong>Carregando</strong> mensagens"))
 
         self.show()
 
@@ -902,7 +1006,8 @@ class SplashScreen(QMainWindow, Ui_SplashScreen):
 
         if counter >= 100:
             # STOP TIMER
-            self.label_description.setText("<strong>Abrindo o aplicativo</strong>")
+            self.label_description.setText(
+                "<strong>Abrindo o aplicativo</strong>")
             self.timer.stop()
 
             self.close()
@@ -916,7 +1021,7 @@ def notification(self, tray: QSystemTrayIcon):
     notificationTitle = 'Chat developers'
     notificationMessage = 'Nova mensagem'
     icon = QIcon(u":/icons/logo_chat.png")
-    duration = 3 * 1000 #3 seconds
+    duration = 3 * 1000  # 3 seconds
 
     tray.showMessage(notificationTitle, notificationMessage, icon, duration)
 
@@ -929,7 +1034,8 @@ if __name__ == '__main__':
         window = Login()
 
     if not QSystemTrayIcon.isSystemTrayAvailable():
-        QMessageBox.critical(None, "Notificações", "Não foi possível enviar notificações.")
+        QMessageBox.critical(None, "Notificações",
+                             "Não foi possível enviar notificações.")
         sys.exit(0)
 
     app.setQuitOnLastWindowClosed(False)
@@ -953,11 +1059,10 @@ if __name__ == '__main__':
     action_exit.triggered.connect(close)
 
     menu.addAction(action_exit)
-    
+
     tray.setContextMenu(menu)
-    
+
     tray.show()
 
     window.show()
     sys.exit(app.exec_())
-

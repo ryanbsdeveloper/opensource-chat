@@ -12,15 +12,14 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-
 class Ui_Login(object):
     def setupUi(self, Login):
         if not Login.objectName():
             Login.setObjectName(u"Login")
-        Login.setWindowModality(Qt.WindowModal)
-        Login.resize(643, 519)
-        Login.setMinimumSize(QSize(643, 519))
-        Login.setMaximumSize(QSize(643, 519))
+        Login.setWindowModality(Qt.NonModal)
+        Login.resize(643, 554)
+        Login.setMinimumSize(QSize(643, 554))
+        Login.setMaximumSize(QSize(643, 554))
         icon = QIcon()
         icon.addFile(u":/icons/logo_chat.png", QSize(), QIcon.Normal, QIcon.Off)
         Login.setWindowIcon(icon)
@@ -32,7 +31,7 @@ class Ui_Login(object):
         self.verticalLayout.setContentsMargins(9, 0, -1, 0)
         self.sem_internet = QLabel(Login)
         self.sem_internet.setObjectName(u"sem_internet")
-        self.sem_internet.setMaximumSize(QSize(1000000, 16777215))
+        self.sem_internet.setMaximumSize(QSize(1000000, 23))
         font = QFont()
         font.setPointSize(12)
         self.sem_internet.setFont(font)
@@ -47,7 +46,7 @@ class Ui_Login(object):
         self.frame = QFrame(Login)
         self.frame.setObjectName(u"frame")
         self.frame.setMinimumSize(QSize(604, 501))
-        self.frame.setMaximumSize(QSize(626, 501))
+        self.frame.setMaximumSize(QSize(626, 600))
         self.frame.setFrameShape(QFrame.NoFrame)
         self.frame.setFrameShadow(QFrame.Raised)
         self.verticalLayout_2 = QVBoxLayout(self.frame)
@@ -360,7 +359,7 @@ class Ui_Login(object):
 
         self.frame_7 = QFrame(self.frame_4)
         self.frame_7.setObjectName(u"frame_7")
-        self.frame_7.setMinimumSize(QSize(0, 37))
+        self.frame_7.setMinimumSize(QSize(0, 44))
         self.frame_7.setFrameShape(QFrame.NoFrame)
         self.frame_7.setFrameShadow(QFrame.Raised)
         self.horizontalLayout = QHBoxLayout(self.frame_7)
@@ -388,10 +387,10 @@ class Ui_Login(object):
         self.tec_escolhida.setStyleSheet(u"border:0;color:white")
         self.tec_escolhida.setIconSize(QSize(45, 32))
 
-        self.horizontalLayout.addWidget(self.tec_escolhida, 0, Qt.AlignLeft)
+        self.horizontalLayout.addWidget(self.tec_escolhida, 0, Qt.AlignLeft|Qt.AlignTop)
 
 
-        self.verticalLayout_5.addWidget(self.frame_7)
+        self.verticalLayout_5.addWidget(self.frame_7, 0, Qt.AlignLeft)
 
         self.erro_tecnologia = QLabel(self.frame_4)
         self.erro_tecnologia.setObjectName(u"erro_tecnologia")

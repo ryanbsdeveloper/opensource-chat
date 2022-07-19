@@ -9,7 +9,7 @@ from sqlalchemy import null, select, update, delete
 BASE_DIR = os.path.dirname(__file__)
 BASE_DIR = f'{BASE_DIR}/database_local.db'
 
-engine = sql.create_engine(f"sqlite:///{BASE_DIR}")
+engine = sql.create_engine(f"sqlite:///database.db")
 
 Base = declarative.declarative_base()
 Session = sessionmaker()

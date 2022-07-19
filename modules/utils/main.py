@@ -1,5 +1,4 @@
 from datetime import datetime
-import re
 import requests
 from PIL import ImageFont
 import matplotlib.font_manager as fm
