@@ -1043,15 +1043,24 @@ if __name__ == '__main__':
 
     menu = QMenu()
     action_hide = QAction("Ocultar Janela")
-    action_hide.setIcon(QIcon(QPixmap('resources/hide.svg')))
+    icon_hide = QIcon()
+    icon_hide.addFile(f":/icons/",
+                      QSize(), QIcon.Normal, QIcon.Off)
+    action_hide.setIcon(icon_hide)
     menu.addAction(action_hide)
 
     action_show = QAction("Mostrar janela")
-    action_show.setIcon(QIcon(QPixmap('resources/show.svg')))
+    icon_show = QIcon()
+    icon_show.addFile(f":/icons/",
+                    QSize(), QIcon.Normal, QIcon.Off)
+    action_show.setIcon(icon_show)
     menu.addAction(action_show)
 
     action_exit = QAction("Sair")
-    action_exit.setIcon(QIcon(QPixmap('resources/close.svg')))
+    icon_exit = QIcon()
+    icon_exit.addFile(f":/icons/",
+                    QSize(), QIcon.Normal, QIcon.Off)
+    action_exit.setIcon(icon_exit)
 
     def close():
         sys.exit()
