@@ -113,10 +113,15 @@ class Login(QDialog, Ui_Login):
 
 class ThreadMessages(QThread):
     sig = Signal()
-    def __init__(self, mw, parent=None):
+    def __init__(self, mw=None, parent=None):
         super().__init__(parent)
 
     def run(self):
+        try:
+            t1 = threading.Thread(target=servidor.Servidor().consuming)
+            t1.start()
+        except:
+            assert 'Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.'
         while True:
             BASE_DIR = os.path.dirname(__file__)
             with open(f'{BASE_DIR}/modules/chat/mensagens.txt', 'r+') as file:
@@ -150,16 +155,27 @@ class Chat(QMainWindow, Ui_Chat):
         self.developer_log()
         self.messages()
 
-        self.t = ThreadMessages(self)
-        self.t.start()
-        self.t.sig.connect(self.chat_messages)  
-
         # Time
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.check_net)
         self.timer.start(1500)
 
-        # Others windows
+        # Server rabbit
+        try:
+            self.t = ThreadMessages(self)
+            self.t.start()
+            self.t.sig.connect(self.chat_messages) 
+        except:  
+            self.animation_net(True)
+            self.animation_members(True)
+
+            self.btn_msg.setDisabled(True)
+            self.btn_ocultar_mostrar.setDisabled(True)
+            self.sem_internet.setText('Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.')
+            self.input_msg.setDisabled(True)
+            self.timer.stop()
+
+         # Others windows
         self.conf = Conf(self)
         self.btn_config.clicked.connect(self.open_conf)
         
@@ -916,17 +932,26 @@ if __name__ == '__main__':
         QMessageBox.critical(None, "Notificações", "Não foi possível enviar notificações.")
         sys.exit(0)
 
-    # app.setQuitOnLastWindowClosed(False)
+    app.setQuitOnLastWindowClosed(False)
     tray = QSystemTrayIcon(QIcon(u":/icons/logo_chat.png"), app)
 
     menu = QMenu()
     action_hide = QAction("Ocultar Janela")
+    action_hide.setIcon(QIcon(QPixmap('resources/hide.svg')))
     menu.addAction(action_hide)
+
     action_show = QAction("Mostrar janela")
+    action_show.setIcon(QIcon(QPixmap('resources/show.svg')))
     menu.addAction(action_show)
 
     action_exit = QAction("Sair")
-    action_exit.triggered.connect(lambda: sys.exit())
+    action_exit.setIcon(QIcon(QPixmap('resources/close.svg')))
+
+    def close():
+        sys.exit()
+
+    action_exit.triggered.connect(close)
+
     menu.addAction(action_exit)
     
     tray.setContextMenu(menu)

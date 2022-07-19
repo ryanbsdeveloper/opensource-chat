@@ -26,4 +26,4 @@ class Dev:
 
 
 cliente = Dev()
-cliente.send("ryanbs", "python", "Você está conectado porra", "23:12")
+cliente.send("ryanbs", "python", "Conseguimos ryan!", "23:45")
