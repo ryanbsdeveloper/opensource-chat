@@ -16,6 +16,8 @@ from widgets.carregamento import Ui_SplashScreen
 from modules.databases import database_aws, database_local
 # from modules.chat import dev, servidor
 from modules.utils import main
+import sqlalchemy.sql.default_comparator
+from sqlalchemy import *
 
 import resources.resources
 
