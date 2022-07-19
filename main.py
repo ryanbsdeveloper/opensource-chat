@@ -68,7 +68,6 @@ class Login(QDialog, Ui_Login):
         timer = QTimer(self)
         timer.timeout.connect(self.tecnologia)
         timer.start(500)
-
         # Button
         self.btn_comecar.clicked.connect(self.developer)
 
@@ -156,9 +155,9 @@ class Chat(QMainWindow, Ui_Chat):
         self.t.sig.connect(self.chat_messages)  
 
         # Time
-        timer = QTimer(self)
-        timer.timeout.connect(self.check_net)
-        timer.start(1500)
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.check_net)
+        self.timer.start(1500)
 
         # Others windows
         self.conf = Conf(self)
@@ -169,20 +168,6 @@ class Chat(QMainWindow, Ui_Chat):
 
         # Hide members
         self.btn_ocultar_mostrar.clicked.connect(self.animation_members)
-
-        try:
-            t1 = threading.Thread(target=servidor.Servidor().consuming)
-            t1.start()
-        except:
-            self.animation_net(True)
-            self.btn_msg.setDisabled(True)
-            self.btn_ocultar_mostrar.setDisabled(True)
-            self.input_msg.setDisabled(True)
-            self.sem_internet.setStyleSheet(u"background-color: rgb(246, 97, 81);\n"
-    "color:white;\n"
-    "border-radius:5px")     
-            self.sem_internet.setText('Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.')
-            timer.stop()
 
     # users community
     def users(self):
@@ -634,7 +619,7 @@ class Chat(QMainWindow, Ui_Chat):
 
     # Open others windows
     def open_conf(self):
-        self.conf.exec_()
+        self.conf.show()
 
     # animation view members
     def animation_members(self, fechado=False):
@@ -849,7 +834,8 @@ class Chat(QMainWindow, Ui_Chat):
                         file.truncate(0)
                         database_local.add_messages(dados['mensagem'], dados['hora'], dados['nome'], dados['logo'].lower())
 
-                    notification(self, tray)
+                    t1 = threading.Thread(target=notification, args=[self, tray])
+                    t1.start()
 
     # send message rabbit 
     def developer_send(self, nome, tecnologia, mensagem, hora):
@@ -866,21 +852,16 @@ class Chat(QMainWindow, Ui_Chat):
     "border-radius:5px")     
             self.sem_internet.setText('Erro inesperado ao enviar sua mensagem, reinicie o aplicativo.')
 
+
 counter = 0
 class SplashScreen(QMainWindow, Ui_SplashScreen):
     def __init__(self):
         super(SplashScreen, self).__init__()
         self.setupUi(self)
 
-        ## UI ==> INTERFACE CODES
-        ########################################################################
-
-        ## REMOVE TITLE BAR
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
 
-
-        ## DROP SHADOW EFFECT
         self.shadow = QGraphicsDropShadowEffect(self)
         self.shadow.setBlurRadius(20)
         self.shadow.setXOffset(0)
@@ -888,51 +869,30 @@ class SplashScreen(QMainWindow, Ui_SplashScreen):
         self.shadow.setColor(QColor(0, 0, 0, 150))
         self.dropShadowFrame.setGraphicsEffect(self.shadow)
 
-        ## QTIMER ==> START
         self.timer = QTimer()
         self.timer.timeout.connect(self.progress)
-        # TIMER IN MILLISECONDS
         self.timer.start(35)
 
-        # CHANGE DESCRIPTION
-
-        # Initial Text
         self.label_description.setText("<strong>Bem vindo</strong> a comunidade")
 
-        # Change Texts
         QTimer.singleShot(1000, lambda: self.label_description.setText("<strong>Verificando</strong> internet"))
         QTimer.singleShot(2000, lambda: self.label_description.setText("<strong>Carregando</strong> mensagens"))
 
-
-        ## SHOW ==> MAIN WINDOW
-        ########################################################################
         self.show()
-        ## ==> END ##
-
-    ## ==> APP FUNCTIONS
-    ########################################################################
-  
 
     def progress(self):
         global counter
-
-        # SET VALUE TO PROGRESS BAR
         self.progressBar.setValue(counter)
 
-        # CLOSE SPLASH SCREE AND OPEN APP
         if counter >= 100:
             # STOP TIMER
             self.label_description.setText("<strong>Abrindo o aplicativo</strong>")
             self.timer.stop()
 
-            # SHOW MAIN WINDOW
+            self.close()
             self.main = Chat()
             self.main.show()
 
-            # CLOSE SPLASH SCREEN
-            self.close()
-
-        # INCREASE COUNTER
         counter += 1
 
 
@@ -949,29 +909,30 @@ if __name__ == '__main__':
     app = QApplication(sys.argv)
     if database_local.is_user():
         window = SplashScreen()
-        if not QSystemTrayIcon.isSystemTrayAvailable():
-            QMessageBox.critical(None, "Notificações", "Não foi possível enviar notificações.")
-            sys.exit(1)
-    
-        app.setQuitOnLastWindowClosed(False)
-        tray = QSystemTrayIcon(QIcon(u":/icons/logo_chat.png"), app)
-
-        menu = QMenu()
-        action_hide = QAction("Ocultar Janela")
-        menu.addAction(action_hide)
-        action_show = QAction("Mostrar janela")
-        menu.addAction(action_show)
-    
-        action_exit = QAction("Sair")
-        action_exit.triggered.connect(app.exit)
-        menu.addAction(action_exit)
-
-        tray.setContextMenu(menu)
-        
-        tray.show()
-
     else:
         window = Login()
 
+    if not QSystemTrayIcon.isSystemTrayAvailable():
+        QMessageBox.critical(None, "Notificações", "Não foi possível enviar notificações.")
+        sys.exit(0)
+
+    # app.setQuitOnLastWindowClosed(False)
+    tray = QSystemTrayIcon(QIcon(u":/icons/logo_chat.png"), app)
+
+    menu = QMenu()
+    action_hide = QAction("Ocultar Janela")
+    menu.addAction(action_hide)
+    action_show = QAction("Mostrar janela")
+    menu.addAction(action_show)
+
+    action_exit = QAction("Sair")
+    action_exit.triggered.connect(lambda: sys.exit())
+    menu.addAction(action_exit)
+    
+    tray.setContextMenu(menu)
+    
+    tray.show()
+
     window.show()
     sys.exit(app.exec_())
+
