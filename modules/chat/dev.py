@@ -24,6 +24,3 @@ class Dev:
                                  properties=pika.BasicProperties(delivery_mode=2))
         self.canal.close()
 
-
-cliente = Dev()
-cliente.send("ryanbs", "python", "Conseguimos ryan!", "23:45")
