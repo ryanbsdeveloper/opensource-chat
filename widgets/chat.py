@@ -12,6 +12,7 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
+
 class Ui_Chat(object):
     def setupUi(self, Chat):
         if not Chat.objectName():
@@ -270,7 +271,7 @@ class Ui_Chat(object):
         self.scrollArea.setAlignment(Qt.AlignBottom|Qt.AlignHCenter)
         self.scrollAreaWidgetContents_2 = QWidget()
         self.scrollAreaWidgetContents_2.setObjectName(u"scrollAreaWidgetContents_2")
-        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 518, 585))
+        self.scrollAreaWidgetContents_2.setGeometry(QRect(0, 0, 868, 585))
         self.verticalLayout_6 = QVBoxLayout(self.scrollAreaWidgetContents_2)
         self.verticalLayout_6.setObjectName(u"verticalLayout_6")
         self.frame_13 = QFrame(self.scrollAreaWidgetContents_2)
@@ -414,7 +415,7 @@ class Ui_Chat(object):
         self.frame_12 = QFrame(self.frame)
         self.frame_12.setObjectName(u"frame_12")
         self.frame_12.setMinimumSize(QSize(0, 0))
-        self.frame_12.setMaximumSize(QSize(350, 16777215))
+        self.frame_12.setMaximumSize(QSize(0, 16777215))
         self.frame_12.setStyleSheet(u"QScrollBar:vertical {   \n"
 "    border: 1px solid #999999;\n"
 "    background:white;\n"
@@ -568,7 +569,7 @@ class Ui_Chat(object):
         self.scrollArea_2.setAlignment(Qt.AlignBottom|Qt.AlignLeading|Qt.AlignLeft)
         self.scrollAreaWidgetContents = QWidget()
         self.scrollAreaWidgetContents.setObjectName(u"scrollAreaWidgetContents")
-        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 332, 42))
+        self.scrollAreaWidgetContents.setGeometry(QRect(0, 0, 16, 42))
         self.verticalLayout_8 = QVBoxLayout(self.scrollAreaWidgetContents)
         self.verticalLayout_8.setSpacing(0)
         self.verticalLayout_8.setObjectName(u"verticalLayout_8")
@@ -604,7 +605,7 @@ class Ui_Chat(object):
         self.btn_config.setAccessibleDescription("")
 #endif // QT_CONFIG(accessibility)
         self.btn_config.setText("")
-        self.btn_ocultar_mostrar.setText(QCoreApplication.translate("Chat", u"Ocultar membros", None))
+        self.btn_ocultar_mostrar.setText(QCoreApplication.translate("Chat", u"Mostrar membros", None))
         self.sem_internet.setText(QCoreApplication.translate("Chat", u"Verifique sua conex\u00e3o com a internet.", None))
         self.btn_msg.setText("")
         self.input_msg.setPlaceholderText(QCoreApplication.translate("Chat", u"Nova mensagem", None))

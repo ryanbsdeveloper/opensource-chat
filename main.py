@@ -6,7 +6,6 @@ import os
 import threading
 from PySide2.QtWidgets import *
 from PySide2.QtGui import QFont, QIcon, QPixmap, QColor
-from PySide2 import Qt
 from PySide2.QtCore import *
 from sqlalchemy import true
 from widgets.chat import Ui_Chat
@@ -36,7 +35,7 @@ class Servidor:
         self.canal = conexão.channel()
 
         self.canal.exchange_declare(exchange='chat', exchange_type='direct')
-        self.canal.queue_declare(queue='mensagens', exclusive=True)
+        self.canal.queue_declare(queue='mensagens')
         self.canal.queue_bind(queue='mensagens', exchange='chat', routing_key='tag_mensagem')
 
 
@@ -222,13 +221,13 @@ class Chat(QMainWindow, Ui_Chat):
         self.setupUi(self)
         self.btn_msg.clicked.connect(self.add_my_msg)
         self.scrollArea.verticalScrollBar().rangeChanged.connect(self.ResizeScroll)
-        self.input_msg.returnPressed.connect(self.btn_msg.click)
+        self.input_msg.returnPressed.connect(self.add_my_msg)
 
         # notifications
         global window_obj
         window_obj = self
-        action_hide.triggered.connect(lambda: self.hide())
-        action_show.triggered.connect(lambda: self.showNormal())
+        action_hide.triggered.connect(self.menu_hide)
+        action_show.triggered.connect(self.menu_show)
 
         # Initial
         self.ss15 = 10
@@ -393,7 +392,7 @@ class Chat(QMainWindow, Ui_Chat):
     def add_my_msg(self):
         self.ss15 = 10
         msg = self.input_msg.text()
-
+        
         frame_21 = QFrame()
         frame_21.setObjectName(u"frame_21")
         frame_21.setFrameShape(QFrame.NoFrame)
@@ -430,6 +429,7 @@ class Chat(QMainWindow, Ui_Chat):
         label_1.setWordWrap(True)
         label_1.setMargin(5)
         label_1.setText(msg)
+        verticalLayout.addWidget(label_1)
 
         label_2 = QLabel(frame_22)
         label_2.setObjectName(u"label_13")
@@ -437,34 +437,31 @@ class Chat(QMainWindow, Ui_Chat):
         label_2.setStyleSheet(u"color:#5f6368")
         label_2.setText(main.hour())
         label_2.setAlignment(Qt.AlignRight)
+        verticalLayout.addWidget(label_2)
 
         horizontalLayout_14.addWidget(frame_22)
 
-        if msg:
-            if len(msg) < 300:
+        if msg and len(msg) < 300:
+            label_1.setText(msg)
+    
+            self.verticalLayout_7.addWidget(frame_21)
+            self.input_msg.setText('')
+        else:
+            self.saida_msg.setText(
+                'Mensagem muito grande, maximo de 300 caracteres.')
+            self.saida_msg.setStyleSheet('color:rgb(246, 97, 81);')
+            return
 
-                label_1.setText(msg)
-                verticalLayout.addWidget(label_1)
-                verticalLayout.addWidget(label_2)
-
-                self.verticalLayout_7.addWidget(frame_21)
-                self.input_msg.setText('')
-
-                # add db and send
-                user = database_local.is_user(True)
-                database_local.add_messages(
-                    msg, main.hour(), user.nome, user.tecnologia)
-
-                self.developer_send(
-                    user.nome, user.tecnologia, msg, main.hour())
-
-                # next msg
-                self.hide_segundos()
-            else:
-                self.saida_msg.setText(
-                    'Mensagem muito grande, maximo de 300 caracteres.')
-                self.saida_msg.setStyleSheet('color:rgb(246, 97, 81);')
-
+        # add db and send
+        user = database_local.is_user(True)
+        database_local.add_messages(
+        msg, main.hour(), user.nome, user.tecnologia)
+        t = threading.Thread(target=self.developer_send, args=[user.nome, user.tecnologia, msg, main.hour()])
+        t.start()        
+        
+        # next msg
+        self.hide_segundos()
+  
     # time next message
     def hide_segundos(self):
         self.timer2.start(1000)
@@ -971,10 +968,19 @@ class Chat(QMainWindow, Ui_Chat):
             self.sem_internet.setText(
                 'Erro inesperado ao enviar sua mensagem, reinicie o aplicativo.')
 
+    # menu actions
+    def menu_show(self):
+        action_show.setDisabled(True)
+        action_hide.setDisabled(False)
+        self.showNormal()
+
+    def menu_hide(self):
+        action_show.setDisabled(False)
+        action_hide.setDisabled(True)
+        self.hide()
+
 
 counter = 0
-
-
 class SplashScreen(QMainWindow, Ui_SplashScreen):
     def __init__(self):
         super(SplashScreen, self).__init__()
@@ -998,9 +1004,9 @@ class SplashScreen(QMainWindow, Ui_SplashScreen):
             "<strong>Bem vindo</strong> a comunidade")
 
         QTimer.singleShot(1000, lambda: self.label_description.setText(
-            "<strong>Verificando</strong> internet"))
-        QTimer.singleShot(2000, lambda: self.label_description.setText(
             "<strong>Carregando</strong> mensagens"))
+        QTimer.singleShot(2000, lambda: self.label_description.setText(
+            "<strong>Conectando-se</strong> ao servidor"))
 
         self.show()
 
@@ -1047,15 +1053,17 @@ if __name__ == '__main__':
 
     menu = QMenu()
     action_hide = QAction("Ocultar Janela")
-    action_hide.setIcon(QIcon(QPixmap('resources/hide.svg')))
+    action_hide.setIcon(QIcon(QPixmap(':icons/hide.svg')))
     menu.addAction(action_hide)
 
     action_show = QAction("Mostrar janela")
-    action_show.setIcon(QIcon(QPixmap('resources/show.svg')))
+    action_show.setIcon(QIcon(QPixmap(':icons/show.svg')))
+    action_show.setDisabled(True)
     menu.addAction(action_show)
 
+    menu.addSeparator()
     action_exit = QAction("Sair")
-    action_exit.setIcon(QIcon(QPixmap('resources/close.svg')))
+    action_exit.setIcon(QIcon(QPixmap(':icons/close.svg')))
 
     def close():
         sys.exit()

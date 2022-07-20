@@ -354,7 +354,7 @@
                 <string notr="true">color:#fff;border:0;outline:0</string>
                </property>
                <property name="text">
-                <string>Ocultar membros</string>
+                <string>Mostrar membros</string>
                </property>
                <property name="icon">
                 <iconset resource="../resources/resources.qrc">
@@ -542,7 +542,7 @@ QScrollBar:vertical {
                  <rect>
                   <x>0</x>
                   <y>0</y>
-                  <width>518</width>
+                  <width>868</width>
                   <height>585</height>
                  </rect>
                 </property>
@@ -854,7 +854,7 @@ border:1px solid rgb(32, 47, 177)
          </property>
          <property name="maximumSize">
           <size>
-           <width>350</width>
+           <width>0</width>
            <height>16777215</height>
           </size>
          </property>
@@ -1137,7 +1137,7 @@ border:1px solid rgb(32, 47, 177)
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>332</width>
+               <width>16</width>
                <height>42</height>
               </rect>
              </property>
@@ -1171,7 +1171,6 @@ border:1px solid rgb(32, 47, 177)
   </widget>
  </widget>
  <resources>
-  <include location="../resources/resources.qrc"/>
   <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>

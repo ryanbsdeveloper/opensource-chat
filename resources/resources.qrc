@@ -1,8 +1,8 @@
 <RCC>
   <qresource prefix="icons">
-    <file>close.svg</file>
     <file>show.svg</file>
     <file>hide.svg</file>
+    <file>close.svg</file>
     <file>crown-solid.svg</file>
     <file>angles-right-solid.svg</file>
     <file>fundo.jpg</file>
