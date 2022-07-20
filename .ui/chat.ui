@@ -212,7 +212,7 @@
              <property name="spacing">
               <number>60</number>
              </property>
-             <item alignment="Qt::AlignHCenter">
+             <item alignment="Qt::AlignHCenter|Qt::AlignVCenter">
               <widget class="QFrame" name="frame_8">
                <property name="frameShape">
                 <enum>QFrame::NoFrame</enum>
@@ -225,7 +225,7 @@
                  <widget class="QLabel" name="label_5">
                   <property name="font">
                    <font>
-                    <pointsize>16</pointsize>
+                    <pointsize>17</pointsize>
                     <weight>50</weight>
                     <bold>false</bold>
                    </font>
@@ -238,7 +238,7 @@
                   </property>
                  </widget>
                 </item>
-                <item>
+                <item alignment="Qt::AlignBottom">
                  <widget class="QPushButton" name="developer">
                   <property name="font">
                    <font>

@@ -12,7 +12,6 @@ from PySide2.QtCore import *
 from PySide2.QtGui import *
 from PySide2.QtWidgets import *
 
-
 class Ui_Chat(object):
     def setupUi(self, Chat):
         if not Chat.objectName():
@@ -113,7 +112,7 @@ class Ui_Chat(object):
         self.label_5 = QLabel(self.frame_8)
         self.label_5.setObjectName(u"label_5")
         font4 = QFont()
-        font4.setPointSize(16)
+        font4.setPointSize(17)
         font4.setBold(False)
         font4.setWeight(50)
         self.label_5.setFont(font4)
@@ -136,10 +135,10 @@ class Ui_Chat(object):
         self.developer.setIconSize(QSize(32, 32))
         self.developer.setAutoDefault(False)
 
-        self.horizontalLayout_6.addWidget(self.developer)
+        self.horizontalLayout_6.addWidget(self.developer, 0, Qt.AlignBottom)
 
 
-        self.horizontalLayout_5.addWidget(self.frame_8, 0, Qt.AlignHCenter)
+        self.horizontalLayout_5.addWidget(self.frame_8, 0, Qt.AlignHCenter|Qt.AlignVCenter)
 
         self.btn_config = QPushButton(self.frame_2)
         self.btn_config.setObjectName(u"btn_config")

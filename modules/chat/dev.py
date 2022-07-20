@@ -25,5 +25,5 @@ class Dev:
         self.canal.close()
 
 
-cliente = Dev()
-cliente.send("fredekel", "java", "Boa tio, ficou show de bola!", "18:43")
+# cliente = Dev()
+# cliente.send("fredekel", "java", "Boa tio, ficou show de bola!", "18:43")

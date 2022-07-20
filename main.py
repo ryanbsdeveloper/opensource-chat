@@ -609,7 +609,7 @@ class Chat(QMainWindow, Ui_Chat):
                 nome_msg.setFont(font4)
                 nome_msg.setLayoutDirection(Qt.RightToLeft)
                 nome_msg.setStyleSheet(
-                    u"color: rgb(206, 153, 25);;border:0;outline:0")
+                    u"color: rgb(206, 153, 25);border:0;outline:0")
                 icon4 = QIcon()
                 icon4.addFile(
                     f":/icons/{message.tecnologia.lower()}", QSize(), QIcon.Normal, QIcon.Off)
@@ -648,7 +648,8 @@ class Chat(QMainWindow, Ui_Chat):
 
                 verticalLayout_5.addWidget(label_10)
 
-                self.verticalLayout_7.addWidget(frame_11)
+                self.verticalLayout_7.addWidget(frame_11, 0 , Qt.AlignTop)
+
 
             else:
                 frame_11 = QFrame()
@@ -716,7 +717,7 @@ class Chat(QMainWindow, Ui_Chat):
 
                 verticalLayout_5.addWidget(label_10)
 
-                self.verticalLayout_7.addWidget(frame_11)
+                self.verticalLayout_7.addWidget(frame_11, 0 , Qt.AlignTop)
 
     # scroll intelligent
     def ResizeScroll(self, min, maxi):
@@ -881,6 +882,7 @@ class Chat(QMainWindow, Ui_Chat):
                         frame_11.setMaximumSize(QSize(16777215, 1000))
                         frame_11.setFrameShape(QFrame.NoFrame)
                         frame_11.setFrameShadow(QFrame.Raised)
+                        frame_11.setLayoutDirection(Qt.LayoutDirection())
                         verticalLayout_5 = QVBoxLayout(frame_11)
                         verticalLayout_5.setSpacing(2)
                         verticalLayout_5.setObjectName(u"verticalLayout_5")
@@ -943,7 +945,7 @@ class Chat(QMainWindow, Ui_Chat):
 
                         verticalLayout_5.addWidget(label_10)
 
-                        self.verticalLayout_7.addWidget(frame_11)
+                        self.verticalLayout_7.addWidget(frame_11, 0 , Qt.AlignTop)
                         file.truncate(0)
                         database_local.add_messages(
                             dados['mensagem'], dados['hora'], dados['nome'], dados['logo'].lower())
