@@ -25,14 +25,6 @@ class User(Base):
     tecnologia = sql.Column(sql.String(50), index=True)
 
 
-class Users(Base):
-    __tablename__ = "users_geral"
-
-    id = sql.Column(sql.Integer, index=True, primary_key=True)
-    nome = sql.Column(sql.String(50), index=True, )
-    tecnologia = sql.Column(sql.String(50), index=True)
-
-
 class Mensagens(Base):
     __tablename__ = "mensagens"
 
@@ -70,17 +62,6 @@ def is_user(datas=None):
             return True
         else:
             return False
-
-
-def add_users(nome, tecnologia):
-    dados = Users(
-        nome=nome,
-        tecnologia=tecnologia
-    )
-
-    session.add(dados)
-    session.commit()
-    session.flush()
 
 
 def list_users():

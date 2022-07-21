@@ -23,13 +23,6 @@ class User(Base):
     reports = sql.Column(sql.Integer, index=True)
     acesso = sql.Column(sql.Boolean, index=True)
 
-class Mensagens(Base):
-    __tablename__ = "mensagens"
-
-    id = sql.Column(sql.Integer, index=True, primary_key=True)
-    nome = sql.Column(sql.String(50), index=True, )
-    texto = sql.Column(sql.String(200), index=True)
-
 class FeedBack(Base):
     __tablename__ = "feedbacks"
 
@@ -75,11 +68,3 @@ def add_feedback(nome, texto):
     session.commit()
     session.flush()
 
-def add_messages(nome, texto):
-    dados = Mensagens(
-        nome=nome,
-        texto=texto
-    )
-    session.add(dados)
-    session.commit()
-    session.flush()
