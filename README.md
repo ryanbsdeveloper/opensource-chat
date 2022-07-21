@@ -22,7 +22,7 @@ Comunidade aberta para bate-papo entre desenvolvedores.
 #### Serviços usados:
 
 - Amazon **MQ** (RabbitMQ)
-- Amazon **RDP** (MySQL) ***versão gratuita***
+- Amazon **RDS** (MySQL) ***versão gratuita***
 
   *Serviço Amazon MQ, ficará fora posteriomente por ser pago.* Levando assim o fim do funcionamento do aplicativo
 
