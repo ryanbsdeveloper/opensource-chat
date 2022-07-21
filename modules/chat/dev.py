@@ -23,7 +23,3 @@ class Dev:
         self.canal.basic_publish(exchange='chat', body=mensagem, routing_key='tag_mensagem',
                                  properties=pika.BasicProperties(delivery_mode=2))
         self.canal.close()
-
-
-# cliente = Dev()
-# cliente.send("fredekel", "java", "Boa tio, ficou show de bola!", "18:43")
