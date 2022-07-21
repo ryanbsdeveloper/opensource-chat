@@ -2,6 +2,7 @@
 
 # Open source
 
+![RabbitMQ_logo svg](https://user-images.githubusercontent.com/94659270/180167226-975ea920-4d0c-4576-9e2c-9814093b69db.png)
 ![Python-Logo](https://user-images.githubusercontent.com/94659270/180166932-945fe467-1818-4acf-98f7-798ca56a3c6f.png)
 
 # Chat developers 
