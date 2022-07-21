@@ -40,7 +40,7 @@ Usando rabbitMQ para envio e recebimento de mensagens, fazendo conexões com cad
 
 
 
-#### Observação
+#### Observação ⚠️
 
 Código aberto para intusiastas e estudos, qualquer dúvida faça uma 'issue' ou entre em contato por email.
 
