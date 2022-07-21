@@ -24,7 +24,7 @@ Comunidade aberta para bate-papo entre desenvolvedores.
 - Amazon **MQ** (RabbitMQ)
 - Amazon **RDP** (MySQL) ***versão gratuita***
 
-  *Serviço Amazon MQ, ficará fora posteriomente por ser pago.* Levando assim o fim do acesso no aplicativo
+  *Serviço Amazon MQ, ficará fora posteriomente por ser pago.* Levando assim o fim do funcionamento do aplicativo
 
 #### Detalhes
 
