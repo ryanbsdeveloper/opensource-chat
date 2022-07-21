@@ -2,9 +2,7 @@
 
 # Open source
 
-<img src="/home/ryanl/Downloads/Python-Logo.png" alt="Python-Logo" style="zoom: 25%;" /><img src="/home/ryanl/Downloads/RabbitMQ_logo.svg.png" alt="RabbitMQ_logo.svg" style="zoom: 50%;" />
-
-
+![Python-Logo](https://user-images.githubusercontent.com/94659270/180166932-945fe467-1818-4acf-98f7-798ca56a3c6f.png)
 
 # Chat developers 
 
