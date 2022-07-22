@@ -10,7 +10,11 @@ class Servidor:
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         ssl_context.set_ciphers('ECDHE+AESGCM:!ECDSA')
 
+<<<<<<< HEAD
         url = f"url"
+=======
+        url = f"amqps://ryanl:842684265santos@b-b86d75fd-5111-4c3c-b62c-b999e666760a.mq.us-east-1.amazonaws.com:5671"
+>>>>>>> f9fa71c (update)
         parameters = pika.URLParameters(url)
         parameters.ssl_options = pika.SSLOptions(context=ssl_context)
 
