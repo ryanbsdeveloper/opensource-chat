@@ -25,8 +25,6 @@ class User(Base):
     tecnologia = sql.Column(sql.String(50), index=True)
 
 
-<<<<<<< HEAD
-=======
 class Users(Base):
     __tablename__ = "users_geral"
 
@@ -35,7 +33,6 @@ class Users(Base):
     tecnologia = sql.Column(sql.String(50), index=True)
 
 
->>>>>>> f9fa71c (update)
 class Mensagens(Base):
     __tablename__ = "mensagens"
 
@@ -111,8 +108,6 @@ def del_messages():
     session.commit()
     session.flush()
 
-<<<<<<< HEAD
-=======
 
 def add_users(nome, tecnologia):
     dados = Users(
@@ -123,4 +118,3 @@ def add_users(nome, tecnologia):
     session.commit()
     session.flush()
 
->>>>>>> f9fa71c (update)

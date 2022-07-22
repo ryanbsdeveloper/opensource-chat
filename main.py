@@ -28,23 +28,21 @@ class Servidor:
         ssl_context.set_ciphers('ECDHE+AESGCM:!ECDSA')
 
         url = f"amqps://ryanl:842684265santos@b-b86d75fd-5111-4c3c-b62c-b999e666760a.mq.us-east-1.amazonaws.com:5671"
-        parameters = pika.URLParameters(url)
-        parameters.ssl_options = pika.SSLOptions(context=ssl_context)
+        parameters = pika.URLParameters(url)       
 
-        conexão = pika.BlockingConnection(parameters)
-        self.canal = conexão.channel()
+        self.conexão = pika.BlockingConnection(parameters)
+        self.canal = self.conexão.channel()
 
         self.canal.exchange_declare(exchange='chat', exchange_type='direct')
         self.canal.queue_declare(queue='mensagens')
         self.canal.queue_bind(queue='mensagens', exchange='chat', routing_key='tag_mensagem')
-
 
     def callback(self, ch, method, properties, body):
         with open(f'{self.BASE_DIR}/mensagens.txt', 'w') as file:
             file.write(f'{json.loads(body)}')
         
     def consuming(self):
-        self.canal.basic_consume(queue='mensagens', on_message_callback=self.callback, auto_ack=True)
+        self.canal.basic_consume(queue='mensagens', on_message_callback=self.callback)
         self.canal.start_consuming() 
 
 
@@ -57,10 +55,13 @@ class Dev:
         parameters = pika.URLParameters(url)
         parameters.ssl_options = pika.SSLOptions(context=ssl_context)
 
-        conexão = pika.BlockingConnection(parameters)
-        self.canal = conexão.channel()
+        self.conexão = pika.BlockingConnection(parameters)
+        self.canal = self.conexão.channel()
 
     def send(self, nome: str, logo: str, message: str, hora: str):
+        if not self.conexão or self.conexão.is_closed:
+            channel = self.conexão.channel()
+            channel.exchange_declare(exchange='chat', exchange_type='direct')
 
         mensagem = json.dumps(
             {"nome": nome, "logo": logo, "hora": hora, "mensagem": message})
@@ -198,13 +199,14 @@ class ThreadMessages(QThread):
 
     def __init__(self, mw=None, parent=None):
         super().__init__(parent)
-
-    def run(self):
         try:
             t1 = threading.Thread(target=Servidor().consuming)
             t1.start()
         except:
             assert 'Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.'
+
+    def run(self):
+
         while True:
             BASE_DIR = os.path.dirname(__file__)
             with open(f'{BASE_DIR}/mensagens.txt', 'r+') as file:
@@ -1048,7 +1050,7 @@ if __name__ == '__main__':
                              "Não foi possível enviar notificações.")
         sys.exit(0)
 
-    app.setQuitOnLastWindowClosed(False)
+    # app.setQuitOnLastWindowClosed(False)
     tray = QSystemTrayIcon(QIcon(u":/icons/logo_chat.png"), app)
 
     menu = QMenu()

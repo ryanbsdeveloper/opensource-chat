@@ -5,11 +5,7 @@ import sqlalchemy.ext.declarative as declarative
 from sqlalchemy import null, select, update, delete
 
 BASE_DIR = os.path.dirname(__file__)
-<<<<<<< HEAD
-engine = sql.create_engine("url")
-=======
 engine = sql.create_engine("mysql+pymysql://admin:842684265@database.c4qq48rdfit7.us-east-1.rds.amazonaws.com/chat")
->>>>>>> f9fa71c (update)
 
 Base = declarative.declarative_base()
 Session = sessionmaker()
