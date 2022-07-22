@@ -1,3 +1,4 @@
+from distutils.log import Log
 import sys
 import pika
 import ssl
@@ -13,7 +14,6 @@ from widgets.conf import Ui_Conf
 from widgets.login import Ui_Login
 from widgets.carregamento import Ui_SplashScreen
 from modules.databases import database_aws, database_local
-# from modules.chat import dev, servidor
 from modules.utils import main
 import sqlalchemy.sql.default_comparator
 from sqlalchemy import *
@@ -24,10 +24,7 @@ class Servidor:
     def __init__(self) -> None:
         self.BASE_DIR = os.path.dirname(__file__)
 
-        ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
-        ssl_context.set_ciphers('ECDHE+AESGCM:!ECDSA')
-
-        url = f"amqps://ryanl:842684265santos@b-b86d75fd-5111-4c3c-b62c-b999e666760a.mq.us-east-1.amazonaws.com:5671"
+        url = 'url'
         parameters = pika.URLParameters(url)       
 
         self.conexão = pika.BlockingConnection(parameters)
@@ -42,16 +39,15 @@ class Servidor:
             file.write(f'{json.loads(body)}')
         
     def consuming(self):
-        self.canal.basic_consume(queue='mensagens', on_message_callback=self.callback)
-        self.canal.start_consuming() 
-
+        self.canal.basic_consume(queue='mensagens', on_message_callback=self.callback, auto_ack=True)
+        assert 'Servidor inativo'
 
 class Dev:
     def __init__(self):
         ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
         ssl_context.set_ciphers('ECDHE+AESGCM:!ECDSA')
 
-        url = f"amqps://ryanl:842684265santos@b-b86d75fd-5111-4c3c-b62c-b999e666760a.mq.us-east-1.amazonaws.com:5671"
+        url = f"url"
         parameters = pika.URLParameters(url)
         parameters.ssl_options = pika.SSLOptions(context=ssl_context)
 
@@ -199,13 +195,14 @@ class ThreadMessages(QThread):
 
     def __init__(self, mw=None, parent=None):
         super().__init__(parent)
+
+    def run(self):
         try:
             t1 = threading.Thread(target=Servidor().consuming)
             t1.start()
         except:
             assert 'Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.'
-
-    def run(self):
+            return
 
         while True:
             BASE_DIR = os.path.dirname(__file__)
@@ -246,20 +243,20 @@ class Chat(QMainWindow, Ui_Chat):
         self.timer.start(1500)
 
         # Server rabbit
-        try:
-            self.t = ThreadMessages(self)
-            self.t.start()
-            self.t.sig.connect(self.chat_messages)
-        except:
-            self.animation_net(True)
-            self.animation_members(True)
+        # try:
+        #     self.t = ThreadMessages(self)
+        #     self.t.start()
+        #     self.t.sig.connect(self.chat_messages)
+        # except:
+        self.animation_net(True)
+        self.animation_members(True)
 
-            self.btn_msg.setDisabled(True)
-            self.btn_ocultar_mostrar.setDisabled(True)
-            self.sem_internet.setText(
-                'Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.')
-            self.input_msg.setDisabled(True)
-            self.timer.stop()
+        self.btn_msg.setDisabled(True)
+        self.btn_ocultar_mostrar.setDisabled(True)
+        self.sem_internet.setText(
+            'Erro inesperado ao tentar se conectar ao servidor, reinicie o aplicativo.')
+        self.input_msg.setDisabled(True)
+        self.timer.stop()
 
          # Others windows
         self.conf = Conf(self)
@@ -984,10 +981,10 @@ class Chat(QMainWindow, Ui_Chat):
 
 counter = 0
 class SplashScreen(QMainWindow, Ui_SplashScreen):
-    def __init__(self):
+    def __init__(self, window=None):
         super(SplashScreen, self).__init__()
         self.setupUi(self)
-
+        self.janela = window
         self.setWindowFlag(Qt.FramelessWindowHint)
         self.setAttribute(Qt.WA_TranslucentBackground)
 
@@ -1023,7 +1020,11 @@ class SplashScreen(QMainWindow, Ui_SplashScreen):
             self.timer.stop()
 
             self.close()
-            self.main = Chat()
+            if self.janela:
+                self.main = Chat()
+            else:
+                self.main = Login()
+
             self.main.show()
 
         counter += 1
@@ -1041,9 +1042,9 @@ def notification(self, tray: QSystemTrayIcon):
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     if database_local.is_user():
-        window = SplashScreen()
+        window = SplashScreen('fg')
     else:
-        window = Login()
+        window = SplashScreen()
 
     if not QSystemTrayIcon.isSystemTrayAvailable():
         QMessageBox.critical(None, "Notificações",
