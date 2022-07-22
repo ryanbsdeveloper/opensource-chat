@@ -1,1 +1,0 @@
-{'nome': 'ryanbarbosa', 'logo': 'Python', 'hora': '11:59', 'mensagem': 'oppAAAA'}

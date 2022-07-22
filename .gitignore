@@ -1,7 +1,7 @@
 venv/
 # build/
 # dist/
-# .ui/
+.ui/
 # widgets/
 # *.db
 # *.txt
