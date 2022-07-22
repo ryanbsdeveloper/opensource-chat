@@ -5,7 +5,7 @@
 ![RabbitMQ_logo svg](https://user-images.githubusercontent.com/94659270/180167226-975ea920-4d0c-4576-9e2c-9814093b69db.png)
 ![Python-Logo](https://user-images.githubusercontent.com/94659270/180166932-945fe467-1818-4acf-98f7-798ca56a3c6f.png)
 
-# Chat developers 
+# Chat developers ( ⚠️ Fora do ar )
 
 ### Participe da comunidade
 
@@ -24,7 +24,7 @@ Comunidade aberta para bate-papo entre desenvolvedores.
 - Amazon **MQ** (RabbitMQ)
 - Amazon **RDS** (MySQL) ***versão gratuita***
 
-  *Serviço Amazon MQ, ficará fora posteriomente por ser pago.* Levando assim o fim do funcionamento do aplicativo
+  ****Serviço Amazon MQ, ficará fora posteriomente por ser pago.* Levando assim o fim do funcionamento do aplicativo.***
 
 #### Detalhes
 
